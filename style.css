@@ -452,7 +452,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     .connect-section { margin-top: 140px; }
     .section-divider { display: none; }
     .right-section { width: 100%; height: auto; overflow: visible; padding: 24px; position: static; }
-    .architecture-illustration { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); opacity: 0.15; z-index: -1; }
+    .architecture-illustration { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); opacity: 0.15; z-index: 0; pointer-events: none; }
     .win-window.active { width: calc(100vw - 32px); max-width: 300px; }
     .right-header { margin: 0 -24px; padding-left: 24px; padding-right: 24px; position: static; background: var(--bg); }
+    .progress-value { display: none; }
 }
