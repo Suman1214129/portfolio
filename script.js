@@ -1,8 +1,8 @@
 // ============================================
-// GREETING ANIMATION (namaste ↔ hi)
+// GREETING ANIMATION (namaste ↔ hi ↔ hello.)
 // ============================================
 const greetingEl = document.getElementById('greeting-text');
-const greetings = ['namaste', 'hi'];
+const greetings = ['namaste', 'hi', 'hello.'];
 let currentGreeting = 0;
 
 setInterval(() => {

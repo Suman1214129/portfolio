@@ -70,7 +70,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .nav-links { display: flex; gap: 20px; }
 
 .nav-link {
-    font-family: var(--font-sans); font-size: 0.85rem; font-weight: 400;
+    font-family: var(--font-mono); font-size: 0.85rem; font-weight: 400;
     color: var(--text-dim); letter-spacing: 0.02em; position: relative; padding: 4px 0;
 }
 .nav-link::after {
