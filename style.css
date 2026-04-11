@@ -455,17 +455,14 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     body { height: auto; overflow-x: hidden; overflow-y: auto; }
     .outer-frame { height: auto; min-height: 100vh; }
     .page-wrapper { flex-direction: column; display: flex; overflow: visible; }
-    .left-section, .right-section { display: contents; }
+    .left-section { width: 100%; height: auto; padding: 24px; min-height: auto; position: relative; display: flex; flex-direction: column; }
+    .right-section { width: 100%; height: auto; padding: 24px; position: static; overflow: visible; overflow-x: hidden; }
     .section-divider { display: none; }
     
-    .top-nav { order: 1; padding: 24px 24px 0 24px; margin-bottom: 24px; }
-    .hero-content { order: 2; padding: 0 24px 24px 24px; }
-    .right-header { order: 3; margin: 0; padding: 0 24px 24px 24px; position: static; background: var(--bg); }
-    .page-content { order: 4; padding: 0 24px 24px 24px !important; }
-    
-    .connect-section { order: 5; margin-top: 64px; padding: 0 24px 48px 24px; }
-    .architecture-illustration { order: 6; position: relative; bottom: 0; left: 0; transform: none; opacity: 0.15; z-index: 0; pointer-events: none; width: 100%; display: flex; justify-content: center; padding-bottom: 24px; }
+    .connect-section { margin-top: 180px; padding: 0 0 16px 0; display: block; position: relative; z-index: 2; width: 100%; }
+    .architecture-illustration { position: absolute; bottom: 0; right: -20px; left: auto; transform: none; width: 65%; max-width: 250px; opacity: 0.15; z-index: 0; pointer-events: none; }
     
     .win-window.active { width: calc(100vw - 32px); max-width: 300px; }
+    .right-header { margin: 0 -24px; padding-left: 24px; padding-right: 24px; position: static; background: var(--bg); }
     .progress-value { display: none; }
 }
