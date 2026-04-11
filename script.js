@@ -180,13 +180,18 @@ function fallbackMailto(msg) {
 // ============================================
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-}, { root: rightSection, threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
 function observeCards() {
     document.querySelectorAll('.project-card').forEach((card, i) => {
+        observer.unobserve(card);
         card.classList.remove('visible');
         card.style.transitionDelay = `${i * 0.08}s`;
-        observer.observe(card);
+        
+        // Use requestAnimationFrame to ensure layout is calculated after removing 'visible'
+        requestAnimationFrame(() => {
+            observer.observe(card);
+        });
     });
 }
 
