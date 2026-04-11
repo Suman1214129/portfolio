@@ -1,8 +1,8 @@
 // ============================================
-// GREETING ANIMATION (namaste ↔ hi ↔ hello.)
+// GREETING ANIMATION (namaste ↔ hi)
 // ============================================
 const greetingEl = document.getElementById('greeting-text');
-const greetings = ['namaste', 'hi', 'hello.'];
+const greetings = ['namaste', 'hi', 'hello'];
 let currentGreeting = 0;
 
 setInterval(() => {
@@ -178,20 +178,16 @@ function fallbackMailto(msg) {
 // ============================================
 // PROJECT CARDS — SCROLL REVEAL
 // ============================================
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+// IntersectionObserver removed for manual deterministic staggered load
+// ============================================
 
 function observeCards() {
     document.querySelectorAll('.project-card').forEach((card, i) => {
-        observer.unobserve(card);
         card.classList.remove('visible');
-        card.style.transitionDelay = `${i * 0.08}s`;
-        
-        // Use requestAnimationFrame to ensure layout is calculated after removing 'visible'
-        requestAnimationFrame(() => {
-            observer.observe(card);
-        });
+        setTimeout(() => {
+            card.style.transitionDelay = `${i * 0.08}s`;
+            card.classList.add('visible');
+        }, 50);
     });
 }
 
