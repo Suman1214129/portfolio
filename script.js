@@ -66,9 +66,9 @@ function switchPage(page) {
     }, 250);
 }
 
-// Click logo → go back to About (home)
+// Click logo → go back to Work (home)
 document.getElementById('nav-logo').addEventListener('click', () => {
-    switchPage('about');
+    switchPage('work');
 });
 
 navLinks.forEach(link => {
