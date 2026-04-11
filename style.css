@@ -184,7 +184,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .monkey-img:hover { transform: scale(1.08); }
 
 /* Page switching */
-.page-content { display: none; padding-top: 20px; }
+.page-content { display: none; padding-top: 56px; }
 .page-content.active { display: block; }
 
 /* ============================================
