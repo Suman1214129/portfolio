@@ -1211,62 +1211,56 @@ button {
 
     .page-wrapper {
         flex-direction: column;
+        height: auto;
         display: flex;
         overflow: visible;
     }
-
-    .left-section,
-    .right-section {
-        display: contents;
+    
+    .left-section {
+        width: 100%;
+        height: auto;
+        min-height: 100vh;
+        padding: 32px 24px 48px 24px;
+        position: relative;
     }
-
+    
+    .connect-section {
+        margin-top: auto;
+        padding-top: 200px;
+        padding-bottom: 0;
+    }
+    
     .section-divider {
         display: none;
     }
-
-    .top-nav {
-        order: 1;
-        padding: 24px 24px 0 24px;
-        margin-bottom: 24px;
+    
+    .right-section {
+        width: 100%;
+        height: auto;
+        overflow: visible;
+        padding: 24px;
+        position: static;
     }
-
-    .hero-content {
-        order: 2;
-        padding: 0 24px 24px 24px;
-    }
-
+    
     .right-header {
-        order: 3;
-        margin: 0;
-        padding: 0 24px 24px 24px;
+        margin: 0 -24px;
+        padding-left: 24px;
+        padding-right: 24px;
         position: static;
         background: var(--bg);
     }
-
-    .page-content {
-        order: 4;
-        padding: 0 24px 24px 24px !important;
-    }
-
-    .connect-section {
-        order: 5;
-        margin-top: 64px;
-        padding: 0 24px 48px 24px;
-    }
-
+    
     .architecture-illustration {
-        order: 6;
-        position: relative;
+        position: absolute;
         bottom: 0;
-        left: 0;
+        right: -30px;
+        left: auto;
         transform: none;
         opacity: 0.15;
         z-index: 0;
         pointer-events: none;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        padding-bottom: 24px;
+        width: 280px;
+        display: block;
     }
 
     .win-window.active {
