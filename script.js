@@ -182,13 +182,7 @@ function fallbackMailto(msg) {
 // ============================================
 
 function observeCards() {
-    document.querySelectorAll('.project-card').forEach((card, i) => {
-        card.classList.remove('visible');
-        setTimeout(() => {
-            card.style.transitionDelay = `${i * 0.08}s`;
-            card.classList.add('visible');
-        }, 50);
-    });
+    // Migrated fully to pure CSS @keyframes inside style.css bound to .active container loop
 }
 
 
