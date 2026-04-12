@@ -14,7 +14,7 @@ setInterval(() => {
         greetingEl.classList.remove('fade-out');
         greetingEl.classList.add('fade-in');
     }, 350);
-}, 3200);
+}, 5000);
 
 // ============================================
 // PAGE SWITCHING (About is default, Work is secondary)

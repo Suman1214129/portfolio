@@ -675,13 +675,13 @@ button {
     position: relative;
     border: 1px solid var(--border);
     transform: rotate(-3deg);
-    transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
-    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.4);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
 }
 
 .about-profile-image:hover {
-    transform: rotate(0deg) scale(1.02);
-    box-shadow: 6px 6px 0px rgba(78, 204, 163, 0.2);
+    transform: rotate(2deg) scale(1.05) translateY(-4px);
+    box-shadow: 8px 12px 16px rgba(0, 0, 0, 0.15), 0 0 0 1px var(--border);
 }
 
 .about-profile-image img {
@@ -689,11 +689,12 @@ button {
     height: 100%;
     object-fit: cover;
     filter: grayscale(100%) contrast(1.1);
-    transition: filter 0.4s var(--ease-out);
+    transition: filter 0.4s ease, transform 0.4s ease;
 }
 
 .about-profile-image:hover img {
-    filter: grayscale(0%) contrast(1);
+    filter: grayscale(100%) contrast(1.2) brightness(1.05); /* Stays black and white but gets punchier */
+    transform: scale(1.1); /* Subtle inward zoom */
 }
 
 .about-profile-text {
