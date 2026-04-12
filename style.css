@@ -352,12 +352,12 @@ button {
 .architecture-illustration {
     position: absolute;
     bottom: 0;
-    left: 50%;
+    left: 60%;
     transform: translateX(-50%);
     width: 100%;
     max-width: 380px;
     pointer-events: none;
-    opacity: 0.45;
+    opacity: 0.55;
     filter: brightness(1.2);
 }
 
@@ -788,7 +788,6 @@ button {
 
 .cursor-arrow {
     flex-shrink: 0;
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
 }
 
 .cursor-label {
@@ -803,7 +802,6 @@ button {
     font-weight: 600;
     border-radius: 4px;
     white-space: nowrap;
-    box-shadow: 0 2px 8px rgba(78, 204, 163, 0.4);
 }
 
 /* ============================================
