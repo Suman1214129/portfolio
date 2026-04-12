@@ -674,27 +674,26 @@ button {
     overflow: hidden;
     position: relative;
     border: 1px solid var(--border);
-    transform: rotate(-3deg);
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
-    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .about-profile-image:hover {
-    transform: rotate(2deg) scale(1.05) translateY(-4px);
-    box-shadow: 8px 12px 16px rgba(0, 0, 0, 0.15), 0 0 0 1px var(--border);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .about-profile-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: grayscale(100%) contrast(1.1);
-    transition: filter 0.4s ease, transform 0.4s ease;
+    filter: grayscale(100%) contrast(1.05);
+    transition: filter 0.4s ease, transform 0.6s ease;
 }
 
 .about-profile-image:hover img {
-    filter: grayscale(100%) contrast(1.2) brightness(1.05); /* Stays black and white but gets punchier */
-    transform: scale(1.1); /* Subtle inward zoom */
+    filter: grayscale(100%) contrast(1.1) brightness(1.02);
+    transform: scale(1.03); /* Extremely subtle interior motion */
 }
 
 .about-profile-text {
@@ -1315,8 +1314,7 @@ button {
     .about-profile-image {
         width: 100px;
         height: 130px;
-        transform: rotate(-2deg);
-        box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
 
     .connect-section {
