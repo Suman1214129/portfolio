@@ -1270,15 +1270,15 @@ button {
         right: -30px;
         left: auto;
         transform: none;
-        opacity: 0.35;
+        opacity: 0.55;
         z-index: 0;
         pointer-events: none;
         width: 280px;
         display: block;
     }
     
-    .monkey-img {
-        pointer-events: none;
+    .monkey-img:hover {
+        transform: scale(1); /* Removes hover scaling without killing click bounds */
     }
     
     .custom-cursor {
