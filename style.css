@@ -242,7 +242,7 @@ button {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 24px;
+    padding: 14px 28px;
     border: 1px solid #333;
     border-radius: 50px;
     font-family: var(--font-mono);
@@ -449,7 +449,7 @@ button {
     font-family: var(--font-serif);
     font-style: italic;
     font-size: 1rem;
-    color: var(--accent);
+    color: #ffffff;
     padding-top: 4px;
 }
 
@@ -1207,6 +1207,7 @@ button {
     .outer-frame {
         height: auto;
         min-height: 100vh;
+        overflow-x: hidden;
     }
 
     .page-wrapper {
@@ -1214,7 +1215,7 @@ button {
         height: auto;
         display: flex;
         position: relative;
-        overflow: visible;
+        overflow: hidden;
         padding-bottom: 32px;
     }
     
@@ -1269,11 +1270,19 @@ button {
         right: -30px;
         left: auto;
         transform: none;
-        opacity: 0.15;
+        opacity: 0.35;
         z-index: 0;
         pointer-events: none;
         width: 280px;
         display: block;
+    }
+    
+    .monkey-img {
+        pointer-events: none;
+    }
+    
+    .custom-cursor {
+        display: none !important;
     }
 
     .win-window.active {
