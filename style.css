@@ -345,7 +345,7 @@ button {
 }
 
 .connect-divider {
-    color: var(--text-muted);
+    color: var(--accent); /* Updated to primary color */
     user-select: none;
 }
 
@@ -400,18 +400,34 @@ button {
     padding: 28px 48px 16px;
     position: sticky;
     top: 0;
-    background: rgba(17, 17, 17, 0.96);
+    background: transparent;
     z-index: 10;
     margin: 0 -48px;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.3s ease, background 0.3s ease;
+    border-bottom: none;
     transform: translateZ(0);
-    /* Hardware accelerate to fix scroll lag */
+}
+
+.right-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    bottom: -24px; /* Extends blur past the border to start naturally */
+    z-index: -1;
+    background: linear-gradient(to bottom, rgba(17, 17, 17, 0.7) 0%, rgba(17, 17, 17, 0) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    pointer-events: none;
+    transition: opacity 0.3s ease;
 }
 
 .right-header.scrolled {
-    border-bottom-color: var(--border);
-    background: #111111;
+    background: transparent;
+}
+
+.right-header.scrolled::before {
+    background: linear-gradient(to bottom, rgba(17, 17, 17, 0.9) 0%, rgba(17, 17, 17, 0) 100%);
 }
 
 .design-works-title {
