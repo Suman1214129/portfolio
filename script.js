@@ -101,7 +101,7 @@ function handleScroll() {
     }
     const maxScroll = scrollHeight - clientHeight;
     const progress = maxScroll > 0 ? Math.round((scrollTop / maxScroll) * 100) : 0;
-    // progressValue.textContent = `(${Math.min(100, Math.max(0, progress))}%)`;
+    progressValue.textContent = `(${Math.min(100, Math.max(0, progress))}%)`;
     rightHeader.classList.toggle('scrolled', scrollTop > 8);
 }
 
