@@ -355,9 +355,9 @@ button {
     left: 60%;
     transform: translateX(-50%);
     width: 100%;
-    max-width: 380px;
+    max-width: 400px;
     pointer-events: none;
-    opacity: 0.55;
+    opacity: 0.65;
     filter: brightness(1.2);
 }
 
