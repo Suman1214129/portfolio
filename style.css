@@ -800,7 +800,7 @@ button {
 
 .design-card-bg {
     background: var(--surface-elevated);
-    padding: 24px;
+    padding: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
