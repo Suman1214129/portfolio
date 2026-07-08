@@ -1,7 +1,7 @@
 // ============================================
 // THEME TOGGLE (light / dark)
 // ============================================
-const themeToggle = document.getElementById('theme-toggle');
+const themeToggleInput = document.getElementById('theme-toggle-input');
 const root = document.documentElement;
 
 function setTheme(theme) {
@@ -9,11 +9,14 @@ function setTheme(theme) {
     localStorage.setItem('theme', theme);
 }
 
-if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-        const current = root.getAttribute('data-theme') || 'dark';
-        setTheme(current === 'dark' ? 'light' : 'dark');
+if (themeToggleInput) {
+    themeToggleInput.addEventListener('change', (e) => {
+        setTheme(e.target.checked ? 'dark' : 'light');
     });
+
+    // Set initial state
+    const currentTheme = root.getAttribute('data-theme') || 'dark';
+    themeToggleInput.checked = (currentTheme === 'dark');
 }
 
 // ============================================
@@ -40,8 +43,10 @@ setInterval(() => {
 const navLinks = document.querySelectorAll('.nav-link[data-page]');
 const pageWork = document.getElementById('page-work');
 const pageAbout = document.getElementById('page-about');
-const rightTitle = document.getElementById('right-title');
+const pageProjects = document.getElementById('page-projects');
 const rightSection = document.getElementById('right-section');
+const toggleDesigns = document.getElementById('toggle-designs');
+const toggleProjects = document.getElementById('toggle-projects');
 
 function switchPage(page) {
     navLinks.forEach(l => l.classList.remove('active'));
@@ -57,15 +62,20 @@ function switchPage(page) {
     setTimeout(() => {
         pageWork.classList.remove('active');
         pageAbout.classList.remove('active');
+        if (pageProjects) pageProjects.classList.remove('active');
 
         if (page === 'work') {
-            rightTitle.querySelector('.design-text').textContent = 'SELECTED';
-            rightTitle.querySelector('.works-text').textContent = 'Works';
-            pageWork.classList.add('active');
+            document.getElementById('works-toggle-container').style.display = 'inline-flex';
+            document.getElementById('about-title').style.display = 'none';
+            if (toggleProjects.checked) {
+                pageProjects.classList.add('active');
+            } else {
+                pageWork.classList.add('active');
+            }
             observeCards();
         } else {
-            rightTitle.querySelector('.design-text').textContent = 'ABOUT';
-            rightTitle.querySelector('.works-text').textContent = 'Me';
+            document.getElementById('works-toggle-container').style.display = 'none';
+            document.getElementById('about-title').style.display = 'inline-flex';
             pageAbout.classList.add('active');
         }
 
@@ -82,6 +92,20 @@ function switchPage(page) {
             });
         }
     }, 250);
+}
+
+function handleWorksToggle() {
+    // Only switch if we are currently on the 'work' tab section
+    const activeLink = document.querySelector('.nav-link.active');
+    if (activeLink && activeLink.dataset.page !== 'work') return;
+    
+    // Reuse switchPage with 'work' to run the transition logic
+    switchPage('work');
+}
+
+if (toggleDesigns && toggleProjects) {
+    toggleDesigns.addEventListener('change', handleWorksToggle);
+    toggleProjects.addEventListener('change', handleWorksToggle);
 }
 
 // Click logo → go back to Work (home)
@@ -218,12 +242,12 @@ leftSection.addEventListener('mousemove', (e) => {
 });
 
 // ============================================
-// MONKEY — Figma-style cursor + easter egg funny strings
+// MONKEY — Tooltip + easter egg funny strings
 // ============================================
 const monkeyWrapper = document.getElementById('monkey-wrapper');
 const monkeyImg = document.getElementById('monkey-img');
-const customCursor = document.getElementById('custom-cursor');
-const cursorLabel = document.getElementById('cursor-label');
+const monkeyTooltip = document.getElementById('monkey-tooltip');
+const customCursor = document.getElementById('custom-cursor'); // Keep for other uses if any, but hide it here
 
 const funnyTexts = [
     "don't click me!",
@@ -235,22 +259,13 @@ const funnyTexts = [
 let tooltipIndex = 0;
 
 monkeyWrapper.addEventListener('mouseenter', () => {
-    cursorLabel.textContent = funnyTexts[tooltipIndex];
-    tooltipIndex = (tooltipIndex + 1) % funnyTexts.length;
-    customCursor.classList.add('active');
-    document.body.style.cursor = 'none';
+    if (monkeyTooltip) {
+        monkeyTooltip.textContent = funnyTexts[tooltipIndex];
+        tooltipIndex = (tooltipIndex + 1) % funnyTexts.length;
+    }
 });
 
-monkeyWrapper.addEventListener('mousemove', (e) => {
-    // Fast following
-    customCursor.style.left = `${e.clientX}px`;
-    customCursor.style.top = `${e.clientY}px`;
-});
-
-monkeyWrapper.addEventListener('mouseleave', () => {
-    customCursor.classList.remove('active');
-    document.body.style.cursor = '';
-});
+// Remove custom cursor specific listeners for monkey wrapper as tooltip is used instead
 
 monkeyImg.addEventListener('click', openSudokuWindow);
 
@@ -313,12 +328,12 @@ document.addEventListener('mouseup', () => {
 // SUDOKU GAME — 6×6 MINI
 // ============================================
 const SOLUTION = [
-    [1,4,5,2,3,6],[2,3,6,1,5,4],[4,6,1,3,2,5],
-    [5,2,3,6,4,1],[6,5,2,4,1,3],[3,1,4,5,6,2]
+    [1, 4, 5, 2, 3, 6], [2, 3, 6, 1, 5, 4], [4, 6, 1, 3, 2, 5],
+    [5, 2, 3, 6, 4, 1], [6, 5, 2, 4, 1, 3], [3, 1, 4, 5, 6, 2]
 ];
 const PUZZLE = [
-    [0,4,5,0,0,0],[2,3,0,0,0,4],[0,6,0,3,0,0],
-    [0,0,3,0,0,1],[0,5,0,0,1,3],[3,0,4,0,6,0]
+    [0, 4, 5, 0, 0, 0], [2, 3, 0, 0, 0, 4], [0, 6, 0, 3, 0, 0],
+    [0, 0, 3, 0, 0, 1], [0, 5, 0, 0, 1, 3], [3, 0, 4, 0, 6, 0]
 ];
 
 let board = [], selectedCell = null, moveHistory = [];
@@ -352,7 +367,7 @@ function renderGrid() {
             }
             if (selectedCell && selectedCell.row === r && selectedCell.col === c) cell.classList.add('selected');
             if (selectedCell && (r === selectedCell.row || c === selectedCell.col)) cell.classList.add('highlight');
-            if (selectedCell && Math.floor(r/2) === Math.floor(selectedCell.row/2) && Math.floor(c/3) === Math.floor(selectedCell.col/3)) cell.classList.add('highlight');
+            if (selectedCell && Math.floor(r / 2) === Math.floor(selectedCell.row / 2) && Math.floor(c / 3) === Math.floor(selectedCell.col / 3)) cell.classList.add('highlight');
             sudokuGrid.appendChild(cell);
         }
     }
@@ -367,7 +382,7 @@ function placeNumber(num) {
     moveHistory.push({ row, col, prev: board[row][col] });
     board[row][col] = num;
     renderGrid();
-    
+
     // Check win
     for (let i = 0; i < 6; i++)
         for (let j = 0; j < 6; j++)
@@ -395,7 +410,7 @@ document.addEventListener('keydown', (e) => {
     else if (e.key === 'Backspace' || e.key === 'Delete') placeNumber(0);
     else if (e.key === 'z' && e.ctrlKey) undoMove();
 
-    if (selectedCell && ['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)) {
+    if (selectedCell && ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
         e.preventDefault();
         let { row, col } = selectedCell;
         if (e.key === 'ArrowUp' && row > 0) row--;

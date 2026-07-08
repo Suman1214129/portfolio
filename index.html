@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Suman — UI/UX Designer & Brand Identity Specialist. Focused on design that matters.">
+    <meta name="description"
+        content="Suman — UI/UX Designer & Brand Identity Specialist. Focused on design that matters.">
     <title>Suman yadav</title>
     <link rel="icon" type="image/svg+xml" href="assets/Summertime%20Sadness.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
     <script>
@@ -18,12 +22,14 @@
         })();
     </script>
 </head>
+
 <body>
     <!-- Custom cursor for monkey (Figma-style dynamic pill) -->
     <div class="custom-cursor" id="custom-cursor">
         <svg class="cursor-arrow" width="14" height="18" viewBox="0 0 14 18" fill="none">
             <!-- Stroke and fill will be colored via CSS var(--accent) -->
-            <path d="M0.5 0.5L13 10.5H6.5L3.5 17L0.5 0.5Z" fill="var(--accent)" stroke="var(--cursor-stroke)" stroke-width="0.5"/>
+            <path d="M0.5 0.5L13 10.5H6.5L3.5 17L0.5 0.5Z" fill="var(--accent)" stroke="var(--cursor-stroke)"
+                stroke-width="0.5" />
         </svg>
         <span class="cursor-label" id="cursor-label">You</span>
     </div>
@@ -43,12 +49,15 @@
                     </div>
                     <div class="nav-links">
                         <a href="#about" class="nav-link" data-page="about">About</a>
-                        <a href="assets/resume_sumanyadav.pdf" class="nav-link" target="_blank" rel="noopener noreferrer">Resume</a>
+                        <a href="assets/resume_sumanyadav.pdf" class="nav-link" target="_blank"
+                            rel="noopener noreferrer">Resume</a>
                     </div>
-                    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle light and dark theme">
-                        <i class="ph ph-sun theme-icon theme-icon-sun" aria-hidden="true"></i>
-                        <i class="ph ph-moon theme-icon theme-icon-moon" aria-hidden="true"></i>
-                    </button>
+                    <label class="ui-switch" aria-label="Toggle light and dark theme">
+                        <input type="checkbox" id="theme-toggle-input">
+                        <div class="slider">
+                            <div class="circle"></div>
+                        </div>
+                    </label>
                 </nav>
 
                 <!-- Hero Content -->
@@ -62,7 +71,9 @@
                     </h1>
 
                     <p class="hero-description">
-                        Product Designer and Full-Stack Developer, working from the belief that great products need thoughtful design and solid engineering in equal measure.
+                        Product Designer and Full-Stack Developer who believes strong products need both thoughtful design and solid
+                        engineering underneath. Leads UX and design systems for a multi-product AI-education platform, and builds and ships
+                        independent full-stack projects to stay close to the code.
                     </p>
 
                     <button class="say-hi-btn" id="say-hi-btn">
@@ -75,11 +86,14 @@
                 <div class="connect-section">
                     <p class="connect-label">Connect me on:</p>
                     <div class="connect-links">
-                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sumankr8586@gmail.com" class="connect-link" target="_blank">mail</a>
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sumankr8586@gmail.com"
+                            class="connect-link" target="_blank">mail</a>
                         <span class="connect-divider">/</span>
-                        <a href="https://www.instagram.com/suman.ydv0/" class="connect-link" target="_blank">instagram</a>
+                        <a href="https://www.instagram.com/suman.ydv0/" class="connect-link"
+                            target="_blank">instagram</a>
                         <span class="connect-divider">/</span>
-                        <a href="https://www.linkedin.com/in/suman-yadav-bb5516322/" class="connect-link" target="_blank">linkedin</a>
+                        <a href="https://www.linkedin.com/in/suman-yadav-bb5516322/" class="connect-link"
+                            target="_blank">linkedin</a>
                         <span class="connect-divider">/</span>
                         <a href="https://github.com/Suman1214129" class="connect-link" target="_blank">github</a>
                     </div>
@@ -98,13 +112,30 @@
             <section class="right-section" id="right-section">
                 <!-- Right Header -->
                 <div class="right-header" id="right-header">
-                    <div class="design-works-title" id="right-title">
-                        <span class="design-text">SELECTED</span>
-                        <span class="works-text">Works</span>
+                    <div id="right-title-wrapper">
+                        <div class="works-toggle-container" id="works-toggle-container">
+                            <div class="works-toggle" id="works-toggle">
+                                <input type="radio" id="toggle-designs" name="works-switch" value="designs" checked>
+                                <label for="toggle-designs" class="toggle-label">my designs</label>
+
+                                <input type="radio" id="toggle-projects" name="works-switch" value="projects">
+                                <label for="toggle-projects" class="toggle-label">projects</label>
+
+                                <div class="works-toggle-slider"></div>
+                            </div>
+                        </div>
+                        <div class="design-works-title" id="about-title" style="display: none;">
+                            <span class="design-text">ABOUT</span>
+                            <span class="works-text">Me</span>
+                        </div>
                     </div>
                     <div class="scroll-progress">
-                        <div class="monkey-wrapper" id="monkey-wrapper">
-                            <img src="assets/monkey.png" alt="" class="monkey-img" id="monkey-img">
+                        <div class="tooltip-container monkey-wrapper" id="monkey-wrapper">
+                            <div class="text">
+                                <img src="assets/monkey.png" alt="" class="monkey-img" id="monkey-img">
+                            </div>
+                            <span class="tooltip" id="monkey-tooltip">don't click me!</span>
+                            <span></span>
                         </div>
                         <span class="progress-value" id="progress-value">0%..</span>
                     </div>
@@ -117,17 +148,17 @@
                         <!-- Intro -->
                         <div class="about-block about-intro">
                             <p class="about-lead">I don't design screens — I design how things <em>feel</em>.</p>
-                            
+
                             <div class="about-profile-layout">
-                                <div class="about-profile-image">
-                                    <img src="assets/profile pic.jpeg" alt="Suman">
+                                <div class="about-profile-image" id="profile-canvas-container" style="position: relative; overflow: hidden; border-radius: 12px;">
+                                    <img id="profile-img" src="assets/profile pic.jpeg" alt="Suman" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                                    <canvas id="particle-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; pointer-events: none;"></canvas>
                                 </div>
                                 <div class="about-profile-text">
                                     <p class="about-body">
-                                        I'm Suman, a designer from India. I got into design because I kept noticing small things that frustrated me — a confusing checkout, a button that didn't feel right, a brand that said nothing. So I started fixing them, and I never stopped.
-                                    </p>
-                                    <p class="about-body" style="margin-top: 14px;">
-                                        Currently, I'm the Co-Founder & Head of Design at <a href="https://navchetna.tech/" target="_blank" class="inline-link">NAVCHETNA TECHNOLOGIES</a>, where I focus on product design, UX research, and building engaging digital experiences. I also specialize in crafting distinctive logo designs and visual identities from the ground up.
+                                        Product Designer and Full-Stack Developer who believes strong products need both thoughtful design and solid
+                                        engineering underneath. Leads UX and design systems for a multi-product AI-education platform, and builds and ships
+                                        independent full-stack projects to stay close to the code.
                                     </p>
                                 </div>
                             </div>
@@ -138,37 +169,62 @@
                         <!-- What I bring -->
                         <div class="about-block">
                             <h3 class="about-section-title">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align: -2px; margin-right: 6px;"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5" style="vertical-align: -2px; margin-right: 6px;">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                                    <path d="M2 17l10 5 10-5" />
+                                    <path d="M2 12l10 5 10-5" />
+                                </svg>
                                 What I bring
                             </h3>
                             <div class="about-skills">
                                 <div class="about-skill-item">
                                     <div class="about-skill-left">
-                                        <svg class="about-skill-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                                        <svg class="about-skill-icon" width="16" height="16" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <rect x="3" y="3" width="18" height="18" rx="2" />
+                                            <path d="M3 9h18" />
+                                            <path d="M9 21V9" />
+                                        </svg>
                                         <span class="about-skill-label">UI/UX Design</span>
                                     </div>
-                                    <span class="about-skill-desc">Clean interfaces that people actually understand.</span>
+                                    <span class="about-skill-desc">Clean interfaces that people actually
+                                        understand.</span>
                                 </div>
                                 <div class="about-skill-item">
                                     <div class="about-skill-left">
-                                        <svg class="about-skill-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+                                        <svg class="about-skill-icon" width="16" height="16" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <path d="M2 12h20" />
+                                            <path
+                                                d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+                                        </svg>
                                         <span class="about-skill-label">Brand Identity</span>
                                     </div>
                                     <span class="about-skill-desc">Systems that feel like they belong together.</span>
                                 </div>
                                 <div class="about-skill-item">
                                     <div class="about-skill-left">
-                                        <svg class="about-skill-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+                                        <svg class="about-skill-icon" width="16" height="16" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" />
+                                            <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" />
+                                        </svg>
                                         <span class="about-skill-label">Product Thinking</span>
                                     </div>
                                     <span class="about-skill-desc">Asking "why" before opening Figma.</span>
                                 </div>
                                 <div class="about-skill-item">
                                     <div class="about-skill-left">
-                                        <svg class="about-skill-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                                        <span class="about-skill-label">Frontend Dev</span>
+                                        <svg class="about-skill-icon" width="16" height="16" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <polyline points="16 18 22 12 16 6" />
+                                            <polyline points="8 6 2 12 8 18" />
+                                        </svg>
+                                        <span class="about-skill-label">Full-Stack Engineering</span>
                                     </div>
-                                    <span class="about-skill-desc">Enough code to not need a translator.</span>
+                                    <span class="about-skill-desc">Bridging the gap between beautiful design and solid code logic.</span>
                                 </div>
                             </div>
                         </div>
@@ -178,29 +234,59 @@
                         <!-- Tools I use (Brand Icons) -->
                         <div class="about-block">
                             <h3 class="about-section-title">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align: -2px; margin-right: 6px;"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
-                                Tools I use
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5" style="vertical-align: -2px; margin-right: 6px;">
+                                    <path
+                                        d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
+                                </svg>
+                                Tools & Skills
                             </h3>
                             <div class="about-tools">
                                 <!-- Figma -->
                                 <span class="about-tool">
-                                    <img src="assets/figma-svgrepo-com.svg" alt="Figma" style="width: 14px; height: 14px; vertical-align: -2px; margin-right: 4px;">
+                                    <img src="assets/figma-svgrepo-com.svg" alt="Figma"
+                                        style="width: 14px; height: 14px; vertical-align: -2px; margin-right: 4px;">
                                     Figma
                                 </span>
                                 <!-- Framer -->
                                 <span class="about-tool">
-                                    <img src="assets/framer-svgrepo-com.svg" alt="Framer" class="tool-icon-framer" style="width: 14px; height: 14px; vertical-align: -2px; margin-right: 4px;">
+                                    <img src="assets/framer-svgrepo-com.svg" alt="Framer" class="tool-icon-framer"
+                                        style="width: 14px; height: 14px; vertical-align: -2px; margin-right: 4px;">
                                     Framer
                                 </span>
                                 <!-- Illustrator -->
                                 <span class="about-tool">
-                                    <img src="assets/adobe-illustrator-svgrepo-com.svg" alt="Illustrator" style="width: 14px; height: 14px; vertical-align: -2px; margin-right: 4px;">
+                                    <img src="assets/adobe-illustrator-svgrepo-com.svg" alt="Illustrator"
+                                        style="width: 14px; height: 14px; vertical-align: -2px; margin-right: 4px;">
                                     Illustrator
                                 </span>
                                 <!-- Affinity -->
                                 <span class="about-tool">
-                                    <img src="assets/Affinity_(App)_Logo.svg" alt="Affinity" style="width: 14px; height: 14px; vertical-align: -2px; margin-right: 4px;">
+                                    <img src="assets/Affinity_(App)_Logo.svg" alt="Affinity"
+                                        style="width: 14px; height: 14px; vertical-align: -2px; margin-right: 4px;">
                                     Affinity
+                                </span>
+                                <!-- Fullstack Tools -->
+                                <span class="about-tool">
+                                    <i class="ph ph-atom" style="font-size: 14px; vertical-align: -2px; margin-right: 4px;"></i> React.js
+                                </span>
+                                <span class="about-tool">
+                                    <i class="ph ph-caret-up" style="font-size: 14px; vertical-align: -2px; margin-right: 4px;"></i> Next.js
+                                </span>
+                                <span class="about-tool">
+                                    <i class="ph ph-hexagon" style="font-size: 14px; vertical-align: -2px; margin-right: 4px;"></i> Node.js
+                                </span>
+                                <span class="about-tool">
+                                    <i class="ph ph-package" style="font-size: 14px; vertical-align: -2px; margin-right: 4px;"></i> Docker
+                                </span>
+                                <span class="about-tool">
+                                    <i class="ph ph-cloud" style="font-size: 14px; vertical-align: -2px; margin-right: 4px;"></i> AWS
+                                </span>
+                                <span class="about-tool">
+                                    <i class="ph ph-fire" style="font-size: 14px; vertical-align: -2px; margin-right: 4px;"></i> Firebase
+                                </span>
+                                <span class="about-tool">
+                                    <i class="ph ph-git-branch" style="font-size: 14px; vertical-align: -2px; margin-right: 4px;"></i> Git
                                 </span>
                             </div>
                         </div>
@@ -210,14 +296,19 @@
                         <!-- How I think -->
                         <div class="about-block">
                             <h3 class="about-section-title">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align: -2px; margin-right: 6px;"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5" style="vertical-align: -2px; margin-right: 6px;">
+                                    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+                                </svg>
                                 How I think
                             </h3>
                             <blockquote class="about-quote">
                                 "Less interface, more experience."
                             </blockquote>
                             <p class="about-body">
-                                I don't chase trends or stack gradients for fun. Every pixel earns its place. Good design disappears — you don't notice it, you just feel that everything works. That's the bar I hold myself to.
+                                I don't chase trends or stack gradients for fun. Every pixel earns its place. Good
+                                design disappears — you don't notice it, you just feel that everything works. That's the
+                                bar I hold myself to.
                             </p>
                             <br><br>
                         </div>
@@ -231,19 +322,26 @@
                         <!-- Project 1: Osmium -->
                         <div class="project-card">
                             <div class="project-image">
-                                <img src="assets/osmium-mockup.jpg" alt="Osmium AI-Powered Learning UI" class="project-img-real">
+                                <img src="assets/osmium-mockup.jpg" alt="Osmium AI-Powered Learning UI"
+                                    class="project-img-real">
                             </div>
                             <div class="project-info">
                                 <div class="project-tag">Osmium | AI-Powered Learning</div>
                                 <p class="project-description">
-                                    Osmium is built to make learning <strong>feel clear, focused, and personal</strong>. It combines AI-guided courses, smart test analysis, and adaptive learning into one seamless experience.
+                                    Osmium is built to make learning <strong>feel clear, focused, and personal</strong>.
+                                    It combines AI-guided courses, smart test analysis, and adaptive learning into one
+                                    seamless experience.
                                 </p>
                                 <div class="project-links">
-                                    <a href="https://dribbble.com/shots/27191514-Osmium-AI-Powered-Learning-That-Feels-Personal" class="project-link-icon" aria-label="Dribbble" target="_blank">
-                                        <img src="assets/dribbble-logo.svg" alt="Dribbble" class="project-social-icon" style="width: 14px; height: 14px;">
+                                    <a href="https://dribbble.com/shots/27191514-Osmium-AI-Powered-Learning-That-Feels-Personal"
+                                        class="project-link-icon" aria-label="Dribbble" target="_blank">
+                                        <img src="assets/dribbble-logo.svg" alt="Dribbble" class="project-social-icon"
+                                            style="width: 14px; height: 14px;">
                                     </a>
-                                    <a href="https://www.behance.net/gallery/246683455/Osmium-AI-Powered-Learning-That-Feels-Personal" class="project-link-icon" aria-label="Behance" target="_blank">
-                                        <img src="assets/behance-logo.svg" alt="Behance" class="project-social-icon" style="width: 14px; height: 14px;">
+                                    <a href="https://www.behance.net/gallery/246683455/Osmium-AI-Powered-Learning-That-Feels-Personal"
+                                        class="project-link-icon" aria-label="Behance" target="_blank">
+                                        <img src="assets/behance-logo.svg" alt="Behance" class="project-social-icon"
+                                            style="width: 14px; height: 14px;">
                                     </a>
                                 </div>
                             </div>
@@ -252,21 +350,29 @@
                         <!-- Project 2: Natraj -->
                         <div class="project-card">
                             <div class="project-image">
-                                <img src="assets/natraj-ui.jpg" alt="Natraj Cultural Experience UI" class="project-img-real">
+                                <img src="assets/natraj-ui.jpg" alt="Natraj Cultural Experience UI"
+                                    class="project-img-real">
                             </div>
                             <div class="project-info">
                                 <div class="project-tag">NATRAJ - AR Anatomy Learning Mobile UI</div>
                                 <p class="project-description">
-                                    NATRAJ is an AR + AI-powered anatomy learning platform designed to make human biology interactive and accessible. 
+                                    NATRAJ is an AR + AI-powered anatomy learning platform designed to make human
+                                    biology interactive and accessible.
                                     <br><br>
-                                    This mobile UI showcases <strong>real-time body scanning</strong>, 3D anatomy exploration, and AI-assisted learning - allowing students to visualize bones, muscles, and organs directly on their body.
+                                    This mobile UI showcases <strong>real-time body scanning</strong>, 3D anatomy
+                                    exploration, and AI-assisted learning - allowing students to visualize bones,
+                                    muscles, and organs directly on their body.
                                 </p>
                                 <div class="project-links">
-                                    <a href="https://dribbble.com/shots/27235652-NATRAJ-AR-Anatomy-Learning-Mobile-UI" class="project-link-icon" aria-label="Dribbble" target="_blank">
-                                        <img src="assets/dribbble-logo.svg" alt="Dribbble" class="project-social-icon" style="width: 14px; height: 14px;">
+                                    <a href="https://dribbble.com/shots/27235652-NATRAJ-AR-Anatomy-Learning-Mobile-UI"
+                                        class="project-link-icon" aria-label="Dribbble" target="_blank">
+                                        <img src="assets/dribbble-logo.svg" alt="Dribbble" class="project-social-icon"
+                                            style="width: 14px; height: 14px;">
                                     </a>
-                                    <a href="https://www.behance.net/6b52aa6f" class="project-link-icon" aria-label="Behance" target="_blank">
-                                        <img src="assets/behance-logo.svg" alt="Behance" class="project-social-icon" style="width: 14px; height: 14px;">
+                                    <a href="https://www.behance.net/6b52aa6f" class="project-link-icon"
+                                        aria-label="Behance" target="_blank">
+                                        <img src="assets/behance-logo.svg" alt="Behance" class="project-social-icon"
+                                            style="width: 14px; height: 14px;">
                                     </a>
                                 </div>
                             </div>
@@ -280,16 +386,59 @@
                             <div class="project-info">
                                 <div class="project-tag">HomeGuru - Student Dashboard</div>
                                 <p class="project-description">
-                                    HomeGuru is a <strong>global one-to-one tutoring marketplace</strong> where students find, book, and learn from expert tutors across any subject.
+                                    HomeGuru is a <strong>global one-to-one tutoring marketplace</strong> where students
+                                    find, book, and learn from expert tutors across any subject.
                                     <br><br>
-                                    The dashboard gives learners a clean hub to track sessions, manage bookings, join live classes, and follow their learning progress — all in one place.
+                                    The dashboard gives learners a clean hub to track sessions, manage bookings, join
+                                    live classes, and follow their learning progress — all in one place.
                                 </p>
                                 <div class="project-links">
-                                    <a href="https://dribbble.com/shots/27228497-HomeGuru-Student-Dashboard" class="project-link-icon" aria-label="Dribbble" target="_blank">
-                                        <img src="assets/dribbble-logo.svg" alt="Dribbble" class="project-social-icon" style="width: 14px; height: 14px;">
+                                    <a href="https://dribbble.com/shots/27228497-HomeGuru-Student-Dashboard"
+                                        class="project-link-icon" aria-label="Dribbble" target="_blank">
+                                        <img src="assets/dribbble-logo.svg" alt="Dribbble" class="project-social-icon"
+                                            style="width: 14px; height: 14px;">
                                     </a>
-                                    <a href="https://www.behance.net/gallery/246700937/HomeGuru-Student-Dashboard" class="project-link-icon" aria-label="Behance" target="_blank">
-                                        <img src="assets/behance-logo.svg" alt="Behance" class="project-social-icon" style="width: 14px; height: 14px;">
+                                    <a href="https://www.behance.net/gallery/246700937/HomeGuru-Student-Dashboard"
+                                        class="project-link-icon" aria-label="Behance" target="_blank">
+                                        <img src="assets/behance-logo.svg" alt="Behance" class="project-social-icon"
+                                            style="width: 14px; height: 14px;">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== PROJECTS PAGE (new) ===== -->
+                <div class="page-content" id="page-projects">
+                    <div class="projects-container">
+                        <!-- Project: Orrery -->
+                        <div class="project-card">
+                            <div class="project-image">
+                                <!-- Demo UI -->
+                                <div class="orrery-demo-ui" style="width: 100%; aspect-ratio: 16/10; background: var(--surface-elevated); border-radius: 8px; position: relative; overflow: hidden; border: 1px solid var(--border);">
+                                    <aside class="loader">
+                                      <div class="side front"></div>
+                                      <div class="side behind"></div>
+                                      <div class="side right"></div>
+                                      <div class="side left"></div>
+                                      <div class="side top"></div>
+                                      <div class="side bottom"></div>
+                                    </aside>
+                                    <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); z-index: 2; width: 100%; text-align: center;">Interactive Graph Simulation...</div>
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <div class="project-tag">Orrery | AI Interactive Graphs</div>
+                                <p class="project-description">
+                                    AI-powered tool that converts written notes into <strong>interactive graphs</strong>, letting users branch off and explore alternate ideas or decisions non-linearly.
+                                </p>
+                                <div class="project-links">
+                                    <a href="https://github.com/Suman1214129/Orrery.git" class="project-link-icon" aria-label="GitHub Repository" target="_blank">
+                                        <i class="ph ph-github-logo" style="font-size: 16px;"></i>
+                                    </a>
+                                    <a href="https://orrery-xi.vercel.app/" class="project-link-icon" aria-label="Visit Website" target="_blank">
+                                        <i class="ph ph-arrow-up-right" style="font-size: 16px;"></i>
                                     </a>
                                 </div>
                             </div>
@@ -351,5 +500,7 @@
     </div>
 
     <script src="script.js"></script>
+    <script src="particle-canvas.js"></script>
 </body>
+
 </html>
