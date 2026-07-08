@@ -787,7 +787,9 @@ button {
     overflow: hidden;
     margin-bottom: 14px;
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 12px;
+    background: var(--surface-elevated);
+    padding: 16px;
 }
 
 .project-img-real {
@@ -796,6 +798,8 @@ button {
     object-fit: cover;
     object-position: top center;
     display: block;
+    border-radius: 8px;
+    border: 1px solid var(--border);
 }
 
 .project-image-placeholder {
