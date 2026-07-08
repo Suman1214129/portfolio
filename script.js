@@ -1,4 +1,22 @@
 // ============================================
+// THEME TOGGLE (light / dark)
+// ============================================
+const themeToggle = document.getElementById('theme-toggle');
+const root = document.documentElement;
+
+function setTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+}
+
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        const current = root.getAttribute('data-theme') || 'dark';
+        setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+}
+
+// ============================================
 // GREETING ANIMATION (namaste ↔ hi)
 // ============================================
 const greetingEl = document.getElementById('greeting-text');
@@ -73,11 +91,8 @@ document.getElementById('nav-logo').addEventListener('click', () => {
 
 navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
-        const page = link.dataset.page;
-        if (page === 'resume') {
-            return; // Allow native link navigation
-        }
         e.preventDefault();
+        const page = link.dataset.page;
         if (page) switchPage(page);
     });
 });

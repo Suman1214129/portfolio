@@ -10,13 +10,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+    <script>
+        (function () {
+            var theme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
 </head>
 <body>
     <!-- Custom cursor for monkey (Figma-style dynamic pill) -->
     <div class="custom-cursor" id="custom-cursor">
         <svg class="cursor-arrow" width="14" height="18" viewBox="0 0 14 18" fill="none">
             <!-- Stroke and fill will be colored via CSS var(--accent) -->
-            <path d="M0.5 0.5L13 10.5H6.5L3.5 17L0.5 0.5Z" fill="var(--accent)" stroke="#222" stroke-width="0.5"/>
+            <path d="M0.5 0.5L13 10.5H6.5L3.5 17L0.5 0.5Z" fill="var(--accent)" stroke="var(--cursor-stroke)" stroke-width="0.5"/>
         </svg>
         <span class="cursor-label" id="cursor-label">You</span>
     </div>
@@ -36,8 +43,12 @@
                     </div>
                     <div class="nav-links">
                         <a href="#about" class="nav-link" data-page="about">About</a>
-                        <a href="#resume" class="nav-link" data-page="resume" target="_blank">Resume</a>
+                        <a href="assets/resume_sumanyadav.pdf" class="nav-link" target="_blank" rel="noopener noreferrer">Resume</a>
                     </div>
+                    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle light and dark theme">
+                        <i class="ph ph-sun theme-icon theme-icon-sun" aria-hidden="true"></i>
+                        <i class="ph ph-moon theme-icon theme-icon-moon" aria-hidden="true"></i>
+                    </button>
                 </nav>
 
                 <!-- Hero Content -->
@@ -51,9 +62,7 @@
                     </h1>
 
                     <p class="hero-description">
-                        Design doesn't have to be loud to be good. I work across
-                        <span class="highlight">UI/UX</span>, brand identity, and product design — focused on what
-                        actually matters to the person using it.
+                        Product Designer and Full-Stack Developer, working from the belief that great products need thoughtful design and solid engineering in equal measure.
                     </p>
 
                     <button class="say-hi-btn" id="say-hi-btn">
@@ -180,7 +189,7 @@
                                 </span>
                                 <!-- Framer -->
                                 <span class="about-tool">
-                                    <img src="assets/framer-svgrepo-com.svg" alt="Framer" style="width: 14px; height: 14px; vertical-align: -2px; margin-right: 4px; filter: invert(0.9);">
+                                    <img src="assets/framer-svgrepo-com.svg" alt="Framer" class="tool-icon-framer" style="width: 14px; height: 14px; vertical-align: -2px; margin-right: 4px;">
                                     Framer
                                 </span>
                                 <!-- Illustrator -->
@@ -222,7 +231,7 @@
                         <!-- Project 1: Osmium -->
                         <div class="project-card">
                             <div class="project-image">
-                                <img src="assets/osmium-ui.jpg" alt="Osmium AI-Powered Learning UI" class="project-img-real">
+                                <img src="assets/osmium-mockup.jpg" alt="Osmium AI-Powered Learning UI" class="project-img-real">
                             </div>
                             <div class="project-info">
                                 <div class="project-tag">Osmium | AI-Powered Learning</div>
@@ -231,10 +240,10 @@
                                 </p>
                                 <div class="project-links">
                                     <a href="https://dribbble.com/shots/27191514-Osmium-AI-Powered-Learning-That-Feels-Personal" class="project-link-icon" aria-label="Dribbble" target="_blank">
-                                        <img src="assets/dribbble-logo.svg" alt="Dribbble" style="width: 14px; height: 14px; filter: grayscale(1) invert(0.8);">
+                                        <img src="assets/dribbble-logo.svg" alt="Dribbble" class="project-social-icon" style="width: 14px; height: 14px;">
                                     </a>
                                     <a href="https://www.behance.net/gallery/246683455/Osmium-AI-Powered-Learning-That-Feels-Personal" class="project-link-icon" aria-label="Behance" target="_blank">
-                                        <img src="assets/behance-logo.svg" alt="Behance" style="width: 14px; height: 14px; filter: grayscale(1) invert(0.8);">
+                                        <img src="assets/behance-logo.svg" alt="Behance" class="project-social-icon" style="width: 14px; height: 14px;">
                                     </a>
                                 </div>
                             </div>
@@ -254,10 +263,10 @@
                                 </p>
                                 <div class="project-links">
                                     <a href="https://dribbble.com/shots/27235652-NATRAJ-AR-Anatomy-Learning-Mobile-UI" class="project-link-icon" aria-label="Dribbble" target="_blank">
-                                        <img src="assets/dribbble-logo.svg" alt="Dribbble" style="width: 14px; height: 14px; filter: grayscale(1) invert(0.8);">
+                                        <img src="assets/dribbble-logo.svg" alt="Dribbble" class="project-social-icon" style="width: 14px; height: 14px;">
                                     </a>
                                     <a href="https://www.behance.net/6b52aa6f" class="project-link-icon" aria-label="Behance" target="_blank">
-                                        <img src="assets/behance-logo.svg" alt="Behance" style="width: 14px; height: 14px; filter: grayscale(1) invert(0.8);">
+                                        <img src="assets/behance-logo.svg" alt="Behance" class="project-social-icon" style="width: 14px; height: 14px;">
                                     </a>
                                 </div>
                             </div>
@@ -277,10 +286,10 @@
                                 </p>
                                 <div class="project-links">
                                     <a href="https://dribbble.com/shots/27228497-HomeGuru-Student-Dashboard" class="project-link-icon" aria-label="Dribbble" target="_blank">
-                                        <img src="assets/dribbble-logo.svg" alt="Dribbble" style="width: 14px; height: 14px; filter: grayscale(1) invert(0.8);">
+                                        <img src="assets/dribbble-logo.svg" alt="Dribbble" class="project-social-icon" style="width: 14px; height: 14px;">
                                     </a>
                                     <a href="https://www.behance.net/gallery/246700937/HomeGuru-Student-Dashboard" class="project-link-icon" aria-label="Behance" target="_blank">
-                                        <img src="assets/behance-logo.svg" alt="Behance" style="width: 14px; height: 14px; filter: grayscale(1) invert(0.8);">
+                                        <img src="assets/behance-logo.svg" alt="Behance" class="project-social-icon" style="width: 14px; height: 14px;">
                                     </a>
                                 </div>
                             </div>
