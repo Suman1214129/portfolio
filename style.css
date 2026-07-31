@@ -2066,7 +2066,7 @@ button {
 }
 
 .iv-img-wrap.is-zoomed .iv-img {
-    transform: scale(2.2);
+    /* transform handled by JS for touch; desktop click zoom below */
 }
 
 .iv-img.iv-loaded {

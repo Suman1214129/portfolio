@@ -468,6 +468,10 @@ initSudoku();
     let touchScale = 1;
     let isPinching = false;
     let lastTapTime = 0;
+    let panX = 0, panY = 0;
+    let panStartX = 0, panStartY = 0;
+    let panBaseX = 0, panBaseY = 0;
+    let isPanning = false;
 
     function getTouchDist(e) {
         const t1 = e.touches[0];
@@ -479,11 +483,18 @@ initSudoku();
         isZoomed = false;
         touchScale = 1;
         isPinching = false;
+        isPanning = false;
+        panX = 0; panY = 0;
+        panBaseX = 0; panBaseY = 0;
         if (ivImgWrap) ivImgWrap.classList.remove('is-zoomed');
         if (ivImg) {
             ivImg.style.transformOrigin = 'center center';
             ivImg.style.transform = 'translateX(0)';
         }
+    }
+
+    function applyTransform() {
+        ivImg.style.transform = `translate(${panX}px, ${panY}px) scale(${touchScale})`;
     }
 
     if (ivImgWrap) {
@@ -492,7 +503,11 @@ initSudoku();
             isZoomed = !isZoomed;
             ivImgWrap.classList.toggle('is-zoomed', isZoomed);
             if (isZoomed) {
+                touchScale = 2.2;
+                panX = 0; panY = 0;
+                ivImg.style.transformOrigin = 'center center';
                 updateZoomOrigin(e);
+                applyTransform();
             } else {
                 resetZoom();
             }
@@ -504,25 +519,39 @@ initSudoku();
             }
         });
 
-        // Touch Pinch-to-Zoom & Double-Tap Zoom for Mobile
+        // Touch Pinch-to-Zoom & Double-Tap Zoom & Single-finger Pan for Mobile
         ivImgWrap.addEventListener('touchstart', (e) => {
             if (e.touches.length === 2) {
                 isPinching = true;
+                isPanning = false;
                 touchStartDist = getTouchDist(e);
+                ivImg.style.transformOrigin = 'center center';
             } else if (e.touches.length === 1) {
                 const now = Date.now();
                 if (now - lastTapTime < 300) {
+                    // Double-tap zoom
                     e.preventDefault();
-                    isZoomed = !isZoomed;
-                    ivImgWrap.classList.toggle('is-zoomed', isZoomed);
-                    if (isZoomed) {
-                        const rect = ivImgWrap.getBoundingClientRect();
-                        const x = ((e.touches[0].clientX - rect.left) / rect.width) * 100;
-                        const y = ((e.touches[0].clientY - rect.top) / rect.height) * 100;
-                        ivImg.style.transformOrigin = `${x}% ${y}%`;
-                    } else {
+                    if (touchScale > 1.05) {
                         resetZoom();
+                    } else {
+                        touchScale = 2.5;
+                        isZoomed = true;
+                        ivImgWrap.classList.add('is-zoomed');
+                        const rect = ivImgWrap.getBoundingClientRect();
+                        const ox = ((e.touches[0].clientX - rect.left) / rect.width - 0.5) * rect.width;
+                        const oy = ((e.touches[0].clientY - rect.top) / rect.height - 0.5) * rect.height;
+                        panX = -ox * (touchScale - 1) / touchScale;
+                        panY = -oy * (touchScale - 1) / touchScale;
+                        ivImg.style.transformOrigin = 'center center';
+                        applyTransform();
                     }
+                } else if (touchScale > 1.05) {
+                    // Start pan
+                    isPanning = true;
+                    panStartX = e.touches[0].clientX;
+                    panStartY = e.touches[0].clientY;
+                    panBaseX = panX;
+                    panBaseY = panY;
                 }
                 lastTapTime = now;
             }
@@ -536,14 +565,18 @@ initSudoku();
                     const factor = currentDist / touchStartDist;
                     touchScale = Math.min(Math.max(1, touchScale * factor), 4);
                     touchStartDist = currentDist;
-                    // Dynamic origin: midpoint between the two fingers
                     const rect = ivImgWrap.getBoundingClientRect();
                     const midX = ((e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left) / rect.width * 100;
                     const midY = ((e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top) / rect.height * 100;
                     ivImg.style.transformOrigin = `${midX}% ${midY}%`;
-                    ivImg.style.transform = `scale(${touchScale})`;
+                    applyTransform();
                     ivImgWrap.classList.toggle('is-zoomed', touchScale > 1.05);
                 }
+            } else if (isPanning && e.touches.length === 1 && touchScale > 1.05) {
+                e.preventDefault();
+                panX = panBaseX + (e.touches[0].clientX - panStartX);
+                panY = panBaseY + (e.touches[0].clientY - panStartY);
+                applyTransform();
             }
         }, { passive: false });
 
@@ -552,8 +585,19 @@ initSudoku();
                 isPinching = false;
                 if (touchScale <= 1.05) {
                     resetZoom();
+                } else {
+                    isZoomed = true;
+                    // Start pan from where pinch ended
+                    if (e.touches.length === 1) {
+                        isPanning = true;
+                        panStartX = e.touches[0].clientX;
+                        panStartY = e.touches[0].clientY;
+                        panBaseX = panX;
+                        panBaseY = panY;
+                    }
                 }
             }
+            if (e.touches.length === 0) isPanning = false;
         });
     }
 
@@ -587,6 +631,7 @@ initSudoku();
         ivImg.style.transition = 'opacity 0.18s ease, transform 0.18s ease';
         ivImg.style.opacity    = '0';
         ivImg.style.transform  = `translateX(${slideOut})`;
+        ivImg.style.transformOrigin = 'center center';
 
         setTimeout(() => {
             // Populate info
