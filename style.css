@@ -925,13 +925,13 @@ button {
     width: 26px;
     height: 26px;
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 6px;
     color: var(--text-muted);
     transition: border-color 0.25s ease, color 0.25s ease;
 }
 
 .project-link-icon:hover {
-    border-color: var(--accent);
+    border-color: var(--btn-border);
     color: var(--accent);
 }
 
