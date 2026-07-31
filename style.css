@@ -218,9 +218,8 @@ button {
 }
 
 .ui-switch {
-    position: absolute;
-    right: 24px;
-    top: 32px;
+    margin-left: auto;
+    flex-shrink: 0;
     transform: scale(0.7);
     transform-origin: right center;
     /* switch */
