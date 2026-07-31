@@ -578,8 +578,8 @@ button {
 .right-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    padding: 28px 48px 16px;
+    align-items: center;
+    padding: 24px 48px 16px;
     position: sticky;
     top: 0;
     background: transparent;
@@ -705,7 +705,7 @@ button {
     font-family: var(--font-serif);
     font-size: 1rem;
     color: var(--text);
-    padding-top: 4px;
+    padding-top: 0;
 }
 
 /* Monkey */
