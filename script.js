@@ -493,7 +493,8 @@ initSudoku();
         }
     }
 
-    function applyTransform() {
+    function applyTransform(instant) {
+        ivImg.style.transition = instant ? 'none' : 'transform 0.12s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
         ivImg.style.transform = `translate(${panX}px, ${panY}px) scale(${touchScale})`;
     }
 
@@ -507,7 +508,7 @@ initSudoku();
                 panX = 0; panY = 0;
                 ivImg.style.transformOrigin = 'center center';
                 updateZoomOrigin(e);
-                applyTransform();
+                applyTransform(false);
             } else {
                 resetZoom();
             }
@@ -543,7 +544,7 @@ initSudoku();
                         panX = -ox * (touchScale - 1) / touchScale;
                         panY = -oy * (touchScale - 1) / touchScale;
                         ivImg.style.transformOrigin = 'center center';
-                        applyTransform();
+                        applyTransform(false);
                     }
                 } else if (touchScale > 1.05) {
                     // Start pan
@@ -569,14 +570,14 @@ initSudoku();
                     const midX = ((e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left) / rect.width * 100;
                     const midY = ((e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top) / rect.height * 100;
                     ivImg.style.transformOrigin = `${midX}% ${midY}%`;
-                    applyTransform();
+                    applyTransform(true);
                     ivImgWrap.classList.toggle('is-zoomed', touchScale > 1.05);
                 }
             } else if (isPanning && e.touches.length === 1 && touchScale > 1.05) {
                 e.preventDefault();
                 panX = panBaseX + (e.touches[0].clientX - panStartX);
                 panY = panBaseY + (e.touches[0].clientY - panStartY);
-                applyTransform();
+                applyTransform(true);
             }
         }, { passive: false });
 
