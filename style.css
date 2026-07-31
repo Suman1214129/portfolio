@@ -1025,7 +1025,7 @@ button {
 .about-divider {
     height: 1px;
     background: var(--border);
-    margin: 28px 0;
+    margin: 40px 0;
 }
 
 .about-lead {
@@ -1052,8 +1052,8 @@ button {
 .about-profile-layout {
     display: flex;
     align-items: flex-start;
-    gap: 32px;
-    margin-top: 24px;
+    gap: 36px;
+    margin-top: 28px;
 }
 
 .about-profile-image {
@@ -1111,7 +1111,7 @@ button {
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    margin-bottom: 18px;
+    margin-bottom: 22px;
     display: flex;
     align-items: center;
 }
@@ -1126,7 +1126,7 @@ button {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 0;
+    padding: 15px 0;
     border-bottom: 1px solid var(--skill-border);
 }
 
@@ -1137,7 +1137,7 @@ button {
 .about-skill-left {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 }
 
 .about-skill-icon {
@@ -1162,11 +1162,11 @@ button {
 .about-tools {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 10px 12px;
 }
 
 .about-tool {
-    padding: 6px 12px;
+    padding: 7px 14px;
     background: var(--tool-bg);
     border: 1px solid var(--border);
     border-radius: 20px;
@@ -1182,7 +1182,7 @@ button {
     font-family: var(--font-serif);
     font-size: 1.1rem;
     color: var(--accent);
-    margin-bottom: 14px;
+    margin-bottom: 20px;
     padding-left: 14px;
     border-left: 2px solid var(--quote-border);
     line-height: 1.5;
