@@ -250,8 +250,8 @@ leftSection.addEventListener('mousemove', (e) => {
 // ============================================
 const monkeyWrapper = document.getElementById('monkey-wrapper');
 const monkeyImg = document.getElementById('monkey-img');
-const monkeyTooltip = document.getElementById('monkey-tooltip');
-const customCursor = document.getElementById('custom-cursor'); // Keep for other uses if any, but hide it here
+const customCursor = document.getElementById('custom-cursor');
+const cursorLabel = document.getElementById('cursor-label');
 
 const funnyTexts = [
     "don't click me!",
@@ -264,8 +264,8 @@ let tooltipIndex = 0;
 
 if (monkeyWrapper) {
     monkeyWrapper.addEventListener('mouseenter', () => {
-        if (monkeyTooltip) {
-            monkeyTooltip.textContent = funnyTexts[tooltipIndex];
+        if (cursorLabel) {
+            cursorLabel.textContent = funnyTexts[tooltipIndex];
             tooltipIndex = (tooltipIndex + 1) % funnyTexts.length;
         }
         if (customCursor) customCursor.classList.add('visible');
@@ -279,7 +279,12 @@ if (monkeyWrapper) {
     });
 
     monkeyWrapper.addEventListener('mouseleave', () => {
-        if (customCursor) customCursor.classList.remove('visible');
+        if (customCursor) {
+            customCursor.classList.remove('visible');
+            setTimeout(() => {
+                if (cursorLabel) cursorLabel.textContent = "You";
+            }, 200);
+        }
     });
 }
 
