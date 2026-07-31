@@ -464,39 +464,33 @@ initSudoku();
 
     const ivImgWrap   = document.getElementById('iv-img-wrap');
     let isZoomed = false;
-    let touchStartDist = 0;
-    let touchScale = 1;
-    let isPinching = false;
+    let touchScale = 1, pinchStartScale = 1;
+    let isPinching = false, isPanning = false;
     let lastTapTime = 0;
     let panX = 0, panY = 0;
-    let panStartX = 0, panStartY = 0;
-    let panBaseX = 0, panBaseY = 0;
-    let isPanning = false;
+    let panStartX = 0, panStartY = 0, panBaseX = 0, panBaseY = 0;
+    let pinchOriginX = 50, pinchOriginY = 50; // % relative to wrap
+    let velX = 0, velY = 0, lastPanX = 0, lastPanY = 0, inertiaRaf = null;
 
     function getTouchDist(e) {
-        const t1 = e.touches[0];
-        const t2 = e.touches[1];
-        return Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
+        return Math.hypot(
+            e.touches[0].clientX - e.touches[1].clientX,
+            e.touches[0].clientY - e.touches[1].clientY
+        );
     }
 
-    function resetZoom() {
-        isZoomed = false;
-        touchScale = 1;
-        isPinching = false;
-        isPanning = false;
-        panX = 0; panY = 0;
-        panBaseX = 0; panBaseY = 0;
-        if (ivImgWrap) ivImgWrap.classList.remove('is-zoomed');
-        if (ivImg) {
-            ivImg.style.transformOrigin = 'center center';
-            ivImg.style.transform = 'translateX(0)';
-        }
+    function getTouchMid(e) {
+        const rect = ivImgWrap.getBoundingClientRect();
+        return {
+            x: ((e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left) / rect.width * 100,
+            y: ((e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top) / rect.height * 100
+        };
     }
 
     function clampPan(x, y) {
         const rect = ivImgWrap.getBoundingClientRect();
-        const maxX = (rect.width * (touchScale - 1)) / 2;
-        const maxY = (rect.height * (touchScale - 1)) / 2;
+        const maxX = Math.max(0, (rect.width  * (touchScale - 1)) / 2);
+        const maxY = Math.max(0, (rect.height * (touchScale - 1)) / 2);
         return {
             x: Math.min(maxX, Math.max(-maxX, x)),
             y: Math.min(maxY, Math.max(-maxY, y))
@@ -504,8 +498,40 @@ initSudoku();
     }
 
     function applyTransform(instant) {
-        ivImg.style.transition = instant ? 'none' : 'transform 0.12s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        ivImg.style.transform = `translate(${panX}px, ${panY}px) scale(${touchScale})`;
+        ivImg.style.transition = instant ? 'none' : 'transform 0.18s cubic-bezier(0.22, 1, 0.36, 1)';
+        ivImg.style.transform  = `translate(${panX}px, ${panY}px) scale(${touchScale})`;
+    }
+
+    function resetZoom() {
+        cancelInertia();
+        isZoomed = false; touchScale = 1; isPinching = false; isPanning = false;
+        panX = 0; panY = 0; panBaseX = 0; panBaseY = 0; velX = 0; velY = 0;
+        if (ivImgWrap) ivImgWrap.classList.remove('is-zoomed');
+        if (ivImg) {
+            ivImg.style.transformOrigin = 'center center';
+            ivImg.style.transition = 'transform 0.22s cubic-bezier(0.22, 1, 0.36, 1)';
+            ivImg.style.transform  = 'translate(0px, 0px) scale(1)';
+        }
+    }
+
+    function cancelInertia() {
+        if (inertiaRaf) { cancelAnimationFrame(inertiaRaf); inertiaRaf = null; }
+    }
+
+    function startInertia() {
+        cancelInertia();
+        const friction = 0.88;
+        function step() {
+            if (Math.abs(velX) < 0.3 && Math.abs(velY) < 0.3) return;
+            velX *= friction; velY *= friction;
+            const c = clampPan(panX + velX, panY + velY);
+            // Stop inertia at border
+            if (c.x === panX && c.y === panY) { velX = 0; velY = 0; return; }
+            panX = c.x; panY = c.y;
+            applyTransform(true);
+            inertiaRaf = requestAnimationFrame(step);
+        }
+        inertiaRaf = requestAnimationFrame(step);
     }
 
     if (ivImgWrap) {
@@ -530,93 +556,92 @@ initSudoku();
             }
         });
 
-        // Touch Pinch-to-Zoom & Double-Tap Zoom & Single-finger Pan for Mobile
+        // Touch: Pinch-to-Zoom, Double-Tap, Single-finger Pan + Inertia
         ivImgWrap.addEventListener('touchstart', (e) => {
+            cancelInertia();
             if (e.touches.length === 2) {
                 isPinching = true;
-                isPanning = false;
-                touchStartDist = getTouchDist(e);
-                ivImg.style.transformOrigin = 'center center';
+                isPanning  = false;
+                pinchStartScale = touchScale;
+                const startDist = getTouchDist(e);
+                ivImgWrap._pinchStartDist = startDist;
+                // Lock origin at pinch midpoint once
+                const mid = getTouchMid(e);
+                pinchOriginX = mid.x; pinchOriginY = mid.y;
+                ivImg.style.transformOrigin = `${pinchOriginX}% ${pinchOriginY}%`;
             } else if (e.touches.length === 1) {
                 const now = Date.now();
-                if (now - lastTapTime < 300) {
-                    // Double-tap zoom
+                if (now - lastTapTime < 280) {
                     e.preventDefault();
                     if (touchScale > 1.05) {
                         resetZoom();
                     } else {
-                        touchScale = 2.5;
-                        isZoomed = true;
+                        touchScale = 2.5; isZoomed = true;
                         ivImgWrap.classList.add('is-zoomed');
                         const rect = ivImgWrap.getBoundingClientRect();
-                        const ox = ((e.touches[0].clientX - rect.left) / rect.width - 0.5) * rect.width;
-                        const oy = ((e.touches[0].clientY - rect.top) / rect.height - 0.5) * rect.height;
-                        const clamped = clampPan(
-                            -ox * (touchScale - 1) / touchScale,
-                            -oy * (touchScale - 1) / touchScale
-                        );
-                        panX = clamped.x;
-                        panY = clamped.y;
+                        const ox = ((e.touches[0].clientX - rect.left) / rect.width  - 0.5) * rect.width;
+                        const oy = ((e.touches[0].clientY - rect.top)  / rect.height - 0.5) * rect.height;
+                        const c = clampPan(-ox * (touchScale - 1) / touchScale, -oy * (touchScale - 1) / touchScale);
+                        panX = c.x; panY = c.y;
                         ivImg.style.transformOrigin = 'center center';
                         applyTransform(false);
                     }
                 } else if (touchScale > 1.05) {
-                    // Start pan
-                    isPanning = true;
-                    panStartX = e.touches[0].clientX;
-                    panStartY = e.touches[0].clientY;
-                    panBaseX = panX;
-                    panBaseY = panY;
+                    isPanning  = true;
+                    panStartX  = e.touches[0].clientX;
+                    panStartY  = e.touches[0].clientY;
+                    panBaseX   = panX; panBaseY = panY;
+                    lastPanX   = panX; lastPanY = panY;
+                    velX = 0; velY = 0;
                 }
                 lastTapTime = now;
             }
         }, { passive: false });
 
         ivImgWrap.addEventListener('touchmove', (e) => {
-            if (isPinching && e.touches.length === 2 && ivImg) {
+            if (isPinching && e.touches.length === 2) {
                 e.preventDefault();
-                const currentDist = getTouchDist(e);
-                if (touchStartDist > 0) {
-                    const factor = currentDist / touchStartDist;
-                    touchScale = Math.min(Math.max(1, touchScale * factor), 4);
-                    touchStartDist = currentDist;
-                    const rect = ivImgWrap.getBoundingClientRect();
-                    const midX = ((e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left) / rect.width * 100;
-                    const midY = ((e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top) / rect.height * 100;
-                    ivImg.style.transformOrigin = `${midX}% ${midY}%`;
-                    applyTransform(true);
-                    ivImgWrap.classList.toggle('is-zoomed', touchScale > 1.05);
-                }
-            } else if (isPanning && e.touches.length === 1 && touchScale > 1.05) {
+                const dist = getTouchDist(e);
+                const factor = dist / (ivImgWrap._pinchStartDist || dist);
+                touchScale = Math.min(4, Math.max(1, pinchStartScale * factor));
+                ivImgWrap._pinchStartDist = dist;
+                pinchStartScale = touchScale;
+                ivImgWrap.classList.toggle('is-zoomed', touchScale > 1.05);
+                applyTransform(true);
+            } else if (isPanning && e.touches.length === 1) {
                 e.preventDefault();
-                const raw = clampPan(
-                    panBaseX + (e.touches[0].clientX - panStartX),
-                    panBaseY + (e.touches[0].clientY - panStartY)
-                );
-                panX = raw.x;
-                panY = raw.y;
+                const dx = e.touches[0].clientX - panStartX;
+                const dy = e.touches[0].clientY - panStartY;
+                const c  = clampPan(panBaseX + dx, panBaseY + dy);
+                velX = c.x - lastPanX; velY = c.y - lastPanY;
+                lastPanX = c.x; lastPanY = c.y;
+                panX = c.x; panY = c.y;
                 applyTransform(true);
             }
         }, { passive: false });
 
         ivImgWrap.addEventListener('touchend', (e) => {
-            if (e.touches.length < 2 && isPinching) {
+            if (isPinching && e.touches.length < 2) {
                 isPinching = false;
+                ivImg.style.transformOrigin = 'center center';
                 if (touchScale <= 1.05) {
                     resetZoom();
                 } else {
                     isZoomed = true;
-                    // Start pan from where pinch ended
+                    applyTransform(false);
                     if (e.touches.length === 1) {
                         isPanning = true;
-                        panStartX = e.touches[0].clientX;
-                        panStartY = e.touches[0].clientY;
-                        panBaseX = panX;
-                        panBaseY = panY;
+                        panStartX = e.touches[0].clientX; panStartY = e.touches[0].clientY;
+                        panBaseX  = panX; panBaseY = panY;
+                        lastPanX  = panX; lastPanY = panY;
+                        velX = 0; velY = 0;
                     }
                 }
             }
-            if (e.touches.length === 0) isPanning = false;
+            if (e.touches.length === 0) {
+                if (isPanning) startInertia();
+                isPanning = false;
+            }
         });
     }
 
@@ -636,6 +661,7 @@ initSudoku();
 
     function loadImage(index, direction) {
         resetZoom();
+        cancelInertia();
         const triggers = getTriggers();
         if (index < 0 || index >= triggers.length) return;
         const trigger  = triggers[index];
@@ -646,13 +672,13 @@ initSudoku();
         const behance  = trigger.dataset.behance || '#';
 
         // Direction-aware slide: fade out current image
-        const slideOut = direction === 'next' ? '-8px' : '8px';
-        ivImg.style.transition = 'opacity 0.18s ease, transform 0.18s ease';
+        const slideOut = direction === 'next' ? '-12px' : direction === 'prev' ? '12px' : '0px';
+        ivImg.style.transition = 'opacity 0.14s ease, transform 0.14s ease';
         ivImg.style.opacity    = '0';
         ivImg.style.transform  = `translateX(${slideOut})`;
         ivImg.style.transformOrigin = 'center center';
 
-        setTimeout(() => {
+        requestAnimationFrame(() => requestAnimationFrame(() => {
             // Populate info
             ivTag.textContent  = title;
             if (ivDesc) {
@@ -686,29 +712,28 @@ initSudoku();
                 ivImg.src = src;
                 ivImg.alt = title;
                 requestAnimationFrame(() => {
-                    ivImg.style.transition = 'opacity 0.32s ease, transform 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    ivImg.style.transition = 'opacity 0.22s ease, transform 0.22s cubic-bezier(0.22, 1, 0.36, 1)';
                     ivImg.style.opacity    = '1';
-                    ivImg.style.transform  = 'translateX(0)';
+                    ivImg.style.transform  = 'translate(0px, 0px) scale(1)';
                     ivImg.classList.add('iv-loaded');
-                    setTimeout(() => ivImgLoader.classList.add('iv-hidden'), 60);
+                    setTimeout(() => ivImgLoader.classList.add('iv-hidden'), 40);
                 });
             };
             tmp.onerror = () => {
-                // fallback to compressed thumb (.project-img-real or .branding-img)
                 const thumb = trigger.querySelector('.project-img-real, .branding-img');
                 if (thumb) {
                     ivImg.src = thumb.src;
                     ivImg.alt = title;
                     if (ivAmbientGlow) ivAmbientGlow.style.backgroundImage = `url("${thumb.src}")`;
                 }
-                ivImg.style.transition = 'opacity 0.32s ease, transform 0.32s ease';
+                ivImg.style.transition = 'opacity 0.22s ease, transform 0.22s ease';
                 ivImg.style.opacity    = '1';
-                ivImg.style.transform  = 'translateX(0)';
+                ivImg.style.transform  = 'translate(0px, 0px) scale(1)';
                 ivImg.classList.add('iv-loaded');
                 ivImgLoader.classList.add('iv-hidden');
             };
             tmp.src = src;
-        }, 180);
+        }));
 
         // Update nav disabled states
         updateNavState(index);
