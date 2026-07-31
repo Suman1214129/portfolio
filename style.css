@@ -833,6 +833,7 @@ button {
     object-position: top center;
     display: block;
     image-rendering: smooth;
+    image-rendering: high-quality;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     transform: translateZ(0);
@@ -2098,7 +2099,8 @@ button {
 
 .iv-info-actions {
     display: flex;
-    gap: 8px;
+    align-items: center;
+    gap: 6px;
     flex-shrink: 0;
 }
 
@@ -2106,40 +2108,41 @@ button {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 6px 12px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
+    padding: 3px 10px;
+    height: 22px;
+    border: 1px solid var(--toggle-border);
+    border-radius: 4px;
     font-family: var(--font-mono, 'JetBrains Mono', monospace);
-    font-size: 0.68rem;
-    color: var(--text-dim);
+    font-size: 0.65rem;
+    color: var(--sudoku-given);
     text-decoration: none;
-    background: var(--surface-elevated);
-    transition: border-color 0.25s ease, color 0.25s ease, background 0.25s ease;
+    background: transparent;
+    transition: all 0.15s ease;
     white-space: nowrap;
 }
 
 .iv-action-btn:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: var(--tag-bg);
+    border-color: var(--border);
+    color: var(--text);
+    background: var(--surface-hover);
 }
 
 .iv-action-icon {
     width: 12px;
     height: 12px;
     filter: var(--project-icon-filter);
-    transition: filter 0.25s ease;
+    transition: opacity 0.15s ease;
 }
 
 .iv-action-arrow {
     font-size: 10px;
     opacity: 0.5;
-    transition: transform 0.25s ease, opacity 0.25s ease;
+    transition: transform 0.15s ease, opacity 0.15s ease;
 }
 
 .iv-action-btn:hover .iv-action-arrow {
-    transform: translate(2px, -2px);
-    opacity: 1;
+    transform: translate(1px, -1px);
+    opacity: 0.9;
 }
 
 
