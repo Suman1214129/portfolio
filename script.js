@@ -279,12 +279,7 @@ if (monkeyWrapper) {
     });
 
     monkeyWrapper.addEventListener('mouseleave', () => {
-        if (customCursor) {
-            customCursor.classList.remove('visible');
-            setTimeout(() => {
-                if (cursorLabel) cursorLabel.textContent = "You";
-            }, 200);
-        }
+        if (customCursor) customCursor.classList.remove('visible');
     });
 }
 
