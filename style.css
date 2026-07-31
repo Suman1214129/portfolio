@@ -1576,9 +1576,9 @@ button {
 .notes-send-btn {
     height: 32px;
     padding: 0 16px;
-    background: var(--surface-elevated);
-    border: 1px solid var(--border);
-    color: var(--text);
+    background: var(--accent);
+    border: 1px solid var(--accent);
+    color: var(--accent-contrast);
     font-family: var(--font-mono);
     font-size: 0.75rem;
     font-weight: 500;
@@ -1591,9 +1591,9 @@ button {
 }
 
 .notes-send-btn:hover {
-    background: var(--surface-hover);
-    border-color: var(--btn-border);
-    color: var(--text);
+    background: var(--accent-dim);
+    border-color: var(--accent-dim);
+    color: var(--accent-contrast);
 }
 
 .notes-send-btn:active {
