@@ -15,9 +15,9 @@
     --text: #111111;
     --text-dim: #5c5c5c;
     --text-muted: #7a7a7a;
-    --accent: #19805d;
+    --accent: #1a805e;
     --accent-dim: #13664a;
-    --border: #e2e2de;
+    --border: #d9d9d7;
     --tag-bg: #dbe6e2;
     --tag-text: #1a3d30;
     --font-mono: 'JetBrains Mono', monospace;
@@ -650,11 +650,10 @@ button {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     position: relative;
-    background: var(--surface-elevated);
     border: 1px solid var(--border);
     border-radius: 99px;
-    padding: 2px;
-    width: 290px;
+    padding: 4px;
+    width: 280px;
 }
 
 .works-toggle input[type="radio"] {
