@@ -2199,9 +2199,16 @@ button {
     }
 
     .iv-action-btn {
-        padding: 2px 7px;
-        height: 20px;
-        font-size: 0.6rem;
+        padding: 0;
+        width: 20px;
+        height: 18px;
+        justify-content: center;
+        border-radius: 3px;
+    }
+
+    .iv-action-text,
+    .iv-action-arrow {
+        display: none;
     }
 
     .iv-img-wrap {
