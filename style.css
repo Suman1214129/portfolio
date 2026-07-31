@@ -650,7 +650,7 @@ button {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     position: relative;
-    border: 1px solid var(--border);
+    border: 1.5px solid var(--border);
     border-radius: 99px;
     padding: 4px;
     width: 280px;
@@ -684,7 +684,7 @@ button {
     bottom: 2px;
     left: 2px;
     width: calc(33.333% - 2px);
-    background: var(--accent);
+    background: var(--accent-dim);
     border-radius: 99px;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1;
