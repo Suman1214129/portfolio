@@ -1847,34 +1847,32 @@ button {
 
 
 /* ============================================
-   IMAGE VIEWER — Overlay & Backdrop
+   IMAGE VIEWER — Overlay & Backdrop (matches Send Notes modal)
    ============================================ */
 .iv-overlay {
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--overlay);
     z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: center;
-    pointer-events: none;
     opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-        visibility 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    pointer-events: none;
+    transition: opacity 0.3s ease;
 }
 
 .iv-overlay.iv-active {
     opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
+    pointer-events: all;
 }
 
 .iv-backdrop {
     position: absolute;
     inset: 0;
-
-    backdrop-filter: blur(28px) saturate(0.4) brightness(0.5);
-    -webkit-backdrop-filter: blur(28px) saturate(0.4) brightness(0.5);
     cursor: pointer;
 }
 
@@ -1883,38 +1881,28 @@ button {
    ============================================ */
 .iv-close {
     position: fixed;
-    top: 28px;
-    right: 32px;
+    top: 24px;
+    right: 28px;
     z-index: 1010;
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.7);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
-    transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
-    transform: scale(0.8) rotate(-90deg);
-    opacity: 0;
-}
-
-.iv-overlay.iv-active .iv-close {
-    transform: scale(1) rotate(0deg);
-    opacity: 1;
-    transition: background 0.25s ease, color 0.25s ease,
-        transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s,
-        opacity 0.3s ease 0.1s, border-color 0.25s ease;
+    box-shadow: 0 4px 12px var(--shadow-soft);
+    transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 
 .iv-close:hover {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.25);
-    color: #fff;
-    transform: scale(1.08) rotate(0deg) !important;
+    color: var(--error);
+    background: var(--surface-hover);
+    border-color: var(--border);
 }
 
 /* ============================================
@@ -1924,22 +1912,20 @@ button {
     position: fixed;
     top: 50%;
     z-index: 1010;
-    width: 42px;
-    height: 42px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.65);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 17px;
+    font-size: 15px;
     cursor: pointer;
-    opacity: 0;
-    transform: translateY(-50%) scale(0.75);
-    transition: background 0.22s ease, color 0.22s ease, border-color 0.22s ease,
-        transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1),
-        opacity 0.3s ease;
+    transform: translateY(-50%);
+    box-shadow: 0 4px 12px var(--shadow-soft);
+    transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
 }
 
 .iv-prev {
@@ -1950,23 +1936,10 @@ button {
     right: clamp(12px, 3vw, 40px);
 }
 
-.iv-overlay.iv-active .iv-nav {
-    opacity: 1;
-    transform: translateY(-50%) scale(1);
-    transition: background 0.22s ease, color 0.22s ease, border-color 0.22s ease,
-        transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 0.12s,
-        opacity 0.3s ease 0.08s;
-}
-
 .iv-nav:hover {
-    background: rgba(255, 255, 255, 0.14);
-    border-color: rgba(255, 255, 255, 0.28);
-    color: #fff;
-    transform: translateY(-50%) scale(1.1) !important;
-}
-
-.iv-nav:active {
-    transform: translateY(-50%) scale(0.95) !important;
+    color: var(--text);
+    background: var(--surface-hover);
+    border-color: var(--accent);
 }
 
 .iv-nav.iv-nav-disabled {
@@ -1975,7 +1948,7 @@ button {
 }
 
 /* ============================================
-   IMAGE VIEWER — Panel
+   IMAGE VIEWER — Panel (matches Send Notes modal UI & animation)
    ============================================ */
 .iv-panel {
     position: relative;
@@ -1984,19 +1957,17 @@ button {
     max-height: 90vh;
     display: flex;
     flex-direction: column;
-    gap: 0;
-    transform: scale(0.88) translateY(24px);
-    opacity: 0;
-    transition: transform 0.45s cubic-bezier(0.34, 1.2, 0.64, 1),
-        opacity 0.35s ease;
-    border-radius: 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.06);
+    transform: translateY(12px) scale(0.98);
+    transition: transform 0.3s var(--ease-out);
+    box-shadow: 0 12px 40px var(--shadow-soft);
 }
 
 .iv-overlay.iv-active .iv-panel {
-    transform: scale(1) translateY(0);
-    opacity: 1;
+    transform: translateY(0) scale(1);
 }
 
 /* ============================================
@@ -2004,7 +1975,7 @@ button {
    ============================================ */
 .iv-img-wrap {
     position: relative;
-    background: #0c0c0c;
+    background: var(--surface-input);
     overflow: hidden;
     max-height: 68vh;
     display: flex;
@@ -2027,7 +1998,7 @@ button {
     object-fit: contain;
     display: block;
     opacity: 0;
-    transition: opacity 0.45s ease, transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: opacity 0.35s ease, transform 0.4s var(--ease-out);
     will-change: transform;
 }
 
@@ -2046,7 +2017,7 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #0c0c0c;
+    background: var(--surface-input);
     transition: opacity 0.3s ease;
     z-index: 2;
 }
@@ -2059,8 +2030,8 @@ button {
 .iv-spinner {
     width: 28px;
     height: 28px;
-    border: 2px solid rgba(255, 255, 255, 0.08);
-    border-top-color: var(--accent, #4ecca3);
+    border: 2px solid var(--border);
+    border-top-color: var(--accent);
     border-radius: 50%;
     animation: iv-spin 0.75s linear infinite;
 }
@@ -2079,9 +2050,9 @@ button {
     align-items: center;
     justify-content: space-between;
     gap: 24px;
-    padding: 18px 24px;
-    background: #111111;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 16px 20px;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
     flex-shrink: 0;
 }
 
@@ -2095,7 +2066,7 @@ button {
 .iv-tag {
     font-family: var(--font-serif, 'Instrument Serif', serif);
     font-size: 0.95rem;
-    color: var(--accent, #4ecca3);
+    color: var(--accent);
     white-space: nowrap;
     flex-shrink: 0;
 }
@@ -2105,7 +2076,7 @@ button {
     font-size: 0.7rem;
     font-weight: 300;
     line-height: 1.6;
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--text-dim);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -2121,34 +2092,29 @@ button {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 7px 14px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 6px 12px;
+    border: 1px solid var(--border);
     border-radius: 6px;
     font-family: var(--font-mono, 'JetBrains Mono', monospace);
     font-size: 0.68rem;
-    color: rgba(255, 255, 255, 0.55);
+    color: var(--text-dim);
     text-decoration: none;
-    background: rgba(255, 255, 255, 0.04);
-    transition: border-color 0.25s ease, color 0.25s ease, background 0.25s ease, transform 0.2s ease;
+    background: var(--surface-elevated);
+    transition: border-color 0.25s ease, color 0.25s ease, background 0.25s ease;
     white-space: nowrap;
 }
 
 .iv-action-btn:hover {
-    border-color: var(--accent, #4ecca3);
-    color: var(--accent, #4ecca3);
-    background: rgba(78, 204, 163, 0.06);
-    transform: translateY(-1px);
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--tag-bg);
 }
 
 .iv-action-icon {
     width: 12px;
     height: 12px;
-    filter: grayscale(1) invert(0.6);
+    filter: var(--project-icon-filter);
     transition: filter 0.25s ease;
-}
-
-.iv-action-btn:hover .iv-action-icon {
-    filter: grayscale(0) invert(0.8) sepia(1) hue-rotate(110deg) saturate(2);
 }
 
 .iv-action-arrow {
@@ -2162,74 +2128,7 @@ button {
     opacity: 1;
 }
 
-/* ============================================
-   IMAGE VIEWER — Light theme adjustments
-   ============================================ */
-[data-theme="light"] .iv-backdrop {
-    background: rgba(220, 220, 215, 0.9);
-}
 
-[data-theme="light"] .iv-panel {
-    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.06);
-}
-
-[data-theme="light"] .iv-img-wrap,
-[data-theme="light"] .iv-img-loader {
-    background: #f0f0ec;
-}
-
-[data-theme="light"] .iv-info {
-    background: #ffffff;
-    border-top-color: rgba(0, 0, 0, 0.07);
-}
-
-[data-theme="light"] .iv-tag {
-    color: var(--accent, #19805d);
-}
-
-[data-theme="light"] .iv-desc {
-    color: rgba(0, 0, 0, 0.38);
-}
-
-[data-theme="light"] .iv-action-btn {
-    border-color: rgba(0, 0, 0, 0.1);
-    color: rgba(0, 0, 0, 0.45);
-    background: rgba(0, 0, 0, 0.03);
-}
-
-[data-theme="light"] .iv-action-btn:hover {
-    border-color: var(--accent, #19805d);
-    color: var(--accent, #19805d);
-    background: rgba(25, 128, 93, 0.05);
-}
-
-[data-theme="light"] .iv-action-icon {
-    filter: grayscale(1) brightness(0.4);
-}
-
-[data-theme="light"] .iv-close {
-    background: rgba(0, 0, 0, 0.06);
-    border-color: rgba(0, 0, 0, 0.1);
-    color: rgba(0, 0, 0, 0.5);
-}
-
-[data-theme="light"] .iv-close:hover {
-    background: rgba(0, 0, 0, 0.1);
-    border-color: rgba(0, 0, 0, 0.2);
-    color: rgba(0, 0, 0, 0.8);
-}
-
-[data-theme="light"] .iv-nav {
-    background: rgba(0, 0, 0, 0.06);
-    border-color: rgba(0, 0, 0, 0.1);
-    color: rgba(0, 0, 0, 0.5);
-}
-
-[data-theme="light"] .iv-nav:hover {
-    background: rgba(0, 0, 0, 0.1);
-    border-color: rgba(0, 0, 0, 0.2);
-    color: rgba(0, 0, 0, 0.8);
-}
 
 /* ============================================
    IMAGE VIEWER — Responsive
