@@ -262,14 +262,26 @@ const funnyTexts = [
 ];
 let tooltipIndex = 0;
 
-monkeyWrapper.addEventListener('mouseenter', () => {
-    if (monkeyTooltip) {
-        monkeyTooltip.textContent = funnyTexts[tooltipIndex];
-        tooltipIndex = (tooltipIndex + 1) % funnyTexts.length;
-    }
-});
+if (monkeyWrapper) {
+    monkeyWrapper.addEventListener('mouseenter', () => {
+        if (monkeyTooltip) {
+            monkeyTooltip.textContent = funnyTexts[tooltipIndex];
+            tooltipIndex = (tooltipIndex + 1) % funnyTexts.length;
+        }
+        if (customCursor) customCursor.classList.add('visible');
+    });
 
-// Remove custom cursor specific listeners for monkey wrapper as tooltip is used instead
+    monkeyWrapper.addEventListener('mousemove', (e) => {
+        if (customCursor) {
+            customCursor.style.left = `${e.clientX}px`;
+            customCursor.style.top = `${e.clientY}px`;
+        }
+    });
+
+    monkeyWrapper.addEventListener('mouseleave', () => {
+        if (customCursor) customCursor.classList.remove('visible');
+    });
+}
 
 monkeyImg.addEventListener('click', openSudokuWindow);
 

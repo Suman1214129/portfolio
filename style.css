@@ -712,6 +712,7 @@ button {
 .monkey-wrapper {
     position: relative;
     display: inline-block;
+    cursor: none;
 }
 
 .monkey-img {
@@ -719,12 +720,45 @@ button {
     height: 30px;
     object-fit: cover;
     cursor: none;
-    transition: transform 0.25s ease;
     user-select: none;
 }
 
-.monkey-img:hover {
-    transform: scale(1.08);
+/* Custom Accent Cursor on Monkey Hover */
+.custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    opacity: 0;
+    transform: translate(-2px, -2px) scale(0.85);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.custom-cursor.visible {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+}
+
+.custom-cursor .cursor-arrow {
+    width: 14px;
+    height: 18px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+}
+
+.custom-cursor .cursor-label {
+    background: var(--accent);
+    color: var(--accent-contrast);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 500;
+    padding: 2px 7px;
+    border-radius: 99px;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px var(--shadow-soft);
 }
 
 /* Page switching */
