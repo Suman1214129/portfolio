@@ -471,15 +471,18 @@ initSudoku();
         setTimeout(() => {
             // Populate info
             ivTag.textContent  = title;
-            ivDesc.textContent = desc;
-            ivDesc.style.display = desc ? '' : 'none';
+            if (ivDesc) {
+                ivDesc.textContent = desc;
+                ivDesc.style.display = desc ? '' : 'none';
+            }
             ivDribbble.href    = dribbble;
             ivBehance.href     = behance;
             // Hide action links if no external URL provided (e.g., branding cards)
             const hasLinks = dribbble !== '#' || behance !== '#';
             ivDribbble.style.display = dribbble !== '#' ? '' : 'none';
             ivBehance.style.display  = behance  !== '#' ? '' : 'none';
-            document.querySelector('.iv-info-actions').style.display = hasLinks ? '' : 'none';
+            const actionsContainer = document.querySelector('.iv-info-actions');
+            if (actionsContainer) actionsContainer.style.display = hasLinks ? '' : 'none';
 
             // Show spinner
             ivImgLoader.classList.remove('iv-hidden');
