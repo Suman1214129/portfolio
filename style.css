@@ -229,7 +229,7 @@ button {
     --switch-height: 20px;
     /* circle */
     --circle-diameter: 32px;
-    --circle-bg: #1a2e22;
+    --circle-bg: #2c4537;
     --circle-inset: calc((var(--circle-diameter) - var(--switch-height)) / 2);
 }
 
@@ -833,7 +833,8 @@ button {
     object-position: top center;
     display: block;
     image-rendering: smooth;
-    image-rendering: high-quality;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
     transform: translateZ(0);
 }
 
@@ -1909,22 +1910,24 @@ button {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 18px;
+    padding: 8px 14px;
     border-bottom: 1px solid var(--border);
-    background: var(--surface);
+    background: var(--surface-elevated);
     flex-shrink: 0;
 }
 
 .iv-header-left {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
 }
 
 .iv-tag {
     font-family: var(--font-serif, 'Instrument Serif', serif);
     font-size: 0.95rem;
-    color: var(--accent);
+    font-weight: 400;
+    color: var(--text);
+    letter-spacing: 0.02em;
     white-space: nowrap;
 }
 
@@ -1932,28 +1935,27 @@ button {
     display: flex;
     align-items: center;
     gap: 4px;
-    background: var(--surface-elevated);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 2px;
 }
 
 .iv-nav-btn {
-    width: 26px;
-    height: 22px;
+    width: 20px;
+    height: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.75rem;
-    color: var(--text-dim);
-    border-radius: 4px;
+    font-size: 0.55rem;
+    color: var(--sudoku-given);
+    border: 1px solid var(--toggle-border);
+    border-radius: 3px;
+    background: transparent;
     cursor: pointer;
-    transition: color 0.2s ease, background 0.2s ease;
+    transition: all 0.15s ease;
 }
 
 .iv-nav-btn:hover {
     color: var(--text);
     background: var(--surface-hover);
+    border-color: var(--border);
 }
 
 .iv-nav-btn.iv-nav-disabled {
@@ -1964,25 +1966,28 @@ button {
 .iv-header-right {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
 }
 
 .iv-close-btn {
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
+    font-size: 0.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.55rem;
-    color: var(--text-muted);
-    border-radius: 4px;
+    border: 1px solid var(--toggle-border);
+    border-radius: 3px;
+    color: var(--sudoku-given);
+    background: transparent;
     cursor: pointer;
-    transition: color 0.2s ease, background 0.2s ease;
+    transition: all 0.15s ease;
 }
 
 .iv-close-btn:hover {
-    color: var(--error);
-    background: var(--surface-hover);
+    background: var(--error);
+    border-color: var(--error);
+    color: #fff;
 }
 
 /* ============================================
