@@ -1429,7 +1429,7 @@ button {
 
 .sudoku-overlay.active {
     opacity: 1;
-    pointer-events: all;
+    pointer-events: auto;
 }
 
 /* ============================================
@@ -1453,7 +1453,7 @@ button {
 
 .notes-overlay.active {
     opacity: 1;
-    pointer-events: all;
+    pointer-events: auto;
 }
 
 .notes-modal {
@@ -1832,7 +1832,7 @@ button {
 
 .iv-overlay.iv-active {
     opacity: 1;
-    pointer-events: all;
+    pointer-events: auto;
 }
 
 .iv-backdrop {

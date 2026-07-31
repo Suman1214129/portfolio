@@ -485,8 +485,16 @@ initSudoku();
         ivImg.style.transformOrigin = `${x}% ${y}%`;
     }
 
+    function getTriggers() {
+        return Array.from(document.querySelectorAll('.img-viewer-trigger'));
+    }
+
+    let currentIndex = 0;
+
     function loadImage(index, direction) {
         resetZoom();
+        const triggers = getTriggers();
+        if (index < 0 || index >= triggers.length) return;
         const trigger  = triggers[index];
         const src      = trigger.dataset.img || '';
         const title    = trigger.dataset.title || '';
@@ -555,6 +563,7 @@ initSudoku();
     }
 
     function updateNavState(index) {
+        const triggers = getTriggers();
         ivPrev.classList.toggle('iv-nav-disabled', index === 0);
         ivNext.classList.toggle('iv-nav-disabled', index === triggers.length - 1);
     }
@@ -592,6 +601,7 @@ initSudoku();
     }
 
     function goNext() {
+        const triggers = getTriggers();
         if (currentIndex < triggers.length - 1) {
             currentIndex++;
             loadImage(currentIndex, 'next');
@@ -605,15 +615,27 @@ initSudoku();
         }
     }
 
-    // Attach click to thumbnails
-    triggers.forEach((trigger, i) => {
-        trigger.addEventListener('click', () => openViewer(i));
-        trigger.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
+    // Dynamic trigger delegation
+    document.addEventListener('click', (e) => {
+        const trigger = e.target.closest('.img-viewer-trigger');
+        if (!trigger) return;
+        const triggers = getTriggers();
+        const index = triggers.indexOf(trigger);
+        if (index !== -1) {
+            openViewer(index);
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            const trigger = e.target.closest('.img-viewer-trigger');
+            if (trigger) {
                 e.preventDefault();
-                openViewer(i);
+                const triggers = getTriggers();
+                const index = triggers.indexOf(trigger);
+                if (index !== -1) openViewer(index);
             }
-        });
+        }
     });
 
     // Nav buttons
