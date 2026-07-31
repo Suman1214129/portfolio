@@ -464,27 +464,90 @@ initSudoku();
 
     const ivImgWrap   = document.getElementById('iv-img-wrap');
     let isZoomed = false;
+    let touchStartDist = 0;
+    let touchScale = 1;
+    let isPinching = false;
+    let lastTapTime = 0;
+
+    function getTouchDist(e) {
+        const t1 = e.touches[0];
+        const t2 = e.touches[1];
+        return Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
+    }
 
     function resetZoom() {
         isZoomed = false;
+        touchScale = 1;
+        isPinching = false;
         if (ivImgWrap) ivImgWrap.classList.remove('is-zoomed');
-        if (ivImg) ivImg.style.transformOrigin = 'center center';
+        if (ivImg) {
+            ivImg.style.transformOrigin = 'center center';
+            ivImg.style.transform = 'translateX(0)';
+        }
     }
 
     if (ivImgWrap) {
         ivImgWrap.addEventListener('click', (e) => {
+            if (isPinching) return;
             isZoomed = !isZoomed;
             ivImgWrap.classList.toggle('is-zoomed', isZoomed);
             if (isZoomed) {
                 updateZoomOrigin(e);
             } else {
-                ivImg.style.transformOrigin = 'center center';
+                resetZoom();
             }
         });
 
         ivImgWrap.addEventListener('mousemove', (e) => {
-            if (isZoomed) {
+            if (isZoomed && !isPinching) {
                 updateZoomOrigin(e);
+            }
+        });
+
+        // Touch Pinch-to-Zoom & Double-Tap Zoom for Mobile
+        ivImgWrap.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 2) {
+                isPinching = true;
+                touchStartDist = getTouchDist(e);
+            } else if (e.touches.length === 1) {
+                const now = Date.now();
+                if (now - lastTapTime < 300) {
+                    e.preventDefault();
+                    isZoomed = !isZoomed;
+                    ivImgWrap.classList.toggle('is-zoomed', isZoomed);
+                    if (isZoomed) {
+                        const rect = ivImgWrap.getBoundingClientRect();
+                        const x = ((e.touches[0].clientX - rect.left) / rect.width) * 100;
+                        const y = ((e.touches[0].clientY - rect.top) / rect.height) * 100;
+                        ivImg.style.transformOrigin = `${x}% ${y}%`;
+                    } else {
+                        resetZoom();
+                    }
+                }
+                lastTapTime = now;
+            }
+        }, { passive: false });
+
+        ivImgWrap.addEventListener('touchmove', (e) => {
+            if (isPinching && e.touches.length === 2 && ivImg) {
+                e.preventDefault();
+                const currentDist = getTouchDist(e);
+                if (touchStartDist > 0) {
+                    const factor = currentDist / touchStartDist;
+                    touchScale = Math.min(Math.max(1, touchScale * factor), 4);
+                    touchStartDist = currentDist;
+                    ivImg.style.transform = `scale(${touchScale})`;
+                    ivImgWrap.classList.toggle('is-zoomed', touchScale > 1.05);
+                }
+            }
+        }, { passive: false });
+
+        ivImgWrap.addEventListener('touchend', (e) => {
+            if (e.touches.length < 2 && isPinching) {
+                isPinching = false;
+                if (touchScale <= 1.05) {
+                    resetZoom();
+                }
             }
         });
     }
