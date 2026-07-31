@@ -2165,7 +2165,8 @@ button {
 @media (max-width: 700px) {
     .iv-panel {
         width: 98vw;
-        max-height: 88vh;
+        max-height: 96vh;
+        height: 96vh;
         border-radius: 10px;
     }
 
@@ -2225,7 +2226,20 @@ button {
     }
 
     .iv-img-wrap {
-        max-height: 78vh;
+        flex: 1;
+        min-height: 0;
+        max-height: none;
+    }
+
+    .iv-img {
+        max-height: none;
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+    }
+
+    .iv-ambient-glow {
+        filter: blur(60px) saturate(1.6) opacity(0.55);
     }
 }
 
