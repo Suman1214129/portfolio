@@ -2120,24 +2120,35 @@ button {
 }
 
 /* ============================================
-   BRANDING GRID
+   BRANDING MASONRY GRID (Pinterest-style layout)
    ============================================ */
 .branding-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    column-count: 2;
+    column-gap: 16px;
     padding-top: 4px;
 }
 
 .branding-card {
     position: relative;
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
-    background: var(--surface-elevated);
+    background: var(--surface);
     border: 1px solid var(--border);
     cursor: pointer;
     opacity: 0;
     transform: translateY(14px);
+    break-inside: avoid;
+    margin-bottom: 16px;
+    display: block;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18), 0 2px 6px rgba(0, 0, 0, 0.12);
+    transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out), border-color 0.3s ease;
+}
+
+.branding-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3), 0 4px 12px var(--shadow-soft);
+    border-color: var(--accent);
 }
 
 /* Entrance animation — reuse existing cardFade */
@@ -2165,6 +2176,7 @@ button {
     width: 100%;
     overflow: hidden;
     line-height: 0;
+    border-radius: 11px;
 }
 
 .branding-img {
@@ -2178,6 +2190,12 @@ button {
 }
 
 .branding-card:hover .branding-img {
-    transform: scale(1.04);
+    transform: scale(1.03);
     filter: brightness(1);
+}
+
+@media (max-width: 600px) {
+    .branding-grid {
+        column-count: 1;
+    }
 }
