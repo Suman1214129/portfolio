@@ -2165,8 +2165,8 @@ button {
 @media (max-width: 700px) {
     .iv-panel {
         width: 98vw;
-        max-height: 96vh;
-        height: 96vh;
+        max-height: 90vh;
+        height: 90vh;
         border-radius: 10px;
     }
 
