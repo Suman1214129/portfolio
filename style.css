@@ -622,7 +622,7 @@ button {
 }
 
 .design-text {
-    font-family: var(--font-sans);
+    font-family: var(--font-mono);
     font-size: 1.5rem;
     font-weight: 600;
     letter-spacing: 0.16em;
@@ -1030,6 +1030,7 @@ button {
 .about-lead {
     font-family: var(--font-heading);
     font-size: 1.4rem;
+    font-style: italic;
     color: var(--text);
     line-height: 1.5;
     margin-bottom: 24px;
@@ -1037,7 +1038,6 @@ button {
 
 .about-lead em {
     color: var(--accent);
-    font-style: normal;
 }
 
 .about-body {
@@ -1180,6 +1180,7 @@ button {
 .about-quote {
     font-family: var(--font-serif);
     font-size: 1.1rem;
+    font-style: italic;
     color: var(--accent);
     margin-bottom: 20px;
     padding-left: 14px;
