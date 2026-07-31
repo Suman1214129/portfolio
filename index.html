@@ -532,27 +532,29 @@
         </div>
     </div>
 
-    <!-- ========== SUDOKU — floating window ========== -->
-    <div class="win-window" id="win-window">
-        <div class="win-titlebar" id="win-titlebar">
-            <span class="win-title-text">sudoku</span>
-            <button class="win-ctrl-btn win-close" id="win-close">✕</button>
-        </div>
-        <div class="win-body">
-            <div class="sudoku-grid" id="sudoku-grid"></div>
-            <div class="sudoku-controls">
-                <div class="sudoku-numpad" id="sudoku-numpad">
-                    <button class="num-btn" data-num="1">1</button>
-                    <button class="num-btn" data-num="2">2</button>
-                    <button class="num-btn" data-num="3">3</button>
-                    <button class="num-btn erase-btn" data-num="0">✕</button>
-                    <button class="num-btn" data-num="4">4</button>
-                    <button class="num-btn" data-num="5">5</button>
-                    <button class="num-btn" data-num="6">6</button>
-                    <button class="num-btn undo-btn" id="undo-btn">↺</button>
-                </div>
+    <!-- ========== SUDOKU MODAL ========== -->
+    <div class="sudoku-overlay" id="sudoku-overlay">
+        <div class="win-window" id="win-window">
+            <div class="win-titlebar" id="win-titlebar">
+                <span class="win-title-text">sudoku</span>
+                <button class="win-ctrl-btn win-close" id="win-close">✕</button>
             </div>
-            <div class="sudoku-win-msg" id="sudoku-win-msg">done. ✓</div>
+            <div class="win-body">
+                <div class="sudoku-grid" id="sudoku-grid"></div>
+                <div class="sudoku-controls">
+                    <div class="sudoku-numpad" id="sudoku-numpad">
+                        <button class="num-btn" data-num="1">1</button>
+                        <button class="num-btn" data-num="2">2</button>
+                        <button class="num-btn" data-num="3">3</button>
+                        <button class="num-btn erase-btn" data-num="0">✕</button>
+                        <button class="num-btn" data-num="4">4</button>
+                        <button class="num-btn" data-num="5">5</button>
+                        <button class="num-btn" data-num="6">6</button>
+                        <button class="num-btn undo-btn" id="undo-btn">↺</button>
+                    </div>
+                </div>
+                <div class="sudoku-win-msg" id="sudoku-win-msg">done. ✓</div>
+            </div>
         </div>
     </div>
 
@@ -585,21 +587,20 @@
     <div class="iv-overlay" id="iv-overlay" role="dialog" aria-modal="true" aria-label="Image viewer">
         <div class="iv-backdrop" id="iv-backdrop"></div>
 
-        <!-- Close button -->
-        <button class="iv-close" id="iv-close" aria-label="Close viewer">
-            <i class="ph ph-x"></i>
-        </button>
-
-        <!-- Prev/Next nav (outside panel, over backdrop) -->
-        <button class="iv-nav iv-prev" id="iv-prev" aria-label="Previous design">
-            <i class="ph ph-arrow-left"></i>
-        </button>
-        <button class="iv-nav iv-next" id="iv-next" aria-label="Next design">
-            <i class="ph ph-arrow-right"></i>
-        </button>
-
         <!-- Main panel -->
         <div class="iv-panel" id="iv-panel">
+            <!-- Header (matches notes-header) -->
+            <div class="iv-header">
+                <div class="iv-header-left">
+                    <span class="iv-tag" id="iv-tag"></span>
+                    <div class="iv-nav-group">
+                        <button class="iv-nav-btn" id="iv-prev" aria-label="Previous design">←</button>
+                        <button class="iv-nav-btn" id="iv-next" aria-label="Next design">→</button>
+                    </div>
+                </div>
+                <button class="notes-close-btn iv-close-btn" id="iv-close" aria-label="Close viewer">✕</button>
+            </div>
+
             <!-- Image area -->
             <div class="iv-img-wrap" id="iv-img-wrap">
                 <div class="iv-img-inner">
@@ -610,12 +611,9 @@
                 </div>
             </div>
 
-            <!-- Info bar -->
-            <div class="iv-info" id="iv-info">
-                <div class="iv-info-left">
-                    <span class="iv-tag" id="iv-tag"></span>
-                    <p class="iv-desc" id="iv-desc"></p>
-                </div>
+            <!-- Footer (matches notes-footer / info) -->
+            <div class="iv-footer" id="iv-info">
+                <p class="iv-desc" id="iv-desc"></p>
                 <div class="iv-info-actions">
                     <a class="iv-action-btn" id="iv-dribbble-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="View on Dribbble">
                         <img src="assets/dribbble-logo.svg" alt="" class="iv-action-icon">

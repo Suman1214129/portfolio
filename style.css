@@ -1468,6 +1468,30 @@ button {
 }
 
 /* ============================================
+   SUDOKU MODAL OVERLAY
+   ============================================ */
+.sudoku-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--overlay);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.sudoku-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* ============================================
    SEND NOTES MODAL
    ============================================ */
 .notes-overlay {
@@ -1877,74 +1901,80 @@ button {
 }
 
 /* ============================================
-   IMAGE VIEWER — Close Button
+   IMAGE VIEWER — Header (matches Send Notes header layout & UI)
    ============================================ */
-.iv-close {
-    position: fixed;
-    top: 24px;
-    right: 28px;
-    z-index: 1010;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
+.iv-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
     background: var(--surface);
+    flex-shrink: 0;
+}
+
+.iv-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.iv-tag {
+    font-family: var(--font-serif, 'Instrument Serif', serif);
+    font-size: 0.95rem;
+    color: var(--accent);
+    white-space: nowrap;
+}
+
+.iv-nav-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--surface-elevated);
     border: 1px solid var(--border);
-    color: var(--text-muted);
+    border-radius: 6px;
+    padding: 2px;
+}
+
+.iv-nav-btn {
+    width: 26px;
+    height: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    border-radius: 4px;
     cursor: pointer;
-    box-shadow: 0 4px 12px var(--shadow-soft);
-    transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    transition: color 0.2s ease, background 0.2s ease;
 }
 
-.iv-close:hover {
-    color: var(--error);
-    background: var(--surface-hover);
-    border-color: var(--border);
-}
-
-/* ============================================
-   IMAGE VIEWER — Prev / Next Nav
-   ============================================ */
-.iv-nav {
-    position: fixed;
-    top: 50%;
-    z-index: 1010;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 15px;
-    cursor: pointer;
-    transform: translateY(-50%);
-    box-shadow: 0 4px 12px var(--shadow-soft);
-    transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
-}
-
-.iv-prev {
-    left: clamp(12px, 3vw, 40px);
-}
-
-.iv-next {
-    right: clamp(12px, 3vw, 40px);
-}
-
-.iv-nav:hover {
+.iv-nav-btn:hover {
     color: var(--text);
     background: var(--surface-hover);
-    border-color: var(--accent);
 }
 
-.iv-nav.iv-nav-disabled {
-    opacity: 0.18 !important;
+.iv-nav-btn.iv-nav-disabled {
+    opacity: 0.25;
     pointer-events: none;
+}
+
+.iv-close-btn {
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.55rem;
+    color: var(--text-muted);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: color 0.2s ease, background 0.2s ease;
+}
+
+.iv-close-btn:hover {
+    color: var(--error);
+    background: var(--surface-hover);
 }
 
 /* ============================================
@@ -2043,14 +2073,14 @@ button {
 }
 
 /* ============================================
-   IMAGE VIEWER — Info Bar
+   IMAGE VIEWER — Footer (matches Send Notes footer layout)
    ============================================ */
-.iv-info {
+.iv-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 24px;
-    padding: 16px 20px;
+    padding: 14px 18px;
     background: var(--surface);
     border-top: 1px solid var(--border);
     flex-shrink: 0;

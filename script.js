@@ -273,14 +273,13 @@ monkeyWrapper.addEventListener('mouseenter', () => {
 
 monkeyImg.addEventListener('click', openSudokuWindow);
 
-// ============================================
-// SUDOKU — FLOATING WINDOW (no overlay)
-// ============================================
+const sudokuOverlay = document.getElementById('sudoku-overlay');
 const winWindow = document.getElementById('win-window');
 const winClose = document.getElementById('win-close');
 const winTitlebar = document.getElementById('win-titlebar');
 
 function openSudokuWindow() {
+    if (sudokuOverlay) sudokuOverlay.classList.add('active');
     winWindow.style.left = '50%';
     winWindow.style.top = '50%';
     winWindow.style.transform = 'translate(-50%, -50%) scale(1)';
@@ -289,10 +288,16 @@ function openSudokuWindow() {
 }
 
 function closeSudokuWindow() {
+    if (sudokuOverlay) sudokuOverlay.classList.remove('active');
     winWindow.classList.remove('active');
 }
 
-winClose.addEventListener('click', closeSudokuWindow);
+if (winClose) winClose.addEventListener('click', closeSudokuWindow);
+if (sudokuOverlay) {
+    sudokuOverlay.addEventListener('click', (e) => {
+        if (e.target === sudokuOverlay) closeSudokuWindow();
+    });
+}
 
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') { closeSudokuWindow(); closeNotesModal(); }
