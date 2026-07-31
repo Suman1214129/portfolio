@@ -44,8 +44,10 @@ const navLinks = document.querySelectorAll('.nav-link[data-page]');
 const pageWork = document.getElementById('page-work');
 const pageAbout = document.getElementById('page-about');
 const pageProjects = document.getElementById('page-projects');
+const pageBranding = document.getElementById('page-branding');
 const rightSection = document.getElementById('right-section');
 const toggleDesigns = document.getElementById('toggle-designs');
+const toggleBranding = document.getElementById('toggle-branding');
 const toggleProjects = document.getElementById('toggle-projects');
 
 function switchPage(page) {
@@ -63,12 +65,15 @@ function switchPage(page) {
         pageWork.classList.remove('active');
         pageAbout.classList.remove('active');
         if (pageProjects) pageProjects.classList.remove('active');
+        if (pageBranding) pageBranding.classList.remove('active');
 
         if (page === 'work') {
             document.getElementById('works-toggle-container').style.display = 'inline-flex';
             document.getElementById('about-title').style.display = 'none';
-            if (toggleProjects.checked) {
+            if (toggleProjects && toggleProjects.checked) {
                 pageProjects.classList.add('active');
+            } else if (toggleBranding && toggleBranding.checked) {
+                pageBranding.classList.add('active');
             } else {
                 pageWork.classList.add('active');
             }
@@ -98,15 +103,14 @@ function handleWorksToggle() {
     // Only switch if we are currently on the 'work' tab section
     const activeLink = document.querySelector('.nav-link.active');
     if (activeLink && activeLink.dataset.page !== 'work') return;
-    
+
     // Reuse switchPage with 'work' to run the transition logic
     switchPage('work');
 }
 
-if (toggleDesigns && toggleProjects) {
-    toggleDesigns.addEventListener('change', handleWorksToggle);
-    toggleProjects.addEventListener('change', handleWorksToggle);
-}
+if (toggleDesigns) toggleDesigns.addEventListener('change', handleWorksToggle);
+if (toggleBranding) toggleBranding.addEventListener('change', handleWorksToggle);
+if (toggleProjects) toggleProjects.addEventListener('change', handleWorksToggle);
 
 // Click logo → go back to Work (home)
 document.getElementById('nav-logo').addEventListener('click', () => {
@@ -422,3 +426,167 @@ document.addEventListener('keydown', (e) => {
 });
 
 initSudoku();
+
+// ============================================
+// IMAGE VIEWER MODAL — with prev/next nav
+// ============================================
+(function () {
+    const ivOverlay   = document.getElementById('iv-overlay');
+    const ivBackdrop  = document.getElementById('iv-backdrop');
+    const ivClose     = document.getElementById('iv-close');
+    const ivPrev      = document.getElementById('iv-prev');
+    const ivNext      = document.getElementById('iv-next');
+    const ivImg       = document.getElementById('iv-img');
+    const ivImgLoader = document.getElementById('iv-img-loader');
+    const ivTag       = document.getElementById('iv-tag');
+    const ivDesc      = document.getElementById('iv-desc');
+    const ivDribbble  = document.getElementById('iv-dribbble-link');
+    const ivBehance   = document.getElementById('iv-behance-link');
+
+    if (!ivOverlay) return;
+
+    // Collect all triggers in DOM order
+    const triggers = Array.from(document.querySelectorAll('.img-viewer-trigger'));
+    let currentIndex = 0;
+
+    function loadImage(index, direction) {
+        const trigger  = triggers[index];
+        const src      = trigger.dataset.img || '';
+        const title    = trigger.dataset.title || '';
+        const desc     = trigger.dataset.desc || '';
+        const dribbble = trigger.dataset.dribbble || '#';
+        const behance  = trigger.dataset.behance || '#';
+
+        // Direction-aware slide: fade out current image
+        const slideOut = direction === 'next' ? '-8px' : '8px';
+        ivImg.style.transition = 'opacity 0.18s ease, transform 0.18s ease';
+        ivImg.style.opacity    = '0';
+        ivImg.style.transform  = `translateX(${slideOut})`;
+
+        setTimeout(() => {
+            // Populate info
+            ivTag.textContent  = title;
+            ivDesc.textContent = desc;
+            ivDesc.style.display = desc ? '' : 'none';
+            ivDribbble.href    = dribbble;
+            ivBehance.href     = behance;
+            // Hide action links if no external URL provided (e.g., branding cards)
+            const hasLinks = dribbble !== '#' || behance !== '#';
+            ivDribbble.style.display = dribbble !== '#' ? '' : 'none';
+            ivBehance.style.display  = behance  !== '#' ? '' : 'none';
+            document.querySelector('.iv-info-actions').style.display = hasLinks ? '' : 'none';
+
+            // Show spinner
+            ivImgLoader.classList.remove('iv-hidden');
+
+            // Reset image transform for slide-in direction
+            const slideIn = direction === 'next' ? '8px' : '-8px';
+            ivImg.style.transition = 'none';
+            ivImg.style.transform  = `translateX(${slideIn})`;
+
+            // Load HD image
+            const tmp = new Image();
+            tmp.onload = () => {
+                ivImg.src = src;
+                ivImg.alt = title;
+                requestAnimationFrame(() => {
+                    ivImg.style.transition = 'opacity 0.32s ease, transform 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    ivImg.style.opacity    = '1';
+                    ivImg.style.transform  = 'translateX(0)';
+                    ivImg.classList.add('iv-loaded');
+                    setTimeout(() => ivImgLoader.classList.add('iv-hidden'), 60);
+                });
+            };
+            tmp.onerror = () => {
+                // fallback to compressed thumb (.project-img-real or .branding-img)
+                const thumb = trigger.querySelector('.project-img-real, .branding-img');
+                if (thumb) { ivImg.src = thumb.src; ivImg.alt = title; }
+                ivImg.style.transition = 'opacity 0.32s ease, transform 0.32s ease';
+                ivImg.style.opacity    = '1';
+                ivImg.style.transform  = 'translateX(0)';
+                ivImg.classList.add('iv-loaded');
+                ivImgLoader.classList.add('iv-hidden');
+            };
+            tmp.src = src;
+        }, 180);
+
+        // Update nav disabled states
+        updateNavState(index);
+    }
+
+    function updateNavState(index) {
+        ivPrev.classList.toggle('iv-nav-disabled', index === 0);
+        ivNext.classList.toggle('iv-nav-disabled', index === triggers.length - 1);
+    }
+
+    function openViewer(index) {
+        currentIndex = index;
+
+        // Full reset for fresh open
+        ivImg.src = '';
+        ivImg.style.transition = 'none';
+        ivImg.style.opacity    = '0';
+        ivImg.style.transform  = 'translateX(0)';
+        ivImg.classList.remove('iv-loaded');
+        ivImgLoader.classList.remove('iv-hidden');
+
+        ivOverlay.classList.add('iv-active');
+        document.body.style.overflow = 'hidden';
+
+        // Load first image with no direction offset
+        loadImage(index, 'none');
+    }
+
+    function closeViewer() {
+        ivOverlay.classList.remove('iv-active');
+        document.body.style.overflow = '';
+        setTimeout(() => {
+            ivImg.src = '';
+            ivImg.style.opacity   = '0';
+            ivImg.style.transform = 'translateX(0)';
+            ivImg.classList.remove('iv-loaded');
+            ivImgLoader.classList.remove('iv-hidden');
+        }, 420);
+    }
+
+    function goNext() {
+        if (currentIndex < triggers.length - 1) {
+            currentIndex++;
+            loadImage(currentIndex, 'next');
+        }
+    }
+
+    function goPrev() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            loadImage(currentIndex, 'prev');
+        }
+    }
+
+    // Attach click to thumbnails
+    triggers.forEach((trigger, i) => {
+        trigger.addEventListener('click', () => openViewer(i));
+        trigger.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openViewer(i);
+            }
+        });
+    });
+
+    // Nav buttons
+    ivNext.addEventListener('click', goNext);
+    ivPrev.addEventListener('click', goPrev);
+
+    // Close handlers
+    ivClose.addEventListener('click', closeViewer);
+    ivBackdrop.addEventListener('click', closeViewer);
+
+    // Keyboard: ESC closes, arrows navigate
+    document.addEventListener('keydown', (e) => {
+        if (!ivOverlay.classList.contains('iv-active')) return;
+        if (e.key === 'Escape')      closeViewer();
+        if (e.key === 'ArrowRight')  goNext();
+        if (e.key === 'ArrowLeft')   goPrev();
+    });
+})();

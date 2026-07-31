@@ -118,6 +118,9 @@
                                 <input type="radio" id="toggle-designs" name="works-switch" value="designs" checked>
                                 <label for="toggle-designs" class="toggle-label">my designs</label>
 
+                                <input type="radio" id="toggle-branding" name="works-switch" value="branding">
+                                <label for="toggle-branding" class="toggle-label">branding</label>
+
                                 <input type="radio" id="toggle-projects" name="works-switch" value="projects">
                                 <label for="toggle-projects" class="toggle-label">projects</label>
 
@@ -321,7 +324,15 @@
                     <div class="projects-container">
                         <!-- Project 1: Osmium -->
                         <div class="project-card">
-                            <div class="project-image design-card-bg">
+                            <div class="project-image design-card-bg img-viewer-trigger"
+                                data-img="assets/osmium-mockup.jpg"
+                                data-title="Osmium | AI-Powered Learning"
+                                data-desc="Osmium is built to make learning feel clear, focused, and personal. It combines AI-guided courses, smart test analysis, and adaptive learning into one seamless experience."
+                                data-dribbble="https://dribbble.com/shots/27191514-Osmium-AI-Powered-Learning-That-Feels-Personal"
+                                data-behance="https://www.behance.net/gallery/246683455/Osmium-AI-Powered-Learning-That-Feels-Personal"
+                                aria-label="View Osmium project"
+                                role="button"
+                                tabindex="0">
                                 <img src="assets/osmium-mockup.jpg" alt="Osmium AI-Powered Learning UI"
                                     class="project-img-real">
                             </div>
@@ -349,7 +360,15 @@
 
                         <!-- Project 2: Natraj -->
                         <div class="project-card">
-                            <div class="project-image design-card-bg">
+                            <div class="project-image design-card-bg img-viewer-trigger"
+                                data-img="assets/natraj-ui.png"
+                                data-title="NATRAJ — AR Anatomy Learning Mobile UI"
+                                data-desc="NATRAJ is an AR + AI-powered anatomy learning platform designed to make human biology interactive and accessible. The UI showcases real-time body scanning, 3D anatomy exploration, and AI-assisted learning."
+                                data-dribbble="https://dribbble.com/shots/27235652-NATRAJ-AR-Anatomy-Learning-Mobile-UI"
+                                data-behance="https://www.behance.net/6b52aa6f"
+                                aria-label="View NATRAJ project"
+                                role="button"
+                                tabindex="0">
                                 <img src="assets/natraj-ui.jpg" alt="Natraj Cultural Experience UI"
                                     class="project-img-real">
                             </div>
@@ -380,7 +399,15 @@
 
                         <!-- Project 3: HomeGuru -->
                         <div class="project-card">
-                            <div class="project-image design-card-bg">
+                            <div class="project-image design-card-bg img-viewer-trigger"
+                                data-img="assets/HOMEGURU.png"
+                                data-title="HomeGuru — Student Dashboard"
+                                data-desc="HomeGuru is a global one-to-one tutoring marketplace where students find, book, and learn from expert tutors across any subject. The dashboard gives learners a clean hub to track sessions, manage bookings, join live classes, and follow progress."
+                                data-dribbble="https://dribbble.com/shots/27228497-HomeGuru-Student-Dashboard"
+                                data-behance="https://www.behance.net/gallery/246700937/HomeGuru-Student-Dashboard"
+                                aria-label="View HomeGuru project"
+                                role="button"
+                                tabindex="0">
                                 <img src="assets/HOMEGURU.jpg" alt="HomeGuru Dashboard UI" class="project-img-real">
                             </div>
                             <div class="project-info">
@@ -406,6 +433,61 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- ===== BRANDING PAGE ===== -->
+                <div class="page-content" id="page-branding">
+                    <div class="branding-grid">
+
+                        <div class="branding-card img-viewer-trigger"
+                            data-img="assets/POST.png"
+                            data-title="Brand Poster"
+                            data-desc=""
+                            data-dribbble="#"
+                            data-behance="#"
+                            role="button" tabindex="0" aria-label="View Brand Poster">
+                            <div class="branding-card-inner">
+                                <img src="assets/POST.png" alt="Brand Poster" class="branding-img">
+                            </div>
+                        </div>
+
+                        <div class="branding-card img-viewer-trigger"
+                            data-img="assets/post 3 (1).png"
+                            data-title="Brand Poster 3"
+                            data-desc=""
+                            data-dribbble="#"
+                            data-behance="#"
+                            role="button" tabindex="0" aria-label="View Brand Poster 3">
+                            <div class="branding-card-inner">
+                                <img src="assets/post 3 (1).png" alt="Brand Poster 3" class="branding-img">
+                            </div>
+                        </div>
+
+                        <div class="branding-card img-viewer-trigger"
+                            data-img="assets/post 4.png"
+                            data-title="Brand Poster 4"
+                            data-desc=""
+                            data-dribbble="#"
+                            data-behance="#"
+                            role="button" tabindex="0" aria-label="View Brand Poster 4">
+                            <div class="branding-card-inner">
+                                <img src="assets/post 4.png" alt="Brand Poster 4" class="branding-img">
+                            </div>
+                        </div>
+
+                        <div class="branding-card img-viewer-trigger"
+                            data-img="assets/POST 5 FRONT.png"
+                            data-title="Brand Poster 5"
+                            data-desc=""
+                            data-dribbble="#"
+                            data-behance="#"
+                            role="button" tabindex="0" aria-label="View Brand Poster 5">
+                            <div class="branding-card-inner">
+                                <img src="assets/POST 5 FRONT.png" alt="Brand Poster 5" class="branding-img">
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -495,6 +577,57 @@
             </div>
             <div class="notes-footer" id="notes-footer">
                 <button class="notes-send-btn" id="notes-send">send →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== IMAGE VIEWER MODAL ========== -->
+    <div class="iv-overlay" id="iv-overlay" role="dialog" aria-modal="true" aria-label="Image viewer">
+        <div class="iv-backdrop" id="iv-backdrop"></div>
+
+        <!-- Close button -->
+        <button class="iv-close" id="iv-close" aria-label="Close viewer">
+            <i class="ph ph-x"></i>
+        </button>
+
+        <!-- Prev/Next nav (outside panel, over backdrop) -->
+        <button class="iv-nav iv-prev" id="iv-prev" aria-label="Previous design">
+            <i class="ph ph-arrow-left"></i>
+        </button>
+        <button class="iv-nav iv-next" id="iv-next" aria-label="Next design">
+            <i class="ph ph-arrow-right"></i>
+        </button>
+
+        <!-- Main panel -->
+        <div class="iv-panel" id="iv-panel">
+            <!-- Image area -->
+            <div class="iv-img-wrap" id="iv-img-wrap">
+                <div class="iv-img-inner">
+                    <img class="iv-img" id="iv-img" src="" alt="" draggable="false">
+                    <div class="iv-img-loader" id="iv-img-loader">
+                        <div class="iv-spinner"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info bar -->
+            <div class="iv-info" id="iv-info">
+                <div class="iv-info-left">
+                    <span class="iv-tag" id="iv-tag"></span>
+                    <p class="iv-desc" id="iv-desc"></p>
+                </div>
+                <div class="iv-info-actions">
+                    <a class="iv-action-btn" id="iv-dribbble-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="View on Dribbble">
+                        <img src="assets/dribbble-logo.svg" alt="" class="iv-action-icon">
+                        <span>Dribbble</span>
+                        <i class="ph ph-arrow-up-right iv-action-arrow"></i>
+                    </a>
+                    <a class="iv-action-btn" id="iv-behance-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="View on Behance">
+                        <img src="assets/behance-logo.svg" alt="" class="iv-action-icon">
+                        <span>Behance</span>
+                        <i class="ph ph-arrow-up-right iv-action-arrow"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

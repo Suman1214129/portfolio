@@ -21,9 +21,9 @@
     --tag-bg: #1a2e22;
     --tag-text: #dedede;
     --font-mono: 'JetBrains Mono', monospace;
-    --font-serif: 'Averia Serif Libre', serif;
+    --font-serif: 'Instrument Serif', serif;
     --font-sans: 'Inter', sans-serif;
-    --font-heading: 'Averia Serif Libre', serif;
+    --font-heading: 'Instrument Serif', serif;
     --frame-margin: 160px;
     --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
     --btn-border: #333333;
@@ -53,7 +53,7 @@
     --sudoku-box-border: #383838;
     --placeholder: #2a2a2a;
     --illus-brightness: 1.2;
-    --illus-opacity: 0.78;
+    --illus-opacity: 0.68;
     --project-icon-filter: grayscale(1) invert(0.8);
     --framer-filter: invert(0.9);
     --profile-shadow: rgba(0, 0, 0, 0.08);
@@ -99,8 +99,8 @@
     --sudoku-error-bg: #fdecea;
     --sudoku-box-border: #c8c8c4;
     --placeholder: #b0b0ac;
-    --illus-brightness: 0.85;
-    --illus-opacity: 0.65;
+    --illus-brightness: 0.45;
+    --illus-opacity: 0.35;
     --project-icon-filter: grayscale(1) brightness(0.35);
     --framer-filter: none;
     --profile-shadow: rgba(0, 0, 0, 0.06);
@@ -271,7 +271,7 @@ button {
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 }
 
 .slider .circle::before {
@@ -535,10 +535,10 @@ button {
 .architecture-illustration {
     position: absolute;
     bottom: 0;
-    left: 60%;
+    left: 70%;
     transform: translateX(-50%);
     width: 100%;
-    max-width: 400px;
+    max-width: 350px;
     pointer-events: none;
     opacity: var(--illus-opacity);
     filter: brightness(var(--illus-brightness));
@@ -648,13 +648,13 @@ button {
 
 .works-toggle {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     position: relative;
     background: var(--surface-elevated);
     border: 1px solid var(--border);
     border-radius: 99px;
     padding: 2px;
-    width: 200px;
+    width: 290px;
 }
 
 .works-toggle input[type="radio"] {
@@ -676,7 +676,7 @@ button {
     text-align: center;
 }
 
-.works-toggle input[type="radio"]:checked + .toggle-label {
+.works-toggle input[type="radio"]:checked+.toggle-label {
     color: var(--bg);
 }
 
@@ -685,15 +685,19 @@ button {
     top: 2px;
     bottom: 2px;
     left: 2px;
-    width: calc(50% - 2px);
+    width: calc(33.333% - 2px);
     background: var(--accent);
     border-radius: 99px;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1;
 }
 
-#toggle-projects:checked ~ .works-toggle-slider {
+#toggle-branding:checked ~ .works-toggle-slider {
     transform: translateX(100%);
+}
+
+#toggle-projects:checked ~ .works-toggle-slider {
+    transform: translateX(200%);
 }
 
 .scroll-progress {
@@ -807,7 +811,7 @@ button {
 }
 
 .design-card-bg .project-img-real {
-    border-radius: 12px;
+    border-radius: 4px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
     border: 1px solid var(--border);
 }
@@ -848,7 +852,7 @@ button {
     background: var(--tag-bg);
     color: var(--tag-text);
     font-family: var(--font-serif);
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     margin-bottom: 10px;
 }
 
@@ -909,123 +913,127 @@ button {
 
 /* Tooltip container for monkey */
 .tooltip-container {
-  --background: #333333;
-  --color: #e8e8e8;
-  position: relative;
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--color);
-  padding: 0;
-  border-radius: 8px;
-  text-transform: uppercase;
-  height: 40px;
-  width: 40px;
-  display: grid;
-  place-items: center;
-  border: 2px solid transparent;
+    --background: #333333;
+    --color: #e8e8e8;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color);
+    padding: 0;
+    border-radius: 8px;
+    text-transform: uppercase;
+    height: 40px;
+    width: 40px;
+    display: grid;
+    place-items: center;
+    border: 2px solid transparent;
 }
 
 .text {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: grid;
-  place-items: center;
-  transform-origin: -100%;
-  transform: scale(1);
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    transform-origin: -100%;
+    transform: scale(1);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .tooltip-container span:last-child {
-  position: absolute;
-  top: 0%;
-  left: 100%;
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  opacity: 1;
-  background-color: var(--background);
-  z-index: -1;
-  border: 2px solid var(--background);
-  transform: scale(0);
-  transform-origin: 0;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  display: grid;
-  place-items: center;
+    position: absolute;
+    top: 0%;
+    left: 100%;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    opacity: 1;
+    background-color: var(--background);
+    z-index: -1;
+    border: 2px solid var(--background);
+    transform: scale(0);
+    transform-origin: 0;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    display: grid;
+    place-items: center;
 }
 
 .tooltip {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 0.3em 0.6em;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  background: var(--background);
-  z-index: 10;
-  border-radius: 8px;
-  scale: 0;
-  transform-origin: 0 0;
-  text-transform: capitalize;
-  font-weight: 400;
-  font-size: 10px;
-  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
-  white-space: nowrap;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.3em 0.6em;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    background: var(--background);
+    z-index: 10;
+    border-radius: 8px;
+    scale: 0;
+    transform-origin: 0 0;
+    text-transform: capitalize;
+    font-weight: 400;
+    font-size: 10px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    white-space: nowrap;
 }
 
 .tooltip::before {
-  position: absolute;
-  content: "";
-  height: 0.6em;
-  width: 0.6em;
-  bottom: -0.2em;
-  left: 50%;
-  transform: translate(-50%) rotate(45deg);
-  background: var(--background);
+    position: absolute;
+    content: "";
+    height: 0.6em;
+    width: 0.6em;
+    bottom: -0.2em;
+    left: 50%;
+    transform: translate(-50%) rotate(45deg);
+    background: var(--background);
 }
 
 .tooltip-container:hover .tooltip {
-  top: -100%;
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  scale: 1;
-  animation: shake 0.5s ease-in-out both;
+    top: -100%;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    scale: 1;
+    animation: shake 0.5s ease-in-out both;
 }
 
 .tooltip-container:hover {
-  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
-  color: white;
-  border-color: transparent;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    color: white;
+    border-color: transparent;
 }
 
 .tooltip-container:hover span:last-child {
-  transform: scale(1);
-  left: 0;
+    transform: scale(1);
+    left: 0;
 }
 
 @keyframes shake {
-  0% {
-    rotate: 0;
-  }
-  25% {
-    rotate: 7deg;
-  }
-  50% {
-    rotate: -7deg;
-  }
-  75% {
-    rotate: 1deg;
-  }
-  100% {
-    rotate: 0;
-  }
+    0% {
+        rotate: 0;
+    }
+
+    25% {
+        rotate: 7deg;
+    }
+
+    50% {
+        rotate: -7deg;
+    }
+
+    75% {
+        rotate: 1deg;
+    }
+
+    100% {
+        rotate: 0;
+    }
 }
 
 .about-divider {
@@ -1735,7 +1743,7 @@ button {
         right: -30px;
         left: auto;
         transform: none;
-        opacity: 0.55;
+        opacity: 0.45;
         z-index: 0;
         pointer-events: none;
         width: 280px;
@@ -1761,62 +1769,557 @@ button {
     }
 }
 
-/* From Uiverse.io by 20essentials */ 
+/* From Uiverse.io by 20essentials */
 .loader {
-  --size: 100px;
-  width: var(--size);
-  height: var(--size);
-  position: absolute;
-  top: 35%;
-  left: 50%;
-  transform-origin: 50% 100%;
-  transform-style: preserve-3d;
-  perspective: 5000px;
-  animation: rotar 10s linear infinite alternate both;
-
-  .side {
+    --size: 100px;
     width: var(--size);
     height: var(--size);
     position: absolute;
-    background: repeating-linear-gradient(
-        to right,
-        transparent 1% 9%,
-        var(--accent) 9% 10%
-      ),
-      repeating-linear-gradient(to top, transparent 1% 9%, var(--accent) 9% 10%);
-    background-color: #0008;
-  }
-
-  .behind {
-    transform: translateZ(calc(-1 * var(--size)));
-  }
-
-  .right {
-    transform-origin: 100% 50%;
-    transform: rotateY(-90deg);
-  }
-
-  .left {
-    transform-origin: 0% 50%;
-    transform: rotateY(90deg);
-  }
-
-  .top {
-    transform-origin: 50% 0;
-    transform: rotateX(-90deg);
-  }
-
-  .bottom {
+    top: 35%;
+    left: 50%;
     transform-origin: 50% 100%;
-    transform: rotateX(90deg);
-  }
+    transform-style: preserve-3d;
+    perspective: 5000px;
+    animation: rotar 10s linear infinite alternate both;
+
+    .side {
+        width: var(--size);
+        height: var(--size);
+        position: absolute;
+        background: repeating-linear-gradient(to right,
+                transparent 1% 9%,
+                var(--accent) 9% 10%),
+            repeating-linear-gradient(to top, transparent 1% 9%, var(--accent) 9% 10%);
+        background-color: #0008;
+    }
+
+    .behind {
+        transform: translateZ(calc(-1 * var(--size)));
+    }
+
+    .right {
+        transform-origin: 100% 50%;
+        transform: rotateY(-90deg);
+    }
+
+    .left {
+        transform-origin: 0% 50%;
+        transform: rotateY(90deg);
+    }
+
+    .top {
+        transform-origin: 50% 0;
+        transform: rotateX(-90deg);
+    }
+
+    .bottom {
+        transform-origin: 50% 100%;
+        transform: rotateX(90deg);
+    }
 }
 
 @keyframes rotar {
-  0% {
-    transform: translate(-50%, -50%) rotateX(0deg) rotateY(0deg);
-  }
-  100% {
-    transform: translate(-50%, -50%) rotateX(360deg) rotateY(360deg);
-  }
+    0% {
+        transform: translate(-50%, -50%) rotateX(0deg) rotateY(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotateX(360deg) rotateY(360deg);
+    }
+}
+
+
+/* ============================================
+   IMAGE VIEWER TRIGGER — Zoom on hover only
+   ============================================ */
+.img-viewer-trigger {
+    cursor: pointer;
+    position: relative;
+}
+
+.img-viewer-trigger:hover .project-img-real {
+    transform: scale(1.032);
+}
+
+.project-img-real {
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+
+/* ============================================
+   IMAGE VIEWER — Overlay & Backdrop
+   ============================================ */
+.iv-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        visibility 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.iv-overlay.iv-active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.iv-backdrop {
+    position: absolute;
+    inset: 0;
+
+    backdrop-filter: blur(28px) saturate(0.4) brightness(0.5);
+    -webkit-backdrop-filter: blur(28px) saturate(0.4) brightness(0.5);
+    cursor: pointer;
+}
+
+/* ============================================
+   IMAGE VIEWER — Close Button
+   ============================================ */
+.iv-close {
+    position: fixed;
+    top: 28px;
+    right: 32px;
+    z-index: 1010;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+    transform: scale(0.8) rotate(-90deg);
+    opacity: 0;
+}
+
+.iv-overlay.iv-active .iv-close {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+    transition: background 0.25s ease, color 0.25s ease,
+        transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s,
+        opacity 0.3s ease 0.1s, border-color 0.25s ease;
+}
+
+.iv-close:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #fff;
+    transform: scale(1.08) rotate(0deg) !important;
+}
+
+/* ============================================
+   IMAGE VIEWER — Prev / Next Nav
+   ============================================ */
+.iv-nav {
+    position: fixed;
+    top: 50%;
+    z-index: 1010;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(-50%) scale(0.75);
+    transition: background 0.22s ease, color 0.22s ease, border-color 0.22s ease,
+        transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1),
+        opacity 0.3s ease;
+}
+
+.iv-prev {
+    left: clamp(12px, 3vw, 40px);
+}
+
+.iv-next {
+    right: clamp(12px, 3vw, 40px);
+}
+
+.iv-overlay.iv-active .iv-nav {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+    transition: background 0.22s ease, color 0.22s ease, border-color 0.22s ease,
+        transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 0.12s,
+        opacity 0.3s ease 0.08s;
+}
+
+.iv-nav:hover {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.28);
+    color: #fff;
+    transform: translateY(-50%) scale(1.1) !important;
+}
+
+.iv-nav:active {
+    transform: translateY(-50%) scale(0.95) !important;
+}
+
+.iv-nav.iv-nav-disabled {
+    opacity: 0.18 !important;
+    pointer-events: none;
+}
+
+/* ============================================
+   IMAGE VIEWER — Panel
+   ============================================ */
+.iv-panel {
+    position: relative;
+    z-index: 1005;
+    width: min(88vw, 1140px);
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    transform: scale(0.88) translateY(24px);
+    opacity: 0;
+    transition: transform 0.45s cubic-bezier(0.34, 1.2, 0.64, 1),
+        opacity 0.35s ease;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.iv-overlay.iv-active .iv-panel {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+/* ============================================
+   IMAGE VIEWER — Image Area
+   ============================================ */
+.iv-img-wrap {
+    position: relative;
+    background: #0c0c0c;
+    overflow: hidden;
+    max-height: 68vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.iv-img-inner {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.iv-img {
+    width: 100%;
+    height: auto;
+    max-height: 68vh;
+    object-fit: contain;
+    display: block;
+    opacity: 0;
+    transition: opacity 0.45s ease, transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+}
+
+.iv-img.iv-loaded {
+    opacity: 1;
+}
+
+.iv-img-wrap:hover .iv-img.iv-loaded {
+    transform: scale(1.015);
+}
+
+/* Loading spinner */
+.iv-img-loader {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0c0c0c;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+}
+
+.iv-img-loader.iv-hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.iv-spinner {
+    width: 28px;
+    height: 28px;
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    border-top-color: var(--accent, #4ecca3);
+    border-radius: 50%;
+    animation: iv-spin 0.75s linear infinite;
+}
+
+@keyframes iv-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============================================
+   IMAGE VIEWER — Info Bar
+   ============================================ */
+.iv-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 18px 24px;
+    background: #111111;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    flex-shrink: 0;
+}
+
+.iv-info-left {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    min-width: 0;
+}
+
+.iv-tag {
+    font-family: var(--font-serif, 'Instrument Serif', serif);
+    font-size: 0.95rem;
+    color: var(--accent, #4ecca3);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.iv-desc {
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 0.7rem;
+    font-weight: 300;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.4);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.iv-info-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.iv-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 0.68rem;
+    color: rgba(255, 255, 255, 0.55);
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.04);
+    transition: border-color 0.25s ease, color 0.25s ease, background 0.25s ease, transform 0.2s ease;
+    white-space: nowrap;
+}
+
+.iv-action-btn:hover {
+    border-color: var(--accent, #4ecca3);
+    color: var(--accent, #4ecca3);
+    background: rgba(78, 204, 163, 0.06);
+    transform: translateY(-1px);
+}
+
+.iv-action-icon {
+    width: 12px;
+    height: 12px;
+    filter: grayscale(1) invert(0.6);
+    transition: filter 0.25s ease;
+}
+
+.iv-action-btn:hover .iv-action-icon {
+    filter: grayscale(0) invert(0.8) sepia(1) hue-rotate(110deg) saturate(2);
+}
+
+.iv-action-arrow {
+    font-size: 10px;
+    opacity: 0.5;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.iv-action-btn:hover .iv-action-arrow {
+    transform: translate(2px, -2px);
+    opacity: 1;
+}
+
+/* ============================================
+   IMAGE VIEWER — Light theme adjustments
+   ============================================ */
+[data-theme="light"] .iv-backdrop {
+    background: rgba(220, 220, 215, 0.9);
+}
+
+[data-theme="light"] .iv-panel {
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .iv-img-wrap,
+[data-theme="light"] .iv-img-loader {
+    background: #f0f0ec;
+}
+
+[data-theme="light"] .iv-info {
+    background: #ffffff;
+    border-top-color: rgba(0, 0, 0, 0.07);
+}
+
+[data-theme="light"] .iv-tag {
+    color: var(--accent, #19805d);
+}
+
+[data-theme="light"] .iv-desc {
+    color: rgba(0, 0, 0, 0.38);
+}
+
+[data-theme="light"] .iv-action-btn {
+    border-color: rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.45);
+    background: rgba(0, 0, 0, 0.03);
+}
+
+[data-theme="light"] .iv-action-btn:hover {
+    border-color: var(--accent, #19805d);
+    color: var(--accent, #19805d);
+    background: rgba(25, 128, 93, 0.05);
+}
+
+[data-theme="light"] .iv-action-icon {
+    filter: grayscale(1) brightness(0.4);
+}
+
+[data-theme="light"] .iv-close {
+    background: rgba(0, 0, 0, 0.06);
+    border-color: rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="light"] .iv-close:hover {
+    background: rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 0, 0, 0.2);
+    color: rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="light"] .iv-nav {
+    background: rgba(0, 0, 0, 0.06);
+    border-color: rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="light"] .iv-nav:hover {
+    background: rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 0, 0, 0.2);
+    color: rgba(0, 0, 0, 0.8);
+}
+
+/* ============================================
+   IMAGE VIEWER — Responsive
+   ============================================ */
+@media (max-width: 700px) {
+    .iv-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 14px 16px;
+    }
+
+    .iv-info-left {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .iv-desc {
+        white-space: normal;
+        font-size: 0.65rem;
+    }
+
+    .iv-close {
+        top: 16px;
+        right: 16px;
+    }
+
+    .iv-nav {
+        width: 34px;
+        height: 34px;
+        font-size: 14px;
+    }
+
+    .iv-prev {
+        left: 8px;
+    }
+
+    .iv-next {
+        right: 8px;
+    }
+}
+
+/* ============================================
+   BRANDING GRID
+   ============================================ */
+.branding-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding-top: 4px;
+}
+
+.branding-card {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--surface-elevated);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(14px);
+}
+
+/* Entrance animation — reuse existing cardFade */
+.page-content.active .branding-card {
+    animation: cardFade 0.55s var(--ease-out) forwards;
+}
+
+.page-content.active .branding-card:nth-child(1) { animation-delay: 0.04s; }
+.page-content.active .branding-card:nth-child(2) { animation-delay: 0.12s; }
+.page-content.active .branding-card:nth-child(3) { animation-delay: 0.20s; }
+.page-content.active .branding-card:nth-child(4) { animation-delay: 0.28s; }
+
+.branding-card-inner {
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.branding-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                filter 0.4s ease;
+    filter: brightness(0.97);
+}
+
+.branding-card:hover .branding-img {
+    transform: scale(1.04);
+    filter: brightness(1);
 }
