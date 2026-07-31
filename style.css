@@ -2285,6 +2285,16 @@ button {
 
 @media (max-width: 600px) {
     .branding-grid {
-        column-count: 1;
+        column-count: 2;
+        column-gap: 10px;
+    }
+
+    .branding-card {
+        margin-bottom: 10px;
+        border-radius: 8px;
+    }
+
+    .branding-card-inner {
+        border-radius: 7px;
     }
 }
