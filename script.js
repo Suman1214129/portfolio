@@ -493,6 +493,16 @@ initSudoku();
         }
     }
 
+    function clampPan(x, y) {
+        const rect = ivImgWrap.getBoundingClientRect();
+        const maxX = (rect.width * (touchScale - 1)) / 2;
+        const maxY = (rect.height * (touchScale - 1)) / 2;
+        return {
+            x: Math.min(maxX, Math.max(-maxX, x)),
+            y: Math.min(maxY, Math.max(-maxY, y))
+        };
+    }
+
     function applyTransform(instant) {
         ivImg.style.transition = instant ? 'none' : 'transform 0.12s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
         ivImg.style.transform = `translate(${panX}px, ${panY}px) scale(${touchScale})`;
@@ -541,8 +551,12 @@ initSudoku();
                         const rect = ivImgWrap.getBoundingClientRect();
                         const ox = ((e.touches[0].clientX - rect.left) / rect.width - 0.5) * rect.width;
                         const oy = ((e.touches[0].clientY - rect.top) / rect.height - 0.5) * rect.height;
-                        panX = -ox * (touchScale - 1) / touchScale;
-                        panY = -oy * (touchScale - 1) / touchScale;
+                        const clamped = clampPan(
+                            -ox * (touchScale - 1) / touchScale,
+                            -oy * (touchScale - 1) / touchScale
+                        );
+                        panX = clamped.x;
+                        panY = clamped.y;
                         ivImg.style.transformOrigin = 'center center';
                         applyTransform(false);
                     }
@@ -575,8 +589,12 @@ initSudoku();
                 }
             } else if (isPanning && e.touches.length === 1 && touchScale > 1.05) {
                 e.preventDefault();
-                panX = panBaseX + (e.touches[0].clientX - panStartX);
-                panY = panBaseY + (e.touches[0].clientY - panStartY);
+                const raw = clampPan(
+                    panBaseX + (e.touches[0].clientX - panStartX),
+                    panBaseY + (e.touches[0].clientY - panStartY)
+                );
+                panX = raw.x;
+                panY = raw.y;
                 applyTransform(true);
             }
         }, { passive: false });
