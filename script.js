@@ -11,12 +11,12 @@ function setTheme(theme) {
 
 if (themeToggleInput) {
     themeToggleInput.addEventListener('change', (e) => {
-        setTheme(e.target.checked ? 'dark' : 'light');
+        setTheme(e.target.checked ? 'light' : 'dark');
     });
 
-    // Set initial state
-    const currentTheme = root.getAttribute('data-theme') || 'dark';
-    themeToggleInput.checked = (currentTheme === 'dark');
+    // Set initial state (light theme default)
+    const currentTheme = root.getAttribute('data-theme') || 'light';
+    themeToggleInput.checked = (currentTheme === 'light');
 }
 
 // ============================================
