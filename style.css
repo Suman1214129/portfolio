@@ -2163,12 +2163,6 @@ button {
    IMAGE VIEWER — Responsive
    ============================================ */
 @media (max-width: 700px) {
-    .iv-overlay {
-        align-items: flex-start;
-        padding-top: 5vh;
-        padding-bottom: 10vh;
-    }
-
     .iv-panel {
         width: 98vw;
         max-height: 88vh;
