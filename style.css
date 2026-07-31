@@ -72,7 +72,7 @@
     --accent: #19805d;
     --accent-dim: #13664a;
     --border: #e2e2de;
-    --tag-bg: #e6f4ef;
+    --tag-bg: #dbe6e2;
     --tag-text: #1a3d30;
     --btn-border: #d4d4d0;
     --dotted-line: #d0d0cc;
@@ -844,14 +844,21 @@ button {
     padding-top: 2px;
 }
 
+.project-tag-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
 .project-tag {
     display: inline-block;
     padding: 4px 10px;
     background: var(--tag-bg);
     color: var(--tag-text);
     font-family: var(--font-serif);
-    font-size: 0.95rem;
-    margin-bottom: 10px;
+    font-size: 1rem;
 }
 
 .project-description {
@@ -880,7 +887,7 @@ button {
     width: 26px;
     height: 26px;
     border: 1px solid var(--border);
-    border-radius: 6px;
+    border-radius: 8px;
     color: var(--text-muted);
     transition: border-color 0.25s ease, color 0.25s ease;
 }
