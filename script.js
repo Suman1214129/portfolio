@@ -450,11 +450,43 @@ initSudoku();
 
     if (!ivOverlay) return;
 
-    // Collect all triggers in DOM order
-    const triggers = Array.from(document.querySelectorAll('.img-viewer-trigger'));
-    let currentIndex = 0;
+    const ivImgWrap   = document.getElementById('iv-img-wrap');
+    let isZoomed = false;
+
+    function resetZoom() {
+        isZoomed = false;
+        if (ivImgWrap) ivImgWrap.classList.remove('is-zoomed');
+        if (ivImg) ivImg.style.transformOrigin = 'center center';
+    }
+
+    if (ivImgWrap) {
+        ivImgWrap.addEventListener('click', (e) => {
+            isZoomed = !isZoomed;
+            ivImgWrap.classList.toggle('is-zoomed', isZoomed);
+            if (isZoomed) {
+                updateZoomOrigin(e);
+            } else {
+                ivImg.style.transformOrigin = 'center center';
+            }
+        });
+
+        ivImgWrap.addEventListener('mousemove', (e) => {
+            if (isZoomed) {
+                updateZoomOrigin(e);
+            }
+        });
+    }
+
+    function updateZoomOrigin(e) {
+        if (!ivImgWrap || !ivImg) return;
+        const rect = ivImgWrap.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        ivImg.style.transformOrigin = `${x}% ${y}%`;
+    }
 
     function loadImage(index, direction) {
+        resetZoom();
         const trigger  = triggers[index];
         const src      = trigger.dataset.img || '';
         const title    = trigger.dataset.title || '';
@@ -529,6 +561,7 @@ initSudoku();
 
     function openViewer(index) {
         currentIndex = index;
+        resetZoom();
 
         // Full reset for fresh open
         ivImg.src = '';
@@ -546,6 +579,7 @@ initSudoku();
     }
 
     function closeViewer() {
+        resetZoom();
         ivOverlay.classList.remove('iv-active');
         document.body.style.overflow = '';
         setTimeout(() => {

@@ -932,12 +932,7 @@ button {
     width: 26px;
     height: 26px;
     object-fit: cover;
-    transition: transform 0.25s ease;
     user-select: none;
-}
-
-.tooltip-container:hover .monkey-img {
-    transform: scale(1.1) rotate(4deg);
 }
 
 /* Comment Tooltip — shown below/at bottom */
@@ -1953,7 +1948,7 @@ button {
 }
 
 /* ============================================
-   IMAGE VIEWER — Image Area
+   IMAGE VIEWER — Image Area & Zoom Interaction
    ============================================ */
 .iv-img-wrap {
     position: relative;
@@ -1963,6 +1958,12 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: zoom-in;
+    user-select: none;
+}
+
+.iv-img-wrap.is-zoomed {
+    cursor: zoom-out;
 }
 
 .iv-img-inner {
@@ -1980,8 +1981,13 @@ button {
     object-fit: contain;
     display: block;
     opacity: 0;
-    transition: opacity 0.35s ease, transform 0.4s var(--ease-out);
-    will-change: transform;
+    transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform, transform-origin;
+    transform-origin: center center;
+}
+
+.iv-img-wrap.is-zoomed .iv-img {
+    transform: scale(2.2);
 }
 
 .iv-img.iv-loaded {
