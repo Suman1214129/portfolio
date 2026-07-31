@@ -2033,8 +2033,21 @@ button {
     cursor: zoom-out;
 }
 
+.iv-ambient-glow {
+    position: absolute;
+    inset: -15%;
+    z-index: 0;
+    pointer-events: none;
+    background-size: cover;
+    background-position: center center;
+    filter: blur(80px) saturate(1.4) opacity(0.38);
+    transform: scale(1.15);
+    transition: opacity 0.4s ease, background-image 0.4s ease;
+}
+
 .iv-img-inner {
     position: relative;
+    z-index: 1;
     width: 100%;
     display: flex;
     align-items: center;

@@ -544,8 +544,12 @@ initSudoku();
             ivImg.style.transition = 'none';
             ivImg.style.transform  = `translateX(${slideIn})`;
 
-            // Load HD image
+            // Load HD image & Ambient Glow
             const tmp = new Image();
+            const ivAmbientGlow = document.getElementById('iv-ambient-glow');
+            if (ivAmbientGlow && src) {
+                ivAmbientGlow.style.backgroundImage = `url("${src}")`;
+            }
             tmp.onload = () => {
                 ivImg.src = src;
                 ivImg.alt = title;
@@ -560,7 +564,11 @@ initSudoku();
             tmp.onerror = () => {
                 // fallback to compressed thumb (.project-img-real or .branding-img)
                 const thumb = trigger.querySelector('.project-img-real, .branding-img');
-                if (thumb) { ivImg.src = thumb.src; ivImg.alt = title; }
+                if (thumb) {
+                    ivImg.src = thumb.src;
+                    ivImg.alt = title;
+                    if (ivAmbientGlow) ivAmbientGlow.style.backgroundImage = `url("${thumb.src}")`;
+                }
                 ivImg.style.transition = 'opacity 0.32s ease, transform 0.32s ease';
                 ivImg.style.opacity    = '1';
                 ivImg.style.transform  = 'translateX(0)';
