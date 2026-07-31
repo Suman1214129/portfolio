@@ -536,6 +536,11 @@ initSudoku();
                     const factor = currentDist / touchStartDist;
                     touchScale = Math.min(Math.max(1, touchScale * factor), 4);
                     touchStartDist = currentDist;
+                    // Dynamic origin: midpoint between the two fingers
+                    const rect = ivImgWrap.getBoundingClientRect();
+                    const midX = ((e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left) / rect.width * 100;
+                    const midY = ((e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top) / rect.height * 100;
+                    ivImg.style.transformOrigin = `${midX}% ${midY}%`;
                     ivImg.style.transform = `scale(${touchScale})`;
                     ivImgWrap.classList.toggle('is-zoomed', touchScale > 1.05);
                 }

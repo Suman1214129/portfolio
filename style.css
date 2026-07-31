@@ -2163,19 +2163,25 @@ button {
    IMAGE VIEWER — Responsive
    ============================================ */
 @media (max-width: 700px) {
+    .iv-overlay {
+        align-items: flex-start;
+        padding-top: 5vh;
+        padding-bottom: 10vh;
+    }
+
     .iv-panel {
-        width: 95vw;
-        max-height: 94vh;
-        border-radius: 8px;
+        width: 98vw;
+        max-height: 88vh;
+        border-radius: 10px;
     }
 
     .iv-header {
-        padding: 6px 10px;
+        padding: 10px 14px;
         gap: 8px;
     }
 
     .iv-header-left {
-        gap: 6px;
+        gap: 8px;
         max-width: calc(100% - 95px);
         overflow: hidden;
     }
@@ -2188,8 +2194,22 @@ button {
         white-space: nowrap;
     }
 
+    .iv-nav-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 0.75rem;
+        border-radius: 6px;
+    }
+
+    .iv-close-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 0.65rem;
+        border-radius: 6px;
+    }
+
     .iv-header-right {
-        gap: 6px;
+        gap: 8px;
         margin-left: auto;
     }
 
@@ -2199,10 +2219,10 @@ button {
 
     .iv-action-btn {
         padding: 0;
-        width: 20px;
-        height: 18px;
+        width: 32px;
+        height: 32px;
         justify-content: center;
-        border-radius: 3px;
+        border-radius: 6px;
     }
 
     .iv-action-text,
@@ -2211,7 +2231,7 @@ button {
     }
 
     .iv-img-wrap {
-        max-height: 82vh;
+        max-height: 78vh;
     }
 }
 
