@@ -832,6 +832,9 @@ button {
     object-fit: cover;
     object-position: top center;
     display: block;
+    image-rendering: smooth;
+    image-rendering: high-quality;
+    transform: translateZ(0);
 }
 
 .design-card-bg {
