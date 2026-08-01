@@ -1708,7 +1708,12 @@ button {
    ============================================ */
 @media (max-width: 900px) {
     :root {
-        --frame-margin: 16px;
+        --frame-margin: 4px;
+    }
+
+    .dotted-left,
+    .dotted-right {
+        display: none;
     }
 
     body {
