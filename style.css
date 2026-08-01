@@ -1358,9 +1358,9 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--toggle-border);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 3px;
-    color: var(--sudoku-given);
+    color: rgba(255, 255, 255, 0.8);
     background: transparent;
     transition: all 0.15s ease;
 }
@@ -1846,8 +1846,8 @@ button {
     }
 
     .win-window.active {
-        width: calc(100vw - 32px);
-        max-width: 300px;
+        width: calc(100vw - 16px);
+        max-width: 380px;
     }
 
     .progress-value {

@@ -305,14 +305,9 @@ function closeSudokuWindow() {
 }
 
 if (winClose) winClose.addEventListener('click', closeSudokuWindow);
-if (sudokuOverlay) {
-    sudokuOverlay.addEventListener('click', (e) => {
-        if (e.target === sudokuOverlay) closeSudokuWindow();
-    });
-}
 
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') { closeSudokuWindow(); closeNotesModal(); }
+    if (e.key === 'Escape') { closeNotesModal(); }
 });
 
 // ============================================
