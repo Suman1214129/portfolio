@@ -1596,6 +1596,7 @@ button {
     font-weight: 400;
     color: var(--text);
     letter-spacing: 0.02em;
+    text-shadow: none;
 }
 
 .notes-close-btn {

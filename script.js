@@ -191,6 +191,13 @@ function closeNotesModal() { notesOverlay.classList.remove('active'); }
 notesClose.addEventListener('click', closeNotesModal);
 notesOverlay.addEventListener('click', (e) => { if (e.target === notesOverlay) closeNotesModal(); });
 
+// EmailJS — replace these with your actual values from emailjs.com
+const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';
+const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
+const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+
+emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
 notesSend.addEventListener('click', async () => {
     const message = notesMessage.value.trim();
     if (!message) return;
@@ -199,18 +206,17 @@ notesSend.addEventListener('click', async () => {
     notesSend.textContent = 'sending...';
 
     try {
-        const res = await fetch('https://formsubmit.co/ajax/sumankr8586@gmail.com', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify({ message, _subject: 'New note from portfolio ✉', _template: 'table' })
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+            message,
+            reply_to: 'noreply@portfolio',
         });
-        if (res.ok) {
-            notesBody.style.display = 'none';
-            notesFooter.style.display = 'none';
-            notesSuccess.classList.add('show');
-            setTimeout(closeNotesModal, 2200);
-        } else { fallbackMailto(message); }
-    } catch { fallbackMailto(notesMessage.value.trim()); }
+        notesBody.style.display = 'none';
+        notesFooter.style.display = 'none';
+        notesSuccess.classList.add('show');
+        setTimeout(closeNotesModal, 2200);
+    } catch {
+        fallbackMailto(message);
+    }
 });
 
 function fallbackMailto(msg) {
