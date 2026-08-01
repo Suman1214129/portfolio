@@ -1801,7 +1801,7 @@ button {
     .architecture-illustration {
         position: absolute;
         bottom: 0;
-        right: 0;
+        right: calc(-1 * var(--frame-margin));
         left: auto;
         transform: none;
         opacity: 0.45;
