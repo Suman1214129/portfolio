@@ -177,6 +177,8 @@ const notesSuccess = document.getElementById('notes-success');
 const notesSuccessText = document.getElementById('notes-success-text');
 const notesFooter = document.getElementById('notes-footer');
 
+emailjs.init('iIr1bA-di34X4YP3j');
+
 function openNotesModal() {
     notesOverlay.classList.add('active');
     notesBody.style.display = '';
@@ -185,6 +187,7 @@ function openNotesModal() {
     notesName.value = '';
     notesMessage.value = '';
     notesSend.disabled = false;
+    notesSend.classList.remove('sent');
     notesSend.textContent = 'send →';
     setTimeout(() => notesName.focus(), 300);
 }
@@ -193,11 +196,22 @@ function closeNotesModal() { notesOverlay.classList.remove('active'); }
 notesClose.addEventListener('click', closeNotesModal);
 notesOverlay.addEventListener('click', (e) => { if (e.target === notesOverlay) closeNotesModal(); });
 
+// Emoji quick-picks — append to textarea
+document.querySelectorAll('.notes-emoji-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const emoji = btn.dataset.emoji;
+        const pos = notesMessage.selectionStart;
+        const val = notesMessage.value;
+        notesMessage.value = val.slice(0, pos) + emoji + val.slice(pos);
+        notesMessage.selectionStart = notesMessage.selectionEnd = pos + emoji.length;
+        notesMessage.focus();
+    });
+});
+
 notesSend.addEventListener('click', async () => {
     const name = notesName.value.trim();
     const message = notesMessage.value.trim();
 
-    // Shake empty fields instead of silently doing nothing
     if (!name) { notesName.classList.add('shake'); notesName.focus(); setTimeout(() => notesName.classList.remove('shake'), 400); return; }
     if (!message) { notesMessage.classList.add('shake'); notesMessage.focus(); setTimeout(() => notesMessage.classList.remove('shake'), 400); return; }
 
@@ -205,30 +219,18 @@ notesSend.addEventListener('click', async () => {
     notesSend.textContent = 'sending...';
 
     try {
-        const res = await fetch('https://api.web3forms.com/submit', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify({
-                access_key: '58cc0d6d-a78a-4643-a9ed-02457d30f64b',
-                name,
-                message,
-                email: 'sumankr8586@gmail.com',
-                subject: `note from ${name} — portfolio`,
-            })
+        await emailjs.send('my-portfolio-messages', 'template_w7rjff6', {
+            from_name: name,
+            message: message,
+            reply_to: 'sumankr8586@gmail.com',
         });
-        const data = await res.json();
-        if (data.success) {
-            showSent(name);
-        } else {
-            showSent(name); // still show success UI — never redirect
-        }
+        showSent(name);
     } catch {
-        showSent(name); // network error — still show success, never redirect
+        showSent(name);
     }
 });
 
 function showSent(name) {
-    // Button flips to checkmark first
     notesSend.textContent = '✓';
     notesSend.classList.add('sent');
     setTimeout(() => {

@@ -15,6 +15,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
         (function () {
             var theme = localStorage.getItem('theme') || 'light';
@@ -625,6 +626,14 @@
                 <div class="notes-success-sub">i'll get back to you soon.</div>
             </div>
             <div class="notes-footer" id="notes-footer">
+                <div class="notes-emoji-row">
+                    <button class="notes-emoji-btn" data-emoji="👋">👋</button>
+                    <button class="notes-emoji-btn" data-emoji="🔥">🔥</button>
+                    <button class="notes-emoji-btn" data-emoji="✨">✨</button>
+                    <button class="notes-emoji-btn" data-emoji="💡">💡</button>
+                    <button class="notes-emoji-btn" data-emoji="🎨">🎨</button>
+                    <button class="notes-emoji-btn" data-emoji="❤️">❤️</button>
+                </div>
                 <button class="notes-send-btn" id="notes-send">send →</button>
             </div>
         </div>
