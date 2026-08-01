@@ -1801,7 +1801,7 @@ button {
     .architecture-illustration {
         position: absolute;
         bottom: 0;
-        right: -30px;
+        right: 0;
         left: auto;
         transform: none;
         opacity: 0.45;
