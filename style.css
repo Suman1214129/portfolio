@@ -1290,9 +1290,9 @@ button {
     transform: translate(-50%, -50%) scale(0.95);
     width: 300px;
     background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    box-shadow: 0 8px 32px var(--shadow);
+    border: 2px solid var(--border);
+    border-radius: 6px 6px 4px 4px;
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.4), inset 1px 1px 0 rgba(255,255,255,0.08);
     display: none;
     flex-direction: column;
     z-index: 1000;
@@ -1315,11 +1315,15 @@ button {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 8px 12px;
-    background: var(--surface-elevated);
-    border-bottom: 1px solid var(--border);
-    border-radius: 8px 8px 0 0;
+    padding: 6px 8px;
+    background: linear-gradient(180deg, #2a9a72 0%, #1a805e 40%, #0f5c42 100%);
+    border-radius: 4px 4px 0 0;
     cursor: grab;
+    gap: 6px;
+}
+
+[data-theme="dark"] .win-titlebar {
+    background: linear-gradient(180deg, #3ab88a 0%, #2a9a72 40%, #1a6e50 100%);
 }
 
 .win-titlebar:active {
@@ -1327,11 +1331,24 @@ button {
 }
 
 .win-title-text {
-    font-family: var(--font-serif);
-    font-size: 0.95rem;
-    font-weight: 400;
-    color: var(--text);
-    letter-spacing: 0.02em;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.04em;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+    flex: 1;
+}
+
+.win-titlebar-icons {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    margin-right: 4px;
+    opacity: 0.5;
+    font-size: 0.6rem;
+    color: #fff;
+    letter-spacing: 0.05em;
 }
 
 .win-ctrl-btn {
@@ -1361,6 +1378,8 @@ button {
     align-items: center;
     gap: 10px;
     position: relative;
+    background: var(--surface);
+    border-top: 1px solid rgba(255,255,255,0.06);
 }
 
 /* Sudoku grid */
@@ -1368,9 +1387,10 @@ button {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     width: 240px;
-    border: 1px solid var(--toggle-border);
-    border-radius: 4px;
+    border: 2px inset var(--border);
+    border-radius: 2px;
     overflow: hidden;
+    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.2);
 }
 
 .sudoku-cell {
@@ -1442,11 +1462,12 @@ button {
     color: var(--text);
     background: var(--surface-muted);
     border: 1px solid var(--border);
-    border-radius: 4px;
+    border-radius: 3px;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: background 0.12s ease;
+    box-shadow: 1px 1px 0 rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.06);
 }
 
 .num-btn:hover {
@@ -1455,6 +1476,7 @@ button {
 
 .num-btn:active {
     transform: scale(0.96);
+    box-shadow: inset 1px 1px 2px rgba(0,0,0,0.2);
 }
 
 .erase-btn,
@@ -1470,10 +1492,13 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: var(--font-mono);
     font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
     color: var(--accent);
     background: var(--win-overlay);
-    border-radius: 0 0 8px 8px;
+    border-radius: 0 0 4px 4px;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
