@@ -209,7 +209,7 @@ notesSend.addEventListener('click', async () => {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
             body: JSON.stringify({
-                access_key: 'YOUR_WEB3FORMS_KEY',
+                access_key: '58cc0d6d-a78a-4643-a9ed-02457d30f64b',
                 name,
                 message,
                 email: 'sumankr8586@gmail.com',
