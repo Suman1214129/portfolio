@@ -77,7 +77,6 @@ function switchPage(page) {
             } else {
                 pageWork.classList.add('active');
             }
-            observeCards();
         } else {
             document.getElementById('works-toggle-container').style.display = 'none';
             document.getElementById('about-title').style.display = 'inline-flex';
@@ -223,18 +222,6 @@ function fallbackMailto(msg) {
     window.open(`mailto:sumankr8586@gmail.com?subject=${encodeURIComponent('Hi from portfolio')}&body=${encodeURIComponent(msg)}`, '_blank');
     closeNotesModal();
 }
-
-// ============================================
-// PROJECT CARDS — SCROLL REVEAL
-// ============================================
-// IntersectionObserver removed for manual deterministic staggered load
-// ============================================
-
-function observeCards() {
-    // Migrated fully to pure CSS @keyframes inside style.css bound to .active container loop
-}
-
-
 
 // ============================================
 // ILLUSTRATION PARALLAX
@@ -457,7 +444,6 @@ initSudoku();
     const ivImg       = document.getElementById('iv-img');
     const ivImgLoader = document.getElementById('iv-img-loader');
     const ivTag       = document.getElementById('iv-tag');
-    const ivDesc      = document.getElementById('iv-desc');
     const ivDribbble  = document.getElementById('iv-dribbble-link');
     const ivBehance   = document.getElementById('iv-behance-link');
 
@@ -682,10 +668,6 @@ initSudoku();
         requestAnimationFrame(() => requestAnimationFrame(() => {
             // Populate info
             ivTag.textContent  = title;
-            if (ivDesc) {
-                ivDesc.textContent = desc;
-                ivDesc.style.display = desc ? '' : 'none';
-            }
             ivDribbble.href    = dribbble;
             ivBehance.href     = behance;
             // Hide action links if no external URL provided (e.g., branding cards)
