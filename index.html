@@ -15,7 +15,6 @@
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
         (function () {
             var theme = localStorage.getItem('theme') || 'light';
@@ -612,12 +611,19 @@
             </div>
             <div class="notes-body" id="notes-body">
                 <p class="notes-hint">say hi, share feedback, or just tell me your favorite font.</p>
-                <textarea class="notes-textarea" id="notes-message" placeholder="write something..."></textarea>
+                <div class="notes-field">
+                    <label class="notes-label" for="notes-name">your name</label>
+                    <input class="notes-input" id="notes-name" type="text" placeholder="e.g. alex" autocomplete="off" spellcheck="false">
+                </div>
+                <div class="notes-field">
+                    <label class="notes-label" for="notes-message">your note</label>
+                    <textarea class="notes-textarea" id="notes-message" placeholder="write something..."></textarea>
+                </div>
             </div>
             <div class="notes-success" id="notes-success">
                 <span class="notes-success-icon">✓</span>
-                <div class="notes-success-text">sent!</div>
-                <div class="notes-success-sub">i'll get back to you soon</div>
+                <div class="notes-success-text" id="notes-success-text">sent!</div>
+                <div class="notes-success-sub">i'll get back to you soon.</div>
             </div>
             <div class="notes-footer" id="notes-footer">
                 <button class="notes-send-btn" id="notes-send">send →</button>

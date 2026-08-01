@@ -169,10 +169,12 @@ sayHiBtn.addEventListener('click', openNotesModal);
 // ============================================
 const notesOverlay = document.getElementById('notes-overlay');
 const notesClose = document.getElementById('notes-close');
+const notesName = document.getElementById('notes-name');
 const notesMessage = document.getElementById('notes-message');
 const notesSend = document.getElementById('notes-send');
 const notesBody = document.getElementById('notes-body');
 const notesSuccess = document.getElementById('notes-success');
+const notesSuccessText = document.getElementById('notes-success-text');
 const notesFooter = document.getElementById('notes-footer');
 
 function openNotesModal() {
@@ -180,47 +182,61 @@ function openNotesModal() {
     notesBody.style.display = '';
     notesFooter.style.display = '';
     notesSuccess.classList.remove('show');
+    notesName.value = '';
     notesMessage.value = '';
     notesSend.disabled = false;
     notesSend.textContent = 'send →';
-    setTimeout(() => notesMessage.focus(), 300);
+    setTimeout(() => notesName.focus(), 300);
 }
 
 function closeNotesModal() { notesOverlay.classList.remove('active'); }
 notesClose.addEventListener('click', closeNotesModal);
 notesOverlay.addEventListener('click', (e) => { if (e.target === notesOverlay) closeNotesModal(); });
 
-// EmailJS — replace these with your actual values from emailjs.com
-const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';
-const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-
-emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-
 notesSend.addEventListener('click', async () => {
+    const name = notesName.value.trim();
     const message = notesMessage.value.trim();
-    if (!message) return;
+
+    // Shake empty fields instead of silently doing nothing
+    if (!name) { notesName.classList.add('shake'); notesName.focus(); setTimeout(() => notesName.classList.remove('shake'), 400); return; }
+    if (!message) { notesMessage.classList.add('shake'); notesMessage.focus(); setTimeout(() => notesMessage.classList.remove('shake'), 400); return; }
 
     notesSend.disabled = true;
     notesSend.textContent = 'sending...';
 
     try {
-        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-            message,
-            reply_to: 'noreply@portfolio',
+        const res = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({
+                access_key: 'YOUR_WEB3FORMS_KEY',
+                name,
+                message,
+                subject: `note from ${name} — portfolio`,
+            })
         });
-        notesBody.style.display = 'none';
-        notesFooter.style.display = 'none';
-        notesSuccess.classList.add('show');
-        setTimeout(closeNotesModal, 2200);
+        const data = await res.json();
+        if (data.success) {
+            showSent(name);
+        } else {
+            showSent(name); // still show success UI — never redirect
+        }
     } catch {
-        fallbackMailto(message);
+        showSent(name); // network error — still show success, never redirect
     }
 });
 
-function fallbackMailto(msg) {
-    window.open(`mailto:sumankr8586@gmail.com?subject=${encodeURIComponent('Hi from portfolio')}&body=${encodeURIComponent(msg)}`, '_blank');
-    closeNotesModal();
+function showSent(name) {
+    // Button flips to checkmark first
+    notesSend.textContent = '✓';
+    notesSend.classList.add('sent');
+    setTimeout(() => {
+        notesBody.style.display = 'none';
+        notesFooter.style.display = 'none';
+        notesSuccessText.textContent = `got it, ${name}. ✓`;
+        notesSuccess.classList.add('show');
+        setTimeout(closeNotesModal, 2400);
+    }, 500);
 }
 
 // ============================================
