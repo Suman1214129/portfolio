@@ -212,6 +212,7 @@ notesSend.addEventListener('click', async () => {
                 access_key: 'YOUR_WEB3FORMS_KEY',
                 name,
                 message,
+                email: 'sumankr8586@gmail.com',
                 subject: `note from ${name} — portfolio`,
             })
         });
@@ -233,9 +234,9 @@ function showSent(name) {
     setTimeout(() => {
         notesBody.style.display = 'none';
         notesFooter.style.display = 'none';
-        notesSuccessText.textContent = `got it, ${name}. ✓`;
+        notesSuccessText.textContent = `got it, ${name}.`;
         notesSuccess.classList.add('show');
-        setTimeout(closeNotesModal, 2400);
+        setTimeout(closeNotesModal, 4000);
     }, 500);
 }
 
