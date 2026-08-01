@@ -1488,8 +1488,8 @@ button {
 }
 
 .notes-input:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 12%, transparent);
+    border-color: color-mix(var(--accent) 40%, transparent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
 .notes-input::placeholder {
@@ -1537,8 +1537,8 @@ button {
 }
 
 .notes-textarea:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 12%, transparent);
+    border-color: color-mix(var(--accent) 40%, transparent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
 .notes-textarea::placeholder {
@@ -1557,7 +1557,7 @@ button {
     display: flex;
     align-items: center;
     gap: 3px;
-    background: var(--surface-elevated);
+    background: var(--accent-contrast);
     border: 1px solid var(--border);
     border-radius: 8px;
     padding: 3px 5px;
