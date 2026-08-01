@@ -613,11 +613,16 @@
             <div class="notes-body" id="notes-body">
                 <p class="notes-hint">say hi, share feedback, or just tell me your favorite font.</p>
                 <div class="notes-field">
-                    <input class="notes-input" id="notes-name" type="text" placeholder="tell me your name.." autocomplete="off" spellcheck="false">
+                    <div class="notes-input-wrap">
+                        <i class="ph-fill ph-user notes-input-icon"></i>
+                        <input class="notes-input" id="notes-name" type="text" placeholder="tell me your name.." autocomplete="off" spellcheck="false">
+                    </div>
                 </div>
                 <div class="notes-field">
                     <label class="notes-label" for="notes-message">your note</label>
-                    <textarea class="notes-textarea" id="notes-message" placeholder="write something..."></textarea>
+                    <div class="notes-textarea-wrap">
+                        <textarea class="notes-textarea" id="notes-message" placeholder="write something..."></textarea>
+                    </div>
                 </div>
             </div>
             <div class="notes-success" id="notes-success">
@@ -630,9 +635,10 @@
                     <button class="notes-emoji-btn" data-emoji="👋">👋</button>
                     <button class="notes-emoji-btn" data-emoji="🔥">🔥</button>
                     <button class="notes-emoji-btn" data-emoji="✨">✨</button>
-                    <button class="notes-emoji-btn" data-emoji="💡">💡</button>
-                    <button class="notes-emoji-btn" data-emoji="🎨">🎨</button>
+                    <button class="notes-emoji-btn" data-emoji="😍">😍</button>
                     <button class="notes-emoji-btn" data-emoji="❤️">❤️</button>
+                    <button class="notes-emoji-btn" data-emoji="😂">😂</button>
+                    <button class="notes-emoji-btn" data-emoji="🙏">🙏</button>
                 </div>
                 <button class="notes-send-btn" id="notes-send">send →</button>
             </div>

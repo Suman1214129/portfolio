@@ -221,8 +221,9 @@ notesSend.addEventListener('click', async () => {
     try {
         await emailjs.send('my-portfolio-messages', 'template_w7rjff6', {
             from_name: name,
+            name: name,
             message: message,
-            reply_to: 'sumankr8586@gmail.com',
+            time: new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }),
         });
         showSent(name);
     } catch {

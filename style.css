@@ -1441,9 +1441,6 @@ button {
     color: var(--text-muted);
     line-height: 1.6;
     padding-bottom: 2px;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 14px;
-    margin-bottom: 2px;
 }
 
 .notes-field {
@@ -1461,9 +1458,24 @@ button {
     text-transform: uppercase;
 }
 
+.notes-input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.notes-input-icon {
+    position: absolute;
+    left: 10px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    pointer-events: none;
+    line-height: 1;
+}
+
 .notes-input {
     width: 100%;
-    padding: 9px 12px;
+    padding: 9px 12px 9px 30px;
     background: var(--surface-input);
     border: 1px solid var(--border);
     border-radius: 6px;
@@ -1488,6 +1500,24 @@ button {
 .notes-textarea.shake {
     animation: fieldShake 0.35s ease;
     border-color: var(--error);
+}
+
+.notes-textarea-wrap {
+    position: relative;
+}
+
+.notes-textarea-wrap::after {
+    content: '';
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    width: 8px;
+    height: 8px;
+    pointer-events: none;
+    background-image:
+        linear-gradient(135deg, transparent 40%, var(--border) 40%, var(--border) 55%, transparent 55%),
+        linear-gradient(135deg, transparent 65%, var(--border) 65%, var(--border) 80%, transparent 80%);
+    opacity: 0.9;
 }
 
 .notes-textarea {
