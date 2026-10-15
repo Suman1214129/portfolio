@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Suman — UI/UX Designer & Brand Identity Specialist. Focused on design that matters.">
-    <title>Suman yadav</title>
+        content="Suman Yadav — Product Designer and Builder. Designing human experiences and building them end-to-end.">
+    <title>Suman Yadav — Product Designer &amp; Builder</title>
     <link rel="icon" type="image/svg+xml" href="assets/Summertime%20Sadness.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
@@ -25,561 +25,452 @@
 </head>
 
 <body>
-    <!-- Custom cursor for monkey (Figma-style dynamic pill) -->
-    <div class="custom-cursor" id="custom-cursor">
-        <svg class="cursor-arrow" width="14" height="18" viewBox="0 0 14 18" fill="none">
-            <!-- Stroke and fill will be colored via CSS var(--accent) -->
-            <path d="M0.5 0.5L13 10.5H6.5L3.5 17L0.5 0.5Z" fill="var(--accent)" stroke="var(--cursor-stroke)"
-                stroke-width="0.5" />
-        </svg>
-        <span class="cursor-label" id="cursor-label"></span>
-    </div>
+    <!-- Main page centered wrapper with wide margins -->
+    <div class="main-page-container">
 
-    <!-- Outer frame with dotted borders -->
-    <div class="outer-frame">
-        <div class="dotted-left"></div>
-        <div class="dotted-right"></div>
+        <!-- ================= TOP HEADER / NAVBAR ================= -->
+        <header class="site-header">
+            <!-- Center nav with wavy active underline -->
+            <nav class="center-nav">
+                <a href="#works" class="header-nav-link active" data-nav="works">
+                    <span>WORK</span>
+                    <svg class="active-wave" aria-hidden="true">
+                        <defs>
+                            <pattern id="wave-pat-works" width="14" height="6" patternUnits="userSpaceOnUse">
+                                <path d="M0 3 C 3.5 0, 3.5 6, 7 3 C 10.5 0, 10.5 6, 14 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            </pattern>
+                        </defs>
+                        <rect width="100%" height="6" fill="url(#wave-pat-works)"/>
+                    </svg>
+                </a>
+                <a href="#experience" class="header-nav-link" data-nav="experience">
+                    <span>EXPERIENCE</span>
+                    <svg class="active-wave" aria-hidden="true">
+                        <defs>
+                            <pattern id="wave-pat-exp" width="14" height="6" patternUnits="userSpaceOnUse">
+                                <path d="M0 3 C 3.5 0, 3.5 6, 7 3 C 10.5 0, 10.5 6, 14 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            </pattern>
+                        </defs>
+                        <rect width="100%" height="6" fill="url(#wave-pat-exp)"/>
+                    </svg>
+                </a>
+                <a href="#about" class="header-nav-link" data-nav="about">
+                    <span>ABOUT ME</span>
+                    <svg class="active-wave" aria-hidden="true">
+                        <defs>
+                            <pattern id="wave-pat-about" width="14" height="6" patternUnits="userSpaceOnUse">
+                                <path d="M0 3 C 3.5 0, 3.5 6, 7 3 C 10.5 0, 10.5 6, 14 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            </pattern>
+                        </defs>
+                        <rect width="100%" height="6" fill="url(#wave-pat-about)"/>
+                    </svg>
+                </a>
+            </nav>
 
-        <div class="page-wrapper">
-            <!-- ========== LEFT SECTION ========== -->
-            <section class="left-section">
-                <!-- Nav -->
-                <nav class="top-nav">
-                    <div class="nav-logo" id="nav-logo" style="cursor: pointer;">
-                        <img src="assets/Summertime Sadness.svg" alt="logo" style="width: 24px; height: 24px;">
-                    </div>
-                    <div class="nav-links">
-                        <a href="#about" class="nav-link" data-page="about">About</a>
-                        <a href="assets/resume_sumanyadav (3).pdf" class="nav-link" target="_blank"
-                            rel="noopener noreferrer">Resume</a>
-                    </div>
-                    <label class="ui-switch" aria-label="Toggle light and dark theme">
-                        <input type="checkbox" id="theme-toggle-input">
-                        <div class="slider">
-                            <div class="circle"></div>
-                        </div>
-                    </label>
-                </nav>
+            <div class="header-actions">
+                <!-- Simple icon-based theme changer toggle -->
+                <button type="button" class="theme-icon-btn" id="theme-toggle-btn" aria-label="Toggle theme" title="Toggle theme">
+                    <i class="ph ph-sun" id="theme-icon-sun"></i>
+                    <i class="ph ph-moon" id="theme-icon-moon"></i>
+                </button>
 
-                <!-- Hero Content -->
-                <div class="hero-content">
-                    <h1 class="hero-heading">
-                        <span class="greeting-wrapper">
-                            <span class="greeting-text" id="greeting-text">namaste</span>
-                        </span><span class="period">.</span><br>
-                        i&#x2019;m<br>
-                        suman.
-                    </h1>
-
-                    <p class="hero-description">
-                        Product Designer and Full-Stack Developer who believes strong products need both thoughtful
-                        design and solid
-                        engineering underneath. Leads UX and design systems for a multi-product AI-education platform,
-                        and builds and ships
-                        independent full-stack projects to stay close to the code.
-                    </p>
-
-                    <button class="say-hi-btn" id="say-hi-btn">
-                        <span class="btn-arrow">→</span>
-                        say hi
+                <!-- CONTACT & MORE Trigger Button + Expanded Dropdown Tile -->
+                <div class="contact-menu-wrapper" id="contact-menu-wrapper">
+                    <button type="button" class="contact-more-btn" id="contact-more-btn" aria-expanded="false" aria-haspopup="true">
+                        <i class="ph ph-envelope-simple"></i>
+                        <span>CONTACT &amp; MORE</span>
                     </button>
-                </div>
 
-                <!-- Connect Section -->
-                <div class="connect-section">
-                    <p class="connect-label">Connect me on:</p>
-                    <div class="connect-links">
-                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sumankr8586@gmail.com"
-                            class="connect-link" target="_blank" rel="noopener noreferrer">mail</a>
-                        <span class="connect-divider">/</span>
-                        <a href="https://www.instagram.com/suman.ydv0/" class="connect-link"
-                            target="_blank" rel="noopener noreferrer">instagram</a>
-                        <span class="connect-divider">/</span>
-                        <a href="https://www.linkedin.com/in/suman-yadav-bb5516322/" class="connect-link"
-                            target="_blank" rel="noopener noreferrer">linkedin</a>
-                        <span class="connect-divider">/</span>
-                        <a href="https://github.com/Suman1214129" class="connect-link" target="_blank" rel="noopener noreferrer">github</a>
+                    <!-- Expanded dropdown tile matching reference image -->
+                    <div class="contact-dropdown-panel" id="contact-dropdown-panel">
+                        <a href="assets/resume_sumanyadav (3).pdf" target="_blank" rel="noopener noreferrer" class="contact-tile-row highlighted-row">
+                            <span class="tile-label">RESUME</span>
+                            <span class="tile-value">View resume ↗</span>
+                        </a>
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sumankr8586@gmail.com" target="_blank" rel="noopener noreferrer" class="contact-tile-row">
+                            <span class="tile-label">EMAIL</span>
+                            <span class="tile-value">sumankr8586@gmail.com ↗</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/suman-yadav-bb5516322/" target="_blank" rel="noopener noreferrer" class="contact-tile-row">
+                            <span class="tile-label">LINKEDIN</span>
+                            <span class="tile-value">suman-yadav ↗</span>
+                        </a>
+                        <a href="https://github.com/Suman1214129" target="_blank" rel="noopener noreferrer" class="contact-tile-row">
+                            <span class="tile-label">GITHUB</span>
+                            <span class="tile-value">@Suman1214129 ↗</span>
+                        </a>
+                        <a href="https://www.behance.net/6b52aa6f" target="_blank" rel="noopener noreferrer" class="contact-tile-row">
+                            <span class="tile-label">BEHANCE</span>
+                            <span class="tile-value">behance.net/6b52aa6f ↗</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ================= MAIN CONTENT ================= -->
+        <main class="page-content-wrapper">
+
+            <!-- 1. HERO SECTION -->
+            <section class="hero-section" id="hero">
+                <div class="hero-status-row">
+                    <!-- Photo from about section used as avatar logo -->
+                    <div class="avatar-wrapper">
+                        <img src="assets/my photo.jpeg" alt="Suman Yadav" class="hero-avatar" />
+                    </div>
+                    <!-- Minimal status without background div -->
+                    <div class="hero-status-pill">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Open to opportunities</span>
+                        <span class="status-divider">•</span>
+                        <span class="status-location">Ahmedabad</span>
                     </div>
                 </div>
 
-                <!-- Architectural Illustration -->
-                <div class="architecture-illustration">
-                    <img src="assets/illustrate.svg" alt="" class="building-svg">
+                <!-- Introduction Title with Times New Roman / Classic Serif, natural spacing, no em dash -->
+                <h1 class="hero-heading">
+                    <div class="hero-greeting-line">
+                        <button type="button" class="hero-greeting-btn" id="hero-greeting-btn" title="Click to greet">
+                            <span class="greeting-text" id="greeting-text">namaste</span>
+                            <span class="greeting-wave-hand"><img src="assets/wave-hand.png" alt="Wave" class="greeting-wave-img" /></span>
+                        </button>
+                    </div>
+                    <div class="hero-title-main">
+                        i'm <span class="hero-heading-name">suman</span>, a design engineer and product builder
+                    </div>
+                </h1>
+
+                <p class="hero-description">
+                    Leading UX and design systems for <strong>NAVCHETNA</strong>. Focused on clean interfaces, solid engineering underneath, and products that solve real problems from 0 to 1.
+                </p>
+
+                <div class="hero-meta-row">
+                    <div class="hero-command-hint">
+                        <span class="key-badge">/</span>
+                        <span>press / to write a message or tap the monkey</span>
+                    </div>
                 </div>
             </section>
 
-            <!-- ========== DIVIDER ========== -->
-            <div class="section-divider"></div>
+            <div class="content-divider"></div>
 
-            <!-- ========== RIGHT SECTION ========== -->
-            <section class="right-section" id="right-section">
-                <!-- Right Header -->
-                <div class="right-header" id="right-header">
-                    <div id="right-title-wrapper">
-                        <div class="works-toggle-container" id="works-toggle-container">
-                            <div class="works-toggle" id="works-toggle">
-                                <input type="radio" id="toggle-designs" name="works-switch" value="designs" checked>
-                                <label for="toggle-designs" class="toggle-label">my designs</label>
-
-                                <input type="radio" id="toggle-branding" name="works-switch" value="branding">
-                                <label for="toggle-branding" class="toggle-label">branding</label>
-
-                                <input type="radio" id="toggle-projects" name="works-switch" value="projects">
-                                <label for="toggle-projects" class="toggle-label">projects</label>
-
-                                <div class="works-toggle-slider"></div>
-                            </div>
-                        </div>
-                        <div class="design-works-title" id="about-title" style="display: none;">
-                            <span class="design-text">ABOUT</span>
-                            <span class="works-text">Me</span>
-                        </div>
+            <!-- 2. SELECTED WORKS SECTION (Pure minimal presentation matching reference image 3) -->
+            <section class="section-container" id="works">
+                <div class="section-header-row">
+                    <div class="section-title-group">
+                        <h2 class="section-heading">Selected Works</h2>
+                        <p class="section-subtext">Product interfaces, brand identities, and shipped code.</p>
                     </div>
-                    <div class="scroll-progress">
-                        <div class="monkey-wrapper" id="monkey-wrapper">
-                            <img src="assets/monkey.png" alt="Interactive monkey icon" class="monkey-img"
-                                id="monkey-img">
-                        </div>
-                        <span class="progress-value" id="progress-value">0%..</span>
+
+                    <!-- Minimal Tab Switcher -->
+                    <div class="works-nav" id="works-tab-group" role="tablist">
+                        <button type="button" class="works-tab active" data-tab="designs" role="tab" aria-selected="true">
+                            <span>DESIGNS</span>
+                        </button>
+                        <button type="button" class="works-tab" data-tab="branding" role="tab" aria-selected="false">
+                            <span>BRANDING</span>
+                        </button>
+                        <button type="button" class="works-tab" data-tab="projects" role="tab" aria-selected="false">
+                            <span>PROJECTS</span>
+                        </button>
+                        <div class="works-tab-indicator" id="works-tab-indicator"></div>
                     </div>
                 </div>
 
-                <!-- ===== ABOUT PAGE ===== -->
-                <div class="page-content" id="page-about">
-                    <div class="about-container">
+                <!-- TAB 1: DESIGNS (Matching reference image 3: clean media + clean text below, zero background box/shadow) -->
+                <div class="tab-pane active" id="pane-designs">
+                    <div class="works-grid">
 
-                        <!-- Intro -->
-                        <div class="about-block">
-                            <p class="about-lead">I design things that feel <em>human</em>, and I build them
-                                too.</p>
-
-                            <div class="about-profile-layout">
-                                <div class="about-profile-image" id="profile-canvas-container"
-                                    style="position: relative; overflow: hidden; border-radius: 12px;">
-                                    <img id="profile-img" src="assets/my photo.jpeg" alt="Suman"
-                                        style="width: 100%; height: 100%; object-fit: cover; display: block;">
-                                    <canvas id="particle-canvas"
-                                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; pointer-events: none;"></canvas>
-                                </div>
-                                <div class="about-profile-text">
-                                    <p class="about-body">
-                                        Product Designer and Full-Stack Developer who believes strong products need both
-                                        thoughtful design and solid
-                                        engineering underneath. Leads UX and design systems for a multi-product
-                                        AI-education platform, and builds and ships
-                                        independent full-stack projects to stay close to the code.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="about-divider"></div>
-
-                        <!-- What I bring -->
-                        <div class="about-block">
-                            <h3 class="about-section-title">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="1.5" style="vertical-align: -2px; margin-right: 6px;">
-                                    <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                                    <path d="M2 17l10 5 10-5" />
-                                    <path d="M2 12l10 5 10-5" />
-                                </svg>
-                                What I bring
-                            </h3>
-                            <div class="about-skills">
-                                <div class="about-skill-item">
-                                    <div class="about-skill-left">
-                                        <svg class="about-skill-icon" width="16" height="16" viewBox="0 0 24 24"
-                                            fill="none" stroke="currentColor" stroke-width="1.5">
-                                            <rect x="3" y="3" width="18" height="18" rx="2" />
-                                            <path d="M3 9h18" />
-                                            <path d="M9 21V9" />
-                                        </svg>
-                                        <span class="about-skill-label">UI/UX Design</span>
-                                    </div>
-                                    <span class="about-skill-desc">Clean interfaces that people actually
-                                        understand.</span>
-                                </div>
-                                <div class="about-skill-item">
-                                    <div class="about-skill-left">
-                                        <svg class="about-skill-icon" width="16" height="16" viewBox="0 0 24 24"
-                                            fill="none" stroke="currentColor" stroke-width="1.5">
-                                            <circle cx="12" cy="12" r="10" />
-                                            <path d="M2 12h20" />
-                                            <path
-                                                d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
-                                        </svg>
-                                        <span class="about-skill-label">Brand Identity & Graphic Design</span>
-                                    </div>
-                                    <span class="about-skill-desc">Crafting logos, brand voice, digital marketing posts,
-                                        and graphic design all in one complete system.</span>
-                                </div>
-                                <div class="about-skill-item">
-                                    <div class="about-skill-left">
-                                        <svg class="about-skill-icon" width="16" height="16" viewBox="0 0 24 24"
-                                            fill="none" stroke="currentColor" stroke-width="1.5">
-                                            <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" />
-                                            <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" />
-                                        </svg>
-                                        <span class="about-skill-label">Product Thinking</span>
-                                    </div>
-                                    <span class="about-skill-desc">Asking "why" before opening Figma.</span>
-                                </div>
-                                <div class="about-skill-item">
-                                    <div class="about-skill-left">
-                                        <svg class="about-skill-icon" width="16" height="16" viewBox="0 0 24 24"
-                                            fill="none" stroke="currentColor" stroke-width="1.5">
-                                            <polyline points="16 18 22 12 16 6" />
-                                            <polyline points="8 6 2 12 8 18" />
-                                        </svg>
-                                        <span class="about-skill-label">Full-Stack Engineering</span>
-                                    </div>
-                                    <span class="about-skill-desc">Bridging the gap between beautiful design and solid
-                                        code logic.</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="about-divider"></div>
-
-                        <!-- Tools I use (Brand Icons) -->
-                        <div class="about-block">
-                            <h3 class="about-section-title">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="1.5" style="vertical-align: -2px; margin-right: 6px;">
-                                    <path
-                                        d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
-                                </svg>
-                                Tools & Skills
-                            </h3>
-                            <div class="about-tools">
-                                <!-- Figma -->
-                                <span class="about-tool">
-                                    <img src="assets/figma-svgrepo-com.svg" alt="Figma"
-                                        style="width: 14px; height: 14px; vertical-align: -2px; margin-right: 4px;">
-                                    Figma
-                                </span>
-                                <!-- Framer -->
-                                <span class="about-tool">
-                                    <img src="assets/framer-svgrepo-com.svg" alt="Framer" class="tool-icon-framer"
-                                        style="width: 14px; height: 14px; vertical-align: -2px; margin-right: 4px;">
-                                    Framer
-                                </span>
-                                <!-- Illustrator -->
-                                <span class="about-tool">
-                                    <img src="assets/adobe-illustrator-svgrepo-com.svg" alt="Illustrator"
-                                        style="width: 14px; height: 14px; vertical-align: -2px; margin-right: 4px;">
-                                    Illustrator
-                                </span>
-                                <!-- Affinity -->
-                                <span class="about-tool">
-                                    <img src="assets/Affinity_(App)_Logo.svg" alt="Affinity"
-                                        style="width: 14px; height: 14px; vertical-align: -2px; margin-right: 4px;">
-                                    Affinity
-                                </span>
-                                <!-- Fullstack Tools -->
-                                <span class="about-tool">
-                                    <i class="ph ph-atom"
-                                        style="font-size: 14px; vertical-align: -2px; margin-right: 4px;"></i> React.js
-                                </span>
-                                <span class="about-tool">
-                                    <i class="ph ph-caret-up"
-                                        style="font-size: 14px; vertical-align: -2px; margin-right: 4px;"></i> Next.js
-                                </span>
-                                <span class="about-tool">
-                                    <i class="ph ph-hexagon"
-                                        style="font-size: 14px; vertical-align: -2px; margin-right: 4px;"></i> Node.js
-                                </span>
-                                <span class="about-tool">
-                                    <i class="ph ph-package"
-                                        style="font-size: 14px; vertical-align: -2px; margin-right: 4px;"></i> Docker
-                                </span>
-                                <span class="about-tool">
-                                    <i class="ph ph-cloud"
-                                        style="font-size: 14px; vertical-align: -2px; margin-right: 4px;"></i> AWS
-                                </span>
-                                <span class="about-tool">
-                                    <i class="ph ph-fire"
-                                        style="font-size: 14px; vertical-align: -2px; margin-right: 4px;"></i> Firebase
-                                </span>
-                                <span class="about-tool">
-                                    <i class="ph ph-git-branch"
-                                        style="font-size: 14px; vertical-align: -2px; margin-right: 4px;"></i> Git
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="about-divider"></div>
-
-                        <!-- How I think -->
-                        <div class="about-block">
-                            <h3 class="about-section-title">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="1.5" style="vertical-align: -2px; margin-right: 6px;">
-                                    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
-                                </svg>
-                                How I think
-                            </h3>
-                            <blockquote class="about-quote">
-                                "Less interface, more experience."
-                            </blockquote>
-                            <p class="about-body">
-                                I don't chase trends or stack gradients for fun. Every pixel earns its place. Good
-                                design disappears — you don't notice it, you just feel that everything works. That's the
-                                bar I hold myself to.
-                            </p>
-                            <br><br>
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- ===== WORK PAGE (default) ===== -->
-                <div class="page-content active" id="page-work">
-                    <div class="projects-container">
-                        <!-- Project 1: Osmium -->
-                        <div class="project-card">
-                            <div class="project-image design-card-bg img-viewer-trigger"
+                        <!-- Item 1: Osmium -->
+                        <article class="work-card">
+                            <div class="work-card-media img-viewer-trigger"
                                 data-img="assets/osmium-mockup.jpg" data-title="Osmium | AI-Powered Learning"
-                                data-desc="Osmium is built to make learning feel clear, focused, and personal. It combines AI-guided courses, smart test analysis, and adaptive learning into one seamless experience."
+                                data-desc="Osmium makes learning feel clear, focused, and personal. Combines AI-guided course paths, smart test analysis, and adaptive learning."
                                 data-dribbble="https://dribbble.com/shots/27191514-Osmium-AI-Powered-Learning-That-Feels-Personal"
                                 data-behance="https://www.behance.net/gallery/246683455/Osmium-AI-Powered-Learning-That-Feels-Personal"
-                                aria-label="View Osmium project" role="button" tabindex="0">
-                                <img src="assets/osmium-mockup.jpg" alt="Osmium AI-Powered Learning UI"
-                                    class="project-img-real">
-                            </div>
-                            <div class="project-info">
-                                <div class="project-tag-row">
-                                    <div class="project-tag">Osmium | AI-Powered Learning</div>
-                                    <div class="project-links">
-                                        <a href="https://dribbble.com/shots/27191514-Osmium-AI-Powered-Learning-That-Feels-Personal"
-                                            class="project-link-icon" aria-label="Dribbble" target="_blank" data-tooltip="Dribbble">
-                                            <img src="assets/dribbble-logo.svg" alt="Dribbble"
-                                                class="project-social-icon" style="width: 14px; height: 14px;">
-                                        </a>
-                                        <a href="https://www.behance.net/gallery/246683455/Osmium-AI-Powered-Learning-That-Feels-Personal"
-                                            class="project-link-icon" aria-label="Behance" target="_blank" data-tooltip="Behance">
-                                            <img src="assets/behance-logo.svg" alt="Behance" class="project-social-icon"
-                                                style="width: 14px; height: 14px;">
-                                        </a>
-                                    </div>
-                                </div>
-                                <p class="project-description">
-                                    Osmium is built to make learning <strong>feel clear, focused, and personal</strong>.
-                                    It combines AI-guided courses, smart test analysis, and adaptive learning into one
-                                    seamless experience.
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Project 2: Natraj -->
-                        <div class="project-card">
-                            <div class="project-image design-card-bg img-viewer-trigger" data-img="assets/natraj-ui.png"
-                                data-title="NATRAJ — AR Anatomy Learning Mobile UI"
-                                data-desc="NATRAJ is an AR + AI-powered anatomy learning platform designed to make human biology interactive and accessible. The UI showcases real-time body scanning, 3D anatomy exploration, and AI-assisted learning."
-                                data-dribbble="https://dribbble.com/shots/27235652-NATRAJ-AR-Anatomy-Learning-Mobile-UI"
-                                data-behance="https://www.behance.net/6b52aa6f" aria-label="View NATRAJ project"
                                 role="button" tabindex="0">
-                                <img src="assets/natraj-ui.jpg" alt="Natraj Cultural Experience UI"
-                                    class="project-img-real">
+                                <img src="assets/osmium-mockup.jpg" alt="Osmium AI-Powered Learning UI" class="work-card-img" />
                             </div>
-                            <div class="project-info">
-                                <div class="project-tag-row">
-                                    <div class="project-tag">NATRAJ - AR Anatomy Learning Mobile UI</div>
-                                    <div class="project-links">
-                                        <a href="https://dribbble.com/shots/27235652-NATRAJ-AR-Anatomy-Learning-Mobile-UI"
-                                            class="project-link-icon" aria-label="Dribbble" target="_blank" data-tooltip="Dribbble">
-                                            <img src="assets/dribbble-logo.svg" alt="Dribbble"
-                                                class="project-social-icon" style="width: 14px; height: 14px;">
-                                        </a>
-                                        <a href="https://www.behance.net/6b52aa6f" class="project-link-icon"
-                                            aria-label="Behance" target="_blank" data-tooltip="Behance">
-                                            <img src="assets/behance-logo.svg" alt="Behance" class="project-social-icon"
-                                                style="width: 14px; height: 14px;">
-                                        </a>
-                                    </div>
+                            <div class="work-card-meta">
+                                <h3 class="work-card-title">Solo Designer for Complex AI Workflows — Osmium Learning</h3>
+                                <div class="work-card-links">
+                                    <a href="https://dribbble.com/shots/27191514-Osmium-AI-Powered-Learning-That-Feels-Personal" target="_blank" rel="noopener noreferrer" class="work-card-link-icon" title="Dribbble"><i class="ph ph-dribbble-logo"></i></a>
+                                    <a href="https://www.behance.net/gallery/246683455/Osmium-AI-Powered-Learning-That-Feels-Personal" target="_blank" rel="noopener noreferrer" class="work-card-link-icon" title="Behance"><i class="ph ph-behance-logo"></i></a>
                                 </div>
-                                <p class="project-description">
-                                    NATRAJ is an AR + AI-powered anatomy learning platform designed to make human
-                                    biology interactive and accessible.
-                                    <br><br>
-                                    This mobile UI showcases <strong>real-time body scanning</strong>, 3D anatomy
-                                    exploration, and AI-assisted learning - allowing students to visualize bones,
-                                    muscles, and organs directly on their body.
-                                </p>
                             </div>
-                        </div>
+                        </article>
 
-                        <!-- Project 3: HomeGuru -->
-                        <div class="project-card">
-                            <div class="project-image design-card-bg img-viewer-trigger" data-img="assets/HOMEGURU.png"
-                                data-title="HomeGuru — Student Dashboard"
-                                data-desc="HomeGuru is a global one-to-one tutoring marketplace where students find, book, and learn from expert tutors across any subject. The dashboard gives learners a clean hub to track sessions, manage bookings, join live classes, and follow progress."
+                        <!-- Item 2: Natraj -->
+                        <article class="work-card">
+                            <div class="work-card-media img-viewer-trigger"
+                                data-img="assets/natraj-ui.png" data-title="NATRAJ — AR Anatomy Learning Mobile UI"
+                                data-desc="AR + AI anatomy learning platform designed to make human biology interactive and accessible."
+                                data-dribbble="https://dribbble.com/shots/27235652-NATRAJ-AR-Anatomy-Learning-Mobile-UI"
+                                data-behance="https://www.behance.net/6b52aa6f"
+                                role="button" tabindex="0">
+                                <img src="assets/natraj-ui.jpg" alt="NATRAJ AR Learning UI" class="work-card-img" />
+                            </div>
+                            <div class="work-card-meta">
+                                <h3 class="work-card-title">Interactive AR Anatomy Learning Mobile Experience — NATRAJ</h3>
+                                <div class="work-card-links">
+                                    <a href="https://dribbble.com/shots/27235652-NATRAJ-AR-Anatomy-Learning-Mobile-UI" target="_blank" rel="noopener noreferrer" class="work-card-link-icon" title="Dribbble"><i class="ph ph-dribbble-logo"></i></a>
+                                    <a href="https://www.behance.net/6b52aa6f" target="_blank" rel="noopener noreferrer" class="work-card-link-icon" title="Behance"><i class="ph ph-behance-logo"></i></a>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Item 3: HomeGuru -->
+                        <article class="work-card">
+                            <div class="work-card-media img-viewer-trigger"
+                                data-img="assets/HOMEGURU.png" data-title="HomeGuru — Student Dashboard"
+                                data-desc="Global one-to-one tutoring marketplace student hub to track sessions, manage live bookings, and evaluate progress."
                                 data-dribbble="https://dribbble.com/shots/27228497-HomeGuru-Student-Dashboard"
                                 data-behance="https://www.behance.net/gallery/246700937/HomeGuru-Student-Dashboard"
-                                aria-label="View HomeGuru project" role="button" tabindex="0">
-                                <img src="assets/HOMEGURU.jpg" alt="HomeGuru Dashboard UI" class="project-img-real">
+                                role="button" tabindex="0">
+                                <img src="assets/HOMEGURU.jpg" alt="HomeGuru Dashboard UI" class="work-card-img" />
                             </div>
-                            <div class="project-info">
-                                <div class="project-tag-row">
-                                    <div class="project-tag">HomeGuru - Student Dashboard</div>
-                                    <div class="project-links">
-                                        <a href="https://dribbble.com/shots/27228497-HomeGuru-Student-Dashboard"
-                                            class="project-link-icon" aria-label="Dribbble" target="_blank" data-tooltip="Dribbble">
-                                            <img src="assets/dribbble-logo.svg" alt="Dribbble"
-                                                class="project-social-icon" style="width: 14px; height: 14px;">
-                                        </a>
-                                        <a href="https://www.behance.net/gallery/246700937/HomeGuru-Student-Dashboard"
-                                            class="project-link-icon" aria-label="Behance" target="_blank" data-tooltip="Behance">
-                                            <img src="assets/behance-logo.svg" alt="Behance" class="project-social-icon"
-                                                style="width: 14px; height: 14px;">
-                                        </a>
-                                    </div>
+                            <div class="work-card-meta">
+                                <h3 class="work-card-title">Global 1-on-1 Tutoring Hub &amp; Live Classroom — HomeGuru</h3>
+                                <div class="work-card-links">
+                                    <a href="https://dribbble.com/shots/27228497-HomeGuru-Student-Dashboard" target="_blank" rel="noopener noreferrer" class="work-card-link-icon" title="Dribbble"><i class="ph ph-dribbble-logo"></i></a>
+                                    <a href="https://www.behance.net/gallery/246700937/HomeGuru-Student-Dashboard" target="_blank" rel="noopener noreferrer" class="work-card-link-icon" title="Behance"><i class="ph ph-behance-logo"></i></a>
                                 </div>
-                                <p class="project-description">
-                                    HomeGuru is a <strong>global one-to-one tutoring marketplace</strong> where students
-                                    find, book, and learn from expert tutors across any subject.
-                                    <br><br>
-                                    The dashboard gives learners a clean hub to track sessions, manage bookings, join
-                                    live classes, and follow their learning progress — all in one place.
                             </div>
-                        </div>
+                        </article>
 
-                        <!-- Project 4: Her Rides -->
-                        <div class="project-card">
-                            <div class="project-image design-card-bg img-viewer-trigger"
-                                data-img="assets/her rides.jpg"
-                                data-title="Her Rides – Admin Dashboard"
-                                data-desc="Her Rides is a women-focused ride-sharing platform UI designed to make travel safer, more inclusive, and stress-free for female commuters and drivers. Its admin dashboard provides a centralized hub to monitor live trips, manage rider and driver profiles, track key performance metrics, and handle priority SOS safety alerts in real time."
+                        <!-- Item 4: Her Rides -->
+                        <article class="work-card">
+                            <div class="work-card-media img-viewer-trigger"
+                                data-img="assets/her rides.jpg" data-title="Her Rides – Admin Dashboard"
+                                data-desc="Women-focused ride-sharing platform UI with real-time fleet monitoring and high-priority SOS emergency dispatch."
                                 data-dribbble="https://dribbble.com/shots/26179590-Her-Rides-Admin-Dashboard"
                                 data-behance="#"
-                                aria-label="View Her Rides project" role="button" tabindex="0">
-                                <img src="assets/her rides.jpg" alt="Her Rides Admin Dashboard UI" class="project-img-real">
+                                role="button" tabindex="0">
+                                <img src="assets/her rides.jpg" alt="Her Rides Dashboard UI" class="work-card-img" />
                             </div>
-                            <div class="project-info">
-                                <div class="project-tag-row">
-                                    <div class="project-tag">Her Rides – Admin Dashboard</div>
-                                    <div class="project-links">
-                                        <a href="https://dribbble.com/shots/26179590-Her-Rides-Admin-Dashboard"
-                                            class="project-link-icon" aria-label="Dribbble" target="_blank" data-tooltip="Dribbble">
-                                            <img src="assets/dribbble-logo.svg" alt="Dribbble"
-                                                class="project-social-icon" style="width: 14px; height: 14px;">
-                                        </a>
-                                    </div>
+                            <div class="work-card-meta">
+                                <h3 class="work-card-title">Fleet Dispatch &amp; Real-Time SOS Safety Portal — Her Rides</h3>
+                                <div class="work-card-links">
+                                    <a href="https://dribbble.com/shots/26179590-Her-Rides-Admin-Dashboard" target="_blank" rel="noopener noreferrer" class="work-card-link-icon" title="Dribbble"><i class="ph ph-dribbble-logo"></i></a>
                                 </div>
-                                <p class="project-description">
-                                    Her Rides is a <strong>women-focused ride-sharing platform</strong> UI designed to make travel safer, more inclusive, and stress-free for female commuters and drivers.
-                                    <br><br>
-                                    Its admin dashboard provides a centralized hub to monitor live trips, manage rider and driver profiles, track key performance metrics, and handle priority <strong>SOS safety alerts</strong> in real time.
-                                </p>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ===== BRANDING PAGE ===== -->
-                <div class="page-content" id="page-branding">
-                    <div class="branding-grid">
-
-                        <div class="branding-card img-viewer-trigger" data-img="assets/POST.png"
-                            data-title="Brand Poster" data-desc="" data-dribbble="#" data-behance="#" role="button"
-                            tabindex="0" aria-label="View Brand Poster">
-                            <div class="branding-card-inner">
-                                <img src="assets/POST.png" alt="Brand Poster" class="branding-img">
-                            </div>
-                        </div>
-
-                        <div class="branding-card img-viewer-trigger" data-img="assets/post - iUw.png"
-                            data-title="Brand Poster 2" data-desc="" data-dribbble="#" data-behance="#" role="button"
-                            tabindex="0" aria-label="View Brand Poster 2">
-                            <div class="branding-card-inner">
-                                <img src="assets/post - iUw.png" alt="Brand Poster 2" class="branding-img">
-                            </div>
-                        </div>
-
-                        <div class="branding-card img-viewer-trigger" data-img="assets/post 3 (1).png"
-                            data-title="Brand Poster 3" data-desc="" data-dribbble="#" data-behance="#" role="button"
-                            tabindex="0" aria-label="View Brand Poster 3">
-                            <div class="branding-card-inner">
-                                <img src="assets/post 3 (1).png" alt="Brand Poster 3" class="branding-img">
-                            </div>
-                        </div>
-
-                        <div class="branding-card img-viewer-trigger" data-img="assets/post 4.png"
-                            data-title="Brand Poster 4" data-desc="" data-dribbble="#" data-behance="#" role="button"
-                            tabindex="0" aria-label="View Brand Poster 4">
-                            <div class="branding-card-inner">
-                                <img src="assets/post 4.png" alt="Brand Poster 4" class="branding-img">
-                            </div>
-                        </div>
-
-                        <div class="branding-card img-viewer-trigger" data-img="assets/POST 5 FRONT.png"
-                            data-title="Brand Poster 5" data-desc="" data-dribbble="#" data-behance="#" role="button"
-                            tabindex="0" aria-label="View Brand Poster 5">
-                            <div class="branding-card-inner">
-                                <img src="assets/POST 5 FRONT.png" alt="Brand Poster 5" class="branding-img">
-                            </div>
-                        </div>
+                        </article>
 
                     </div>
                 </div>
 
-                <!-- ===== PROJECTS PAGE (new) ===== -->
-                <div class="page-content" id="page-projects">
-                    <div class="projects-container">
-                        <!-- Project: Orrery -->
-                        <div class="project-card">
-                            <div class="project-image">
-                                <!-- Demo UI -->
-                                <div class="orrery-demo-ui"
-                                    style="width: 100%; aspect-ratio: 16/10; background: #000; border-radius: 8px; position: relative; overflow: hidden;">
-                                    <aside class="loader">
-                                        <div class="side front"></div>
-                                        <div class="side behind"></div>
-                                        <div class="side right"></div>
-                                        <div class="side left"></div>
-                                        <div class="side top"></div>
-                                        <div class="side bottom"></div>
-                                    </aside>
-                                    <div
-                                        style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); z-index: 2; width: 100%; text-align: center;">
-                                        Interactive Graph Simulation...</div>
-                                </div>
-                            </div>
-                            <div class="project-info">
-                                <div class="project-tag-row">
-                                    <div class="project-tag">Orrery | AI Interactive Graphs</div>
-                                    <div class="project-links">
-                                        <a href="https://github.com/Suman1214129/Orrery.git" class="project-link-icon"
-                                            aria-label="GitHub Repository" target="_blank" data-tooltip="GitHub">
-                                            <i class="ph ph-github-logo" style="font-size: 16px;"></i>
-                                        </a>
-                                        <a href="https://orrery-xi.vercel.app/" class="project-link-icon"
-                                            aria-label="Visit Website" target="_blank" data-tooltip="Live Site">
-                                            <i class="ph ph-arrow-up-right" style="font-size: 16px;"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <p class="project-description">
-                                    AI-powered tool that converts written notes into <strong>interactive
-                                        graphs</strong>, letting users branch off and explore alternate ideas or
-                                    decisions non-linearly.
-                                </p>
-                            </div>
+                <!-- TAB 2: BRANDING (Masonry Gallery) -->
+                <div class="tab-pane" id="pane-branding">
+                    <div class="branding-masonry-grid">
+                        <div class="branding-item img-viewer-trigger" data-img="assets/POST.png"
+                            data-title="Brand Poster — Editorial Geometric" role="button" tabindex="0">
+                            <img src="assets/POST.png" alt="Brand Poster" class="branding-masonry-img" loading="lazy" />
+                        </div>
+                        <div class="branding-item img-viewer-trigger" data-img="assets/post - iUw.png"
+                            data-title="Brand Poster — Visual Narrative" role="button" tabindex="0">
+                            <img src="assets/post - iUw.png" alt="Brand Poster 2" class="branding-masonry-img" loading="lazy" />
+                        </div>
+                        <div class="branding-item img-viewer-trigger" data-img="assets/post 3 (1).png"
+                            data-title="Brand Poster — Typographic Identity" role="button" tabindex="0">
+                            <img src="assets/post 3 (1).png" alt="Brand Poster 3" class="branding-masonry-img" loading="lazy" />
+                        </div>
+                        <div class="branding-item img-viewer-trigger" data-img="assets/post 4.png"
+                            data-title="Brand Poster — Modernist Layout" role="button" tabindex="0">
+                            <img src="assets/post 4.png" alt="Brand Poster 4" class="branding-masonry-img" loading="lazy" />
+                        </div>
+                        <div class="branding-item img-viewer-trigger" data-img="assets/POST 5 FRONT.png"
+                            data-title="Brand Identity — Print &amp; Packaging" role="button" tabindex="0">
+                            <img src="assets/POST 5 FRONT.png" alt="Brand Poster 5" class="branding-masonry-img" loading="lazy" />
                         </div>
                     </div>
                 </div>
 
+                <!-- TAB 3: PROJECTS -->
+                <div class="tab-pane" id="pane-projects">
+                    <div class="project-showcase-full">
+                        <!-- Full-width Visual Card: Dotted grid with branching diagram -->
+                        <div class="orrery-diagram-card orrery-full-width">
+                            <svg class="orrery-branch-svg" viewBox="0 0 700 190" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Horizontal Main Trunk Line -->
+                                <line x1="40" y1="95" x2="620" y2="95" stroke="var(--branch-trunk, #c8c8c2)" stroke-width="1.6" />
+
+                                <!-- Top Green Alt Ending Branch -->
+                                <path d="M 160 95 C 195 95, 215 48, 250 48 L 510 48 C 545 48, 565 95, 600 95" fill="none" stroke="#17805e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                                
+                                <!-- Bottom Orange What-If Branch (Dashed) -->
+                                <path d="M 280 95 C 310 95, 330 145, 370 145 L 530 145" fill="none" stroke="#d97736" stroke-width="1.6" stroke-dasharray="4 3" stroke-linecap="round" stroke-linejoin="round" />
+
+                                <!-- Top Branch Green Nodes -->
+                                <circle cx="260" cy="48" r="4.5" fill="#17805e" />
+                                <circle cx="380" cy="48" r="4.5" fill="#17805e" />
+                                <circle cx="500" cy="48" r="4.5" fill="#17805e" />
+                                <text x="380" y="32" text-anchor="middle" class="svg-branch-label">alt ending</text>
+
+                                <!-- Main Line Gray Nodes -->
+                                <circle cx="60" cy="95" r="4.5" class="svg-node-trunk" />
+                                <text x="60" y="116" text-anchor="middle" class="svg-branch-label">original</text>
+
+                                <circle cx="160" cy="95" r="4.5" class="svg-node-trunk" />
+                                <text x="160" y="116" text-anchor="middle" class="svg-branch-label">fork</text>
+
+                                <circle cx="280" cy="95" r="4.5" class="svg-node-trunk" />
+                                <circle cx="400" cy="95" r="4.5" class="svg-node-trunk" />
+                                <circle cx="510" cy="95" r="4.5" class="svg-node-trunk" />
+
+                                <!-- Main Line Merge Node (Solid Black/Text Color) -->
+                                <circle cx="600" cy="95" r="4.5" class="svg-node-merge" />
+                                <text x="600" y="116" text-anchor="middle" class="svg-branch-label">merge</text>
+
+                                <!-- Bottom Branch Orange Hollow Nodes -->
+                                <circle cx="378" cy="145" r="4.5" fill="var(--surface)" stroke="#d97736" stroke-width="1.6" />
+                                <circle cx="530" cy="145" r="4.5" fill="var(--surface)" stroke="#d97736" stroke-width="1.6" />
+                                <text x="425" y="165" text-anchor="start" class="svg-branch-label">. what if</text>
+                            </svg>
+                        </div>
+
+                        <!-- Bottom Details Row -->
+                        <div class="orrery-details-row">
+                            <div class="orrery-title-block">
+                                <h3 class="project-title-name">Orrery</h3>
+                                <span class="project-title-slash">/</span>
+                                <span class="project-title-desc">Branching tool for writers</span>
+                            </div>
+
+                            <p class="project-body-text orrery-body">
+                                Orrery is a writing tool built around version branching. Start from any point in a draft, explore an alternate direction on its own timeline, then compare it against the original and merge the changes you want to keep.
+                            </p>
+
+                            <div class="project-footer-row">
+                                <div class="project-pills">
+                                    <span class="project-pill">Product design</span>
+                                    <span class="project-pill">Full-stack</span>
+                                </div>
+                                <div class="project-actions">
+                                    <a href="https://orrery-2.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-action-link project-icon-link" title="Live site">
+                                        <i class="ph ph-arrow-square-out"></i>
+                                        <span>Live site</span>
+                                    </a>
+                                    <a href="https://github.com/Suman1214129/Orrery.git" target="_blank" rel="noopener noreferrer" class="project-action-link project-icon-link" title="GitHub">
+                                        <i class="ph ph-github-logo"></i>
+                                        <span>GitHub</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
-        </div>
+
+            <div class="content-divider"></div>
+
+            <!-- 3. WORK EXPERIENCE SECTION -->
+            <section class="section-container" id="experience">
+                <div class="section-title-group">
+                    <h2 class="section-heading">Work Experience</h2>
+                    <p class="section-subtext">
+                        Product designer and builder obsessed with solving the right problem. In the last 3 years I've designed and shipped products at <a href="https://navchetna.org" target="_blank" rel="noopener noreferrer" class="text-link">NAVCHETNA</a>, freelance labs, and open source ecosystems.
+                    </p>
+                </div>
+
+                <!-- Work item group matching reference layout -->
+                <div class="work-item-group">
+                    <div class="work-item-header">
+                        <div class="work-item-title-meta">
+                            <span class="role-bold">Head of Design &amp; UX Lead</span>
+                            <a href="https://www.linkedin.com/in/suman-yadav-bb5516322/" target="_blank" rel="noopener noreferrer" class="company-underlined">NAVCHETNA</a>
+                            <span class="date-muted">2024 – Present • Full-time</span>
+                        </div>
+                    </div>
+
+                    <!-- Clean hero showcase image with subtle border & sharp corners -->
+                    <div class="work-item-banner img-viewer-trigger"
+                        data-img="assets/navchetna.jpeg"
+                        data-title="NAVCHETNA — Team &amp; Brand Architecture"
+                        role="button" tabindex="0">
+                        <img src="assets/navchetna.jpeg" alt="NAVCHETNA Workspace &amp; Brand Architecture" class="work-item-banner-img" />
+                        <div class="work-item-banner-caption">
+                            <span>© NAVCHETNA HQ, Ahmedabad</span>
+                        </div>
+                    </div>
+
+                    <!-- Body paragraph directly under image -->
+                    <p class="work-item-description">
+                        Leading UX and design systems across NAVCHETNA's multi-product AI education and assessment platform. Being a designer here means thinking, validating, and executing end-to-end: building the tokenized design system, testing user workflows with students and mentors, and working directly in code to maintain pixel-perfect shipping straight to production.
+                    </p>
+                </div>
+            </section>
+
+            <div class="content-divider"></div>
+
+            <!-- 4. ABOUT ME SECTION (Clean, without tools or skills list) -->
+            <section class="section-container" id="about">
+                <div class="section-title-group">
+                    <h2 class="section-heading">About Me</h2>
+                    <p class="section-subtext">Product designer with a developer mindset.</p>
+                </div>
+
+                <div class="about-grid-layout">
+                    <div class="about-portrait-card">
+                        <div class="about-album-frame">
+                            <img src="assets/my photo.jpeg" alt="Suman Yadav" class="about-portrait-img" id="profile-img" />
+                            <div class="album-caption">suman • ahmedabad</div>
+                        </div>
+                    </div>
+
+                    <div class="about-story-card">
+                        <p class="story-paragraph">
+                            I'm a designer who codes. I care about how things look, how they feel when you interact with them, and how they actually hold up in production. Most of my time is spent thinking through user flows, building design systems, and shipping products from scratch.
+                        </p>
+
+                        <p class="story-paragraph">
+                            Currently leading UX and product design at NAVCHETNA in Ahmedabad. When I'm not designing interfaces or writing frontend code, I'm usually sketching, playing chess, or exploring new ideas.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- ================= MINIMAL FOOTER WITH BACKGROUND ARCHITECTURE SVG ================= -->
+        <footer class="site-footer">
+            <!-- Architectural SVG as background illustration, flush at bottom -->
+            <div class="footer-architectural-illustration">
+                <img src="assets/illustrate.svg" alt="Architectural drafted lines" class="footer-building-svg" />
+            </div>
+
+            <div class="footer-bottom-row">
+                <!-- Social icon links -->
+                <div class="footer-social-links">
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sumankr8586@gmail.com" target="_blank" rel="noopener noreferrer" class="footer-social-icon-btn" title="Email" aria-label="Email">
+                        <i class="ph ph-envelope-simple"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/suman-yadav-bb5516322/" target="_blank" rel="noopener noreferrer" class="footer-social-icon-btn" title="LinkedIn" aria-label="LinkedIn">
+                        <i class="ph ph-linkedin-logo"></i>
+                    </a>
+                    <a href="https://github.com/Suman1214129" target="_blank" rel="noopener noreferrer" class="footer-social-icon-btn" title="GitHub" aria-label="GitHub">
+                        <i class="ph ph-github-logo"></i>
+                    </a>
+                    <a href="https://www.behance.net/6b52aa6f" target="_blank" rel="noopener noreferrer" class="footer-social-icon-btn" title="Behance" aria-label="Behance">
+                        <i class="ph ph-behance-logo"></i>
+                    </a>
+                </div>
+
+                <div class="footer-right-meta">
+                    <span class="footer-copyright">© <span id="current-year">2026</span> Suman Yadav</span>
+                    <button type="button" class="back-to-top-btn" id="back-to-top-btn" title="Back to top">
+                        <span>↑ top</span>
+                    </button>
+                </div>
+            </div>
+        </footer>
+
     </div>
 
-    <!-- ========== SUDOKU MODAL ========== -->
+    <!-- ========== SUDOKU GAME MODAL ========== -->
     <div class="sudoku-overlay" id="sudoku-overlay">
         <div class="win-window" id="win-window">
             <div class="win-titlebar" id="win-titlebar">
-                <span class="win-title-text">sudoku.exe
-                </span>
+                <span class="win-title-text">sudoku.exe</span>
                 <button class="win-ctrl-btn win-close" id="win-close">✕</button>
             </div>
             <div class="win-body">
@@ -601,85 +492,31 @@
         </div>
     </div>
 
-    <!-- ========== SEND NOTES MODAL ========== -->
-    <div class="notes-overlay" id="notes-overlay">
-        <div class="notes-modal">
-            <div class="notes-header">
-                <div class="notes-header-left">
-                    <span class="win-title-text">drop me a note</span>
-                </div>
-                <button class="notes-close-btn" id="notes-close">✕</button>
-            </div>
-            <div class="notes-body" id="notes-body">
-                <p class="notes-hint">say hi, share feedback, or just tell me your favorite font.</p>
-                <div class="notes-field">
-                    <div class="notes-input-wrap">
-                        <i class="ph-fill ph-user notes-input-icon"></i>
-                        <input class="notes-input" id="notes-name" type="text" placeholder="your name" autocomplete="off" spellcheck="false">
-                    </div>
-                </div>
-                <div class="notes-field">
-                    <label class="notes-label" for="notes-message">your note</label>
-                    <div class="notes-textarea-wrap">
-                        <textarea class="notes-textarea" id="notes-message" placeholder="write something..."></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="notes-success" id="notes-success">
-                <span class="notes-success-icon">✓</span>
-                <div class="notes-success-text" id="notes-success-text">sent!</div>
-                <div class="notes-success-sub">i'll get back to you soon.</div>
-            </div>
-            <div class="notes-footer" id="notes-footer">
-                <div class="notes-emoji-row">
-                    <button class="notes-emoji-btn" data-emoji="👋">👋</button>
-                    <button class="notes-emoji-btn" data-emoji="🔥">🔥</button>
-                    <button class="notes-emoji-btn" data-emoji="✨">✨</button>
-                    <button class="notes-emoji-btn" data-emoji="😍">😍</button>
-                    <button class="notes-emoji-btn" data-emoji="❤️">❤️</button>
-                    <button class="notes-emoji-btn" data-emoji="😂">😂</button>
-                    <button class="notes-emoji-btn" data-emoji="🙏">🙏</button>
-                </div>
-                <button class="notes-send-btn" id="notes-send">send →</button>
-            </div>
-        </div>
-    </div>
-
     <!-- ========== IMAGE VIEWER MODAL ========== -->
     <div class="iv-overlay" id="iv-overlay" role="dialog" aria-modal="true" aria-label="Image viewer">
         <div class="iv-backdrop" id="iv-backdrop"></div>
-
-        <!-- Main panel -->
         <div class="iv-panel" id="iv-panel">
-            <!-- Header (matches notes-header) -->
             <div class="iv-header">
                 <div class="iv-header-left">
                     <span class="iv-tag" id="iv-tag"></span>
                     <div class="iv-nav-group">
-                        <button class="iv-nav-btn" id="iv-prev" aria-label="Previous design">←</button>
-                        <button class="iv-nav-btn" id="iv-next" aria-label="Next design">→</button>
+                        <button class="iv-nav-btn" id="iv-prev" aria-label="Previous">←</button>
+                        <button class="iv-nav-btn" id="iv-next" aria-label="Next">→</button>
                     </div>
                 </div>
                 <div class="iv-header-right">
                     <div class="iv-info-actions">
-                        <a class="iv-action-btn" id="iv-dribbble-link" href="#" target="_blank"
-                            rel="noopener noreferrer" aria-label="View on Dribbble">
-                            <img src="assets/dribbble-logo.svg" alt="" class="iv-action-icon">
-                            <span class="iv-action-text">Dribbble</span>
-                            <i class="ph ph-arrow-up-right iv-action-arrow"></i>
+                        <a class="iv-action-btn" id="iv-dribbble-link" href="#" target="_blank" rel="noopener noreferrer">
+                            <span>Dribbble ↗</span>
                         </a>
-                        <a class="iv-action-btn" id="iv-behance-link" href="#" target="_blank" rel="noopener noreferrer"
-                            aria-label="View on Behance">
-                            <img src="assets/behance-logo.svg" alt="" class="iv-action-icon">
-                            <span class="iv-action-text">Behance</span>
-                            <i class="ph ph-arrow-up-right iv-action-arrow"></i>
+                        <a class="iv-action-btn" id="iv-behance-link" href="#" target="_blank" rel="noopener noreferrer">
+                            <span>Behance ↗</span>
                         </a>
                     </div>
-                    <button class="notes-close-btn iv-close-btn" id="iv-close" aria-label="Close viewer">✕</button>
+                    <button class="iv-close-btn" id="iv-close" aria-label="Close viewer">✕</button>
                 </div>
             </div>
 
-            <!-- Image area -->
             <div class="iv-img-wrap" id="iv-img-wrap">
                 <div class="iv-ambient-glow" id="iv-ambient-glow"></div>
                 <div class="iv-img-inner">
@@ -692,8 +529,8 @@
         </div>
     </div>
 
+    <!-- Scripts -->
     <script src="script.js"></script>
-    <script src="particle-canvas.js"></script>
 </body>
 
 </html>

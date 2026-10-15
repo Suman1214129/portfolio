@@ -1,7 +1,7 @@
 // ============================================
-// THEME TOGGLE (light / dark)
+// THEME TOGGLE (Simple icon-based button)
 // ============================================
-const themeToggleInput = document.getElementById('theme-toggle-input');
+const themeToggleBtn = document.getElementById('theme-toggle-btn');
 const root = document.documentElement;
 
 function setTheme(theme) {
@@ -9,24 +9,28 @@ function setTheme(theme) {
     localStorage.setItem('theme', theme);
 }
 
-if (themeToggleInput) {
-    themeToggleInput.addEventListener('change', (e) => {
-        setTheme(e.target.checked ? 'dark' : 'light');
+if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+        const currentTheme = root.getAttribute('data-theme') || 'light';
+        const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        setTheme(nextTheme);
     });
-
-    // Set initial state
-    const currentTheme = root.getAttribute('data-theme') || 'light';
-    themeToggleInput.checked = (currentTheme === 'dark');
 }
 
+// Year update
+const yearEl = document.getElementById('current-year');
+if (yearEl) yearEl.textContent = new Date().getFullYear();
+
 // ============================================
-// GREETING ANIMATION (namaste ↔ hi)
+// GREETING ANIMATION (namaste ↔ hi ↔ hello)
 // ============================================
 const greetingEl = document.getElementById('greeting-text');
+const greetingBtn = document.getElementById('hero-greeting-btn');
 const greetings = ['namaste', 'hi', 'hello'];
 let currentGreeting = 0;
 
-setInterval(() => {
+function cycleGreeting() {
+    if (!greetingEl) return;
     greetingEl.classList.add('fade-out');
     greetingEl.classList.remove('fade-in');
     setTimeout(() => {
@@ -34,328 +38,146 @@ setInterval(() => {
         greetingEl.textContent = greetings[currentGreeting];
         greetingEl.classList.remove('fade-out');
         greetingEl.classList.add('fade-in');
-    }, 350);
-}, 5000);
+    }, 200);
+}
+
+if (greetingEl) {
+    setInterval(cycleGreeting, 4500);
+}
+
+if (greetingBtn) {
+    greetingBtn.addEventListener('click', cycleGreeting);
+}
 
 // ============================================
-// PAGE SWITCHING (About is default, Work is secondary)
+// CONTACT & MORE EXPANDED DROPDOWN TILE
 // ============================================
-const navLinks = document.querySelectorAll('.nav-link[data-page]');
-const pageWork = document.getElementById('page-work');
-const pageAbout = document.getElementById('page-about');
-const pageProjects = document.getElementById('page-projects');
-const pageBranding = document.getElementById('page-branding');
-const rightSection = document.getElementById('right-section');
-const toggleDesigns = document.getElementById('toggle-designs');
-const toggleBranding = document.getElementById('toggle-branding');
-const toggleProjects = document.getElementById('toggle-projects');
+const contactMoreBtn = document.getElementById('contact-more-btn');
+const contactDropdown = document.getElementById('contact-dropdown-panel');
 
-function switchPage(page) {
-    navLinks.forEach(l => l.classList.remove('active'));
-    const activeLink = document.querySelector(`.nav-link[data-page="${page}"]`);
-    if (activeLink) activeLink.classList.add('active');
+if (contactMoreBtn && contactDropdown) {
+    contactMoreBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = contactDropdown.classList.contains('show');
+        contactDropdown.classList.toggle('show');
+        contactMoreBtn.setAttribute('aria-expanded', !isOpen);
+    });
 
-    const current = document.querySelector('.page-content.active');
-    if (current) {
-        current.style.opacity = '0';
-        current.style.transform = 'translateY(12px)';
-    }
-
-    setTimeout(() => {
-        pageWork.classList.remove('active');
-        pageAbout.classList.remove('active');
-        if (pageProjects) pageProjects.classList.remove('active');
-        if (pageBranding) pageBranding.classList.remove('active');
-
-        if (page === 'work') {
-            document.getElementById('works-toggle-container').style.display = 'inline-flex';
-            document.getElementById('about-title').style.display = 'none';
-            if (toggleProjects && toggleProjects.checked) {
-                pageProjects.classList.add('active');
-            } else if (toggleBranding && toggleBranding.checked) {
-                pageBranding.classList.add('active');
-            } else {
-                pageWork.classList.add('active');
-            }
-        } else {
-            document.getElementById('works-toggle-container').style.display = 'none';
-            document.getElementById('about-title').style.display = 'inline-flex';
-            pageAbout.classList.add('active');
+    document.addEventListener('click', (e) => {
+        if (!contactDropdown.contains(e.target) && !contactMoreBtn.contains(e.target)) {
+            contactDropdown.classList.remove('show');
+            contactMoreBtn.setAttribute('aria-expanded', 'false');
         }
+    });
 
-        rightSection.scrollTo({ top: 0, behavior: 'instant' });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            contactDropdown.classList.remove('show');
+            contactMoreBtn.setAttribute('aria-expanded', 'false');
+        }
+    });
+}
 
-        const next = document.querySelector('.page-content.active');
-        if (next) {
-            next.style.opacity = '0';
-            next.style.transform = 'translateY(12px)';
-            requestAnimationFrame(() => {
-                next.style.transition = 'opacity 0.35s var(--ease-out), transform 0.35s var(--ease-out)';
-                next.style.opacity = '1';
-                next.style.transform = 'translateY(0)';
+// Slash shortcut to open "write me a message" on the monkey
+document.addEventListener('keydown', (e) => {
+    if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+        e.preventDefault();
+        if (typeof window.openMonkeyMessageInput === 'function') {
+            window.openMonkeyMessageInput();
+        }
+    }
+});
+
+// ============================================
+// NAVBAR ACTIVE LINK ON SCROLL & CURVED UNDERLINE
+// ============================================
+const headerNavLinks = document.querySelectorAll('.header-nav-link');
+const trackedSections = document.querySelectorAll('section[id]');
+
+function updateActiveNav() {
+    const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+    trackedSections.forEach(section => {
+        const top = section.offsetTop - 120;
+        const height = section.offsetHeight;
+        const id = section.getAttribute('id');
+        if (scrollY >= top && scrollY < top + height) {
+            headerNavLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${id}`) {
+                    link.classList.add('active');
+                }
             });
         }
-    }, 250);
+    });
 }
 
-function handleWorksToggle() {
-    // Only switch if we are currently on the 'work' tab section
-    const activeLink = document.querySelector('.nav-link.active');
-    if (activeLink && activeLink.dataset.page !== 'work') return;
+window.addEventListener('scroll', updateActiveNav, { passive: true });
 
-    // Reuse switchPage with 'work' to run the transition logic
-    switchPage('work');
-}
-
-if (toggleDesigns) toggleDesigns.addEventListener('change', handleWorksToggle);
-if (toggleBranding) toggleBranding.addEventListener('change', handleWorksToggle);
-if (toggleProjects) toggleProjects.addEventListener('change', handleWorksToggle);
-
-// Click logo → go back to Work (home)
-document.getElementById('nav-logo').addEventListener('click', () => {
-    switchPage('work');
-});
-
-navLinks.forEach(link => {
+headerNavLinks.forEach(link => {
     link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const page = link.dataset.page;
-        if (page) switchPage(page);
+        const targetId = link.getAttribute('href');
+        if (targetId && targetId.startsWith('#')) {
+            const el = document.querySelector(targetId);
+            if (el) {
+                e.preventDefault();
+                el.scrollIntoView({ behavior: 'smooth' });
+                headerNavLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            }
+        }
     });
 });
 
-// ============================================
-// SCROLL PROGRESS + GLASS HEADER
-// ============================================
-const progressValue = document.getElementById('progress-value');
-const rightHeader = document.getElementById('right-header');
-
-function handleScroll() {
-    let scrollTop, scrollHeight, clientHeight;
-    if (window.innerWidth <= 900) {
-        scrollTop = window.scrollY;
-        scrollHeight = document.documentElement.scrollHeight;
-        clientHeight = window.innerHeight;
-    } else {
-        scrollTop = rightSection.scrollTop;
-        scrollHeight = rightSection.scrollHeight;
-        clientHeight = rightSection.clientHeight;
-    }
-    const maxScroll = scrollHeight - clientHeight;
-    const progress = maxScroll > 0 ? Math.round((scrollTop / maxScroll) * 100) : 0;
-    progressValue.textContent = `(${Math.min(100, Math.max(0, progress))}%)`;
-    rightHeader.classList.toggle('scrolled', scrollTop > 8);
-}
-
-rightSection.addEventListener('scroll', handleScroll);
-window.addEventListener('scroll', handleScroll);
-
-// ============================================
-// SAY HI BUTTON — MAGNETIC + OPEN MODAL
-// ============================================
-const sayHiBtn = document.getElementById('say-hi-btn');
-
-sayHiBtn.addEventListener('mousemove', (e) => {
-    const rect = sayHiBtn.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    sayHiBtn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
-});
-sayHiBtn.addEventListener('mouseleave', () => { sayHiBtn.style.transform = ''; });
-sayHiBtn.addEventListener('click', openNotesModal);
-
-// ============================================
-// SEND NOTES MODAL
-// ============================================
-const notesOverlay = document.getElementById('notes-overlay');
-const notesClose = document.getElementById('notes-close');
-const notesName = document.getElementById('notes-name');
-const notesMessage = document.getElementById('notes-message');
-const notesSend = document.getElementById('notes-send');
-const notesBody = document.getElementById('notes-body');
-const notesSuccess = document.getElementById('notes-success');
-const notesSuccessText = document.getElementById('notes-success-text');
-const notesFooter = document.getElementById('notes-footer');
-
-emailjs.init('iIr1bA-di34X4YP3j');
-
-function openNotesModal() {
-    notesOverlay.classList.add('active');
-    notesBody.style.display = '';
-    notesFooter.style.display = '';
-    notesSuccess.classList.remove('show');
-    notesName.value = '';
-    notesMessage.value = '';
-    notesSend.disabled = false;
-    notesSend.classList.remove('sent');
-    notesSend.textContent = 'send →';
-    setTimeout(() => notesName.focus(), 300);
-}
-
-function closeNotesModal() { notesOverlay.classList.remove('active'); }
-notesClose.addEventListener('click', closeNotesModal);
-notesOverlay.addEventListener('click', (e) => { if (e.target === notesOverlay) closeNotesModal(); });
-
-// Emoji quick-picks — append to textarea
-document.querySelectorAll('.notes-emoji-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        const emoji = btn.dataset.emoji;
-        const pos = notesMessage.selectionStart;
-        const val = notesMessage.value;
-        notesMessage.value = val.slice(0, pos) + emoji + val.slice(pos);
-        notesMessage.selectionStart = notesMessage.selectionEnd = pos + emoji.length;
-        notesMessage.focus();
+// Back to top button
+const backToTopBtn = document.getElementById('back-to-top-btn');
+if (backToTopBtn) {
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-});
+}
 
-notesSend.addEventListener('click', async () => {
-    const name = notesName.value.trim();
-    const message = notesMessage.value.trim();
+// ============================================
+// WORKS TAB SWITCHER
+// ============================================
+const worksTabs = document.querySelectorAll('.works-tab');
+const tabPanes = document.querySelectorAll('.tab-pane');
+const tabIndicator = document.getElementById('works-tab-indicator');
 
-    if (!name) { notesName.classList.add('shake'); notesName.focus(); setTimeout(() => notesName.classList.remove('shake'), 400); return; }
-    if (!message) { notesMessage.classList.add('shake'); notesMessage.focus(); setTimeout(() => notesMessage.classList.remove('shake'), 400); return; }
+function updateTabIndicator(activeTab) {
+    if (!tabIndicator || !activeTab) return;
+    tabIndicator.style.width = `${activeTab.offsetWidth}px`;
+    tabIndicator.style.transform = `translateX(${activeTab.offsetLeft - 2}px)`;
+}
 
-    notesSend.disabled = true;
-    notesSend.textContent = 'sending...';
+worksTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        const tabType = tab.getAttribute('data-tab');
+        worksTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        updateTabIndicator(tab);
 
-    try {
-        await emailjs.send('my-portfolio-messages', 'template_w7rjff6', {
-            from_name: name,
-            name: name,
-            message: message,
-            time: new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }),
+        tabPanes.forEach(pane => {
+            pane.classList.remove('active');
+            if (pane.id === `pane-${tabType}`) {
+                pane.classList.add('active');
+            }
         });
-        showSent(name);
-    } catch {
-        showSent(name);
-    }
+
+        document.dispatchEvent(new CustomEvent('tabswitched', { detail: { tab: tabType } }));
+    });
 });
 
-function showSent(name) {
-    notesSend.textContent = '✓';
-    notesSend.classList.add('sent');
-    setTimeout(() => {
-        notesBody.style.display = 'none';
-        notesFooter.style.display = 'none';
-        notesSuccessText.textContent = `got it, ${name}.`;
-        notesSuccess.classList.add('show');
-        setTimeout(closeNotesModal, 4000);
-    }, 500);
-}
-
-// ============================================
-// ILLUSTRATION PARALLAX
-// ============================================
-const architectureIllustration = document.querySelector('.architecture-illustration');
-const leftSection = document.querySelector('.left-section');
-
-leftSection.addEventListener('mousemove', (e) => {
-    const rect = leftSection.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    if (architectureIllustration) {
-        architectureIllustration.style.transform = `translateX(-50%) translate(${x * 6}px, ${y * 3}px)`;
-    }
+window.addEventListener('load', () => {
+    const active = document.querySelector('.works-tab.active');
+    if (active) updateTabIndicator(active);
 });
 
 // ============================================
-// MONKEY — Tooltip + easter egg funny strings
+// SUDOKU MINI WINDOW
 // ============================================
-const monkeyWrapper = document.getElementById('monkey-wrapper');
-const monkeyImg = document.getElementById('monkey-img');
-const customCursor = document.getElementById('custom-cursor');
-const cursorLabel = document.getElementById('cursor-label');
-
-const funnyTexts = [
-    "don't click me!",
-    "I said DON'T!",
-    "you're still here?",
-    "fine. click me.",
-    "last warning...",
-];
-let tooltipIndex = 0;
-
-if (monkeyWrapper) {
-    monkeyWrapper.addEventListener('mouseenter', () => {
-        if (cursorLabel) {
-            cursorLabel.textContent = funnyTexts[tooltipIndex];
-            tooltipIndex = (tooltipIndex + 1) % funnyTexts.length;
-        }
-        if (customCursor) customCursor.classList.add('visible');
-    });
-
-    monkeyWrapper.addEventListener('mousemove', (e) => {
-        if (customCursor) {
-            customCursor.style.left = `${e.clientX}px`;
-            customCursor.style.top = `${e.clientY}px`;
-        }
-    });
-
-    monkeyWrapper.addEventListener('mouseleave', () => {
-        if (customCursor) customCursor.classList.remove('visible');
-    });
-}
-
-monkeyImg.addEventListener('click', openSudokuWindow);
-
 const sudokuOverlay = document.getElementById('sudoku-overlay');
-const winWindow = document.getElementById('win-window');
 const winClose = document.getElementById('win-close');
-const winTitlebar = document.getElementById('win-titlebar');
 
-function openSudokuWindow() {
-    if (sudokuOverlay) sudokuOverlay.classList.add('active');
-    winWindow.style.left = '50%';
-    winWindow.style.top = '50%';
-    winWindow.style.transform = 'translate(-50%, -50%) scale(1)';
-    winWindow.classList.add('active');
-    initSudoku();
-}
-
-function closeSudokuWindow() {
-    if (sudokuOverlay) sudokuOverlay.classList.remove('active');
-    winWindow.classList.remove('active');
-}
-
-if (winClose) winClose.addEventListener('click', closeSudokuWindow);
-
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') { closeNotesModal(); }
-});
-
-// ============================================
-// DRAGGABLE (truly free-floating)
-// ============================================
-let isDragging = false, dragOffsetX = 0, dragOffsetY = 0;
-
-winTitlebar.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    winWindow.classList.add('dragging');
-    const rect = winWindow.getBoundingClientRect();
-    dragOffsetX = e.clientX - rect.left;
-    dragOffsetY = e.clientY - rect.top;
-    winWindow.style.transform = 'none';
-    winWindow.style.left = `${rect.left}px`;
-    winWindow.style.top = `${rect.top}px`;
-    e.preventDefault();
-});
-
-document.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    winWindow.style.left = `${e.clientX - dragOffsetX}px`;
-    winWindow.style.top = `${e.clientY - dragOffsetY}px`;
-});
-
-document.addEventListener('mouseup', () => {
-    if (isDragging) {
-        isDragging = false;
-        winWindow.classList.remove('dragging');
-    }
-});
-
-// ============================================
-// SUDOKU GAME — 6×6 MINI
-// ============================================
 const SOLUTION = [
     [1, 4, 5, 2, 3, 6], [2, 3, 6, 1, 5, 4], [4, 6, 1, 3, 2, 5],
     [5, 2, 3, 6, 4, 1], [6, 5, 2, 4, 1, 3], [3, 1, 4, 5, 6, 2]
@@ -371,12 +193,14 @@ const sudokuWinMsg = document.getElementById('sudoku-win-msg');
 
 function initSudoku() {
     board = PUZZLE.map(r => [...r]);
-    selectedCell = null; moveHistory = [];
-    sudokuWinMsg.classList.remove('show');
+    selectedCell = null;
+    moveHistory = [];
+    if (sudokuWinMsg) sudokuWinMsg.classList.remove('show');
     renderGrid();
 }
 
 function renderGrid() {
+    if (!sudokuGrid) return;
     sudokuGrid.innerHTML = '';
     for (let r = 0; r < 6; r++) {
         for (let c = 0; c < 6; c++) {
@@ -396,13 +220,15 @@ function renderGrid() {
             }
             if (selectedCell && selectedCell.row === r && selectedCell.col === c) cell.classList.add('selected');
             if (selectedCell && (r === selectedCell.row || c === selectedCell.col)) cell.classList.add('highlight');
-            if (selectedCell && Math.floor(r / 2) === Math.floor(selectedCell.row / 2) && Math.floor(c / 3) === Math.floor(selectedCell.col / 3)) cell.classList.add('highlight');
             sudokuGrid.appendChild(cell);
         }
     }
 }
 
-function selectCell(r, c) { selectedCell = { row: r, col: c }; renderGrid(); }
+function selectCell(r, c) {
+    selectedCell = { row: r, col: c };
+    renderGrid();
+}
 
 function placeNumber(num) {
     if (!selectedCell) return;
@@ -412,11 +238,12 @@ function placeNumber(num) {
     board[row][col] = num;
     renderGrid();
 
-    // Check win
-    for (let i = 0; i < 6; i++)
-        for (let j = 0; j < 6; j++)
+    for (let i = 0; i < 6; i++) {
+        for (let j = 0; j < 6; j++) {
             if (board[i][j] !== SOLUTION[i][j]) return;
-    sudokuWinMsg.classList.add('show');
+        }
+    }
+    if (sudokuWinMsg) sudokuWinMsg.classList.add('show');
 }
 
 function undoMove() {
@@ -430,235 +257,53 @@ function undoMove() {
 document.querySelectorAll('.num-btn[data-num]').forEach(btn => {
     btn.addEventListener('click', () => placeNumber(parseInt(btn.dataset.num)));
 });
-document.getElementById('undo-btn').addEventListener('click', undoMove);
+const undoBtn = document.getElementById('undo-btn');
+if (undoBtn) undoBtn.addEventListener('click', undoMove);
+
+window.openSudokuWindow = function() {
+    if (sudokuOverlay) sudokuOverlay.classList.add('active');
+    initSudoku();
+};
+
+window.closeSudokuWindow = function() {
+    if (sudokuOverlay) sudokuOverlay.classList.remove('active');
+};
+
+if (winClose) winClose.addEventListener('click', window.closeSudokuWindow);
+if (sudokuOverlay) {
+    sudokuOverlay.addEventListener('click', (e) => {
+        if (e.target === sudokuOverlay) window.closeSudokuWindow();
+    });
+}
 
 document.addEventListener('keydown', (e) => {
-    if (!winWindow.classList.contains('active')) return;
-    const num = parseInt(e.key);
-    if (num >= 1 && num <= 6) placeNumber(num);
-    else if (e.key === 'Backspace' || e.key === 'Delete') placeNumber(0);
-    else if (e.key === 'z' && e.ctrlKey) undoMove();
-
-    if (selectedCell && ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
-        e.preventDefault();
-        let { row, col } = selectedCell;
-        if (e.key === 'ArrowUp' && row > 0) row--;
-        if (e.key === 'ArrowDown' && row < 5) row++;
-        if (e.key === 'ArrowLeft' && col > 0) col--;
-        if (e.key === 'ArrowRight' && col < 5) col++;
-        selectCell(row, col);
+    if (e.key === 'Escape') {
+        window.closeSudokuWindow();
+    }
+    if (sudokuOverlay && sudokuOverlay.classList.contains('active')) {
+        const num = parseInt(e.key);
+        if (num >= 1 && num <= 6) placeNumber(num);
+        else if (e.key === 'Backspace' || e.key === 'Delete') placeNumber(0);
+        else if (e.key === 'z' && (e.ctrlKey || e.metaKey)) undoMove();
     }
 });
 
-initSudoku();
-
 // ============================================
-// IMAGE VIEWER MODAL — with prev/next nav
+// IMAGE LIGHTBOX VIEWER
 // ============================================
-(function () {
-    const ivOverlay   = document.getElementById('iv-overlay');
-    const ivBackdrop  = document.getElementById('iv-backdrop');
-    const ivClose     = document.getElementById('iv-close');
-    const ivPrev      = document.getElementById('iv-prev');
-    const ivNext      = document.getElementById('iv-next');
-    const ivImg       = document.getElementById('iv-img');
-    const ivImgLoader = document.getElementById('iv-img-loader');
-    const ivTag       = document.getElementById('iv-tag');
-    const ivDribbble  = document.getElementById('iv-dribbble-link');
-    const ivBehance   = document.getElementById('iv-behance-link');
+(function() {
+    const ivOverlay = document.getElementById('iv-overlay');
+    const ivBackdrop = document.getElementById('iv-backdrop');
+    const ivClose = document.getElementById('iv-close');
+    const ivImg = document.getElementById('iv-img');
+    const ivTag = document.getElementById('iv-tag');
+    const ivDribbble = document.getElementById('iv-dribbble-link');
+    const ivBehance = document.getElementById('iv-behance-link');
+    const ivPrev = document.getElementById('iv-prev');
+    const ivNext = document.getElementById('iv-next');
+    const ivAmbientGlow = document.getElementById('iv-ambient-glow');
 
     if (!ivOverlay) return;
-
-    const ivImgWrap   = document.getElementById('iv-img-wrap');
-    let isZoomed = false;
-    let touchScale = 1, pinchStartScale = 1;
-    let isPinching = false, isPanning = false;
-    let lastTapTime = 0;
-    let panX = 0, panY = 0;
-    let panStartX = 0, panStartY = 0, panBaseX = 0, panBaseY = 0;
-    let pinchOriginX = 50, pinchOriginY = 50; // % relative to wrap
-    let velX = 0, velY = 0, lastPanX = 0, lastPanY = 0, inertiaRaf = null;
-
-    function getTouchDist(e) {
-        return Math.hypot(
-            e.touches[0].clientX - e.touches[1].clientX,
-            e.touches[0].clientY - e.touches[1].clientY
-        );
-    }
-
-    function getTouchMid(e) {
-        const rect = ivImgWrap.getBoundingClientRect();
-        return {
-            x: ((e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left) / rect.width * 100,
-            y: ((e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top) / rect.height * 100
-        };
-    }
-
-    function clampPan(x, y) {
-        const rect = ivImgWrap.getBoundingClientRect();
-        const maxX = Math.max(0, (rect.width  * (touchScale - 1)) / 2);
-        const maxY = Math.max(0, (rect.height * (touchScale - 1)) / 2);
-        return {
-            x: Math.min(maxX, Math.max(-maxX, x)),
-            y: Math.min(maxY, Math.max(-maxY, y))
-        };
-    }
-
-    function applyTransform(instant) {
-        ivImg.style.transition = instant ? 'none' : 'transform 0.18s cubic-bezier(0.22, 1, 0.36, 1)';
-        ivImg.style.transform  = `translate(${panX}px, ${panY}px) scale(${touchScale})`;
-    }
-
-    function resetZoom() {
-        cancelInertia();
-        isZoomed = false; touchScale = 1; isPinching = false; isPanning = false;
-        panX = 0; panY = 0; panBaseX = 0; panBaseY = 0; velX = 0; velY = 0;
-        if (ivImgWrap) ivImgWrap.classList.remove('is-zoomed');
-        if (ivImg) {
-            ivImg.style.transformOrigin = 'center center';
-            ivImg.style.transition = 'transform 0.22s cubic-bezier(0.22, 1, 0.36, 1)';
-            ivImg.style.transform  = 'translate(0px, 0px) scale(1)';
-        }
-    }
-
-    function cancelInertia() {
-        if (inertiaRaf) { cancelAnimationFrame(inertiaRaf); inertiaRaf = null; }
-    }
-
-    function startInertia() {
-        cancelInertia();
-        const friction = 0.88;
-        function step() {
-            if (Math.abs(velX) < 0.3 && Math.abs(velY) < 0.3) return;
-            velX *= friction; velY *= friction;
-            const c = clampPan(panX + velX, panY + velY);
-            // Stop inertia at border
-            if (c.x === panX && c.y === panY) { velX = 0; velY = 0; return; }
-            panX = c.x; panY = c.y;
-            applyTransform(true);
-            inertiaRaf = requestAnimationFrame(step);
-        }
-        inertiaRaf = requestAnimationFrame(step);
-    }
-
-    if (ivImgWrap) {
-        ivImgWrap.addEventListener('click', (e) => {
-            if (isPinching) return;
-            isZoomed = !isZoomed;
-            ivImgWrap.classList.toggle('is-zoomed', isZoomed);
-            if (isZoomed) {
-                touchScale = 2.2;
-                panX = 0; panY = 0;
-                ivImg.style.transformOrigin = 'center center';
-                updateZoomOrigin(e);
-                applyTransform(false);
-            } else {
-                resetZoom();
-            }
-        });
-
-        ivImgWrap.addEventListener('mousemove', (e) => {
-            if (isZoomed && !isPinching) {
-                updateZoomOrigin(e);
-            }
-        });
-
-        // Touch: Pinch-to-Zoom, Double-Tap, Single-finger Pan + Inertia
-        ivImgWrap.addEventListener('touchstart', (e) => {
-            cancelInertia();
-            if (e.touches.length === 2) {
-                isPinching = true;
-                isPanning  = false;
-                pinchStartScale = touchScale;
-                const startDist = getTouchDist(e);
-                ivImgWrap._pinchStartDist = startDist;
-                // Lock origin at pinch midpoint once
-                const mid = getTouchMid(e);
-                pinchOriginX = mid.x; pinchOriginY = mid.y;
-                ivImg.style.transformOrigin = `${pinchOriginX}% ${pinchOriginY}%`;
-            } else if (e.touches.length === 1) {
-                const now = Date.now();
-                if (now - lastTapTime < 280) {
-                    e.preventDefault();
-                    if (touchScale > 1.05) {
-                        resetZoom();
-                    } else {
-                        touchScale = 2.5; isZoomed = true;
-                        ivImgWrap.classList.add('is-zoomed');
-                        const rect = ivImgWrap.getBoundingClientRect();
-                        const ox = ((e.touches[0].clientX - rect.left) / rect.width  - 0.5) * rect.width;
-                        const oy = ((e.touches[0].clientY - rect.top)  / rect.height - 0.5) * rect.height;
-                        const c = clampPan(-ox * (touchScale - 1) / touchScale, -oy * (touchScale - 1) / touchScale);
-                        panX = c.x; panY = c.y;
-                        ivImg.style.transformOrigin = 'center center';
-                        applyTransform(false);
-                    }
-                } else if (touchScale > 1.05) {
-                    isPanning  = true;
-                    panStartX  = e.touches[0].clientX;
-                    panStartY  = e.touches[0].clientY;
-                    panBaseX   = panX; panBaseY = panY;
-                    lastPanX   = panX; lastPanY = panY;
-                    velX = 0; velY = 0;
-                }
-                lastTapTime = now;
-            }
-        }, { passive: false });
-
-        ivImgWrap.addEventListener('touchmove', (e) => {
-            if (isPinching && e.touches.length === 2) {
-                e.preventDefault();
-                const dist = getTouchDist(e);
-                const factor = dist / (ivImgWrap._pinchStartDist || dist);
-                touchScale = Math.min(4, Math.max(1, pinchStartScale * factor));
-                ivImgWrap._pinchStartDist = dist;
-                pinchStartScale = touchScale;
-                ivImgWrap.classList.toggle('is-zoomed', touchScale > 1.05);
-                applyTransform(true);
-            } else if (isPanning && e.touches.length === 1) {
-                e.preventDefault();
-                const dx = e.touches[0].clientX - panStartX;
-                const dy = e.touches[0].clientY - panStartY;
-                const c  = clampPan(panBaseX + dx, panBaseY + dy);
-                velX = c.x - lastPanX; velY = c.y - lastPanY;
-                lastPanX = c.x; lastPanY = c.y;
-                panX = c.x; panY = c.y;
-                applyTransform(true);
-            }
-        }, { passive: false });
-
-        ivImgWrap.addEventListener('touchend', (e) => {
-            if (isPinching && e.touches.length < 2) {
-                isPinching = false;
-                ivImg.style.transformOrigin = 'center center';
-                if (touchScale <= 1.05) {
-                    resetZoom();
-                } else {
-                    isZoomed = true;
-                    applyTransform(false);
-                    if (e.touches.length === 1) {
-                        isPanning = true;
-                        panStartX = e.touches[0].clientX; panStartY = e.touches[0].clientY;
-                        panBaseX  = panX; panBaseY = panY;
-                        lastPanX  = panX; lastPanY = panY;
-                        velX = 0; velY = 0;
-                    }
-                }
-            }
-            if (e.touches.length === 0) {
-                if (isPanning) startInertia();
-                isPanning = false;
-            }
-        });
-    }
-
-    function updateZoomOrigin(e) {
-        if (!ivImgWrap || !ivImg) return;
-        const rect = ivImgWrap.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
-        ivImg.style.transformOrigin = `${x}% ${y}%`;
-    }
 
     function getTriggers() {
         return Array.from(document.querySelectorAll('.img-viewer-trigger'));
@@ -666,171 +311,398 @@ initSudoku();
 
     let currentIndex = 0;
 
-    function loadImage(index, direction) {
-        resetZoom();
-        cancelInertia();
+    function openViewer(index) {
         const triggers = getTriggers();
         if (index < 0 || index >= triggers.length) return;
-        const trigger  = triggers[index];
-        const src      = trigger.dataset.img || '';
-        const title    = trigger.dataset.title || '';
-        const desc     = trigger.dataset.desc || '';
-        const dribbble = trigger.dataset.dribbble || '#';
-        const behance  = trigger.dataset.behance || '#';
-
-        // Direction-aware slide: fade out current image
-        const slideOut = direction === 'next' ? '-12px' : direction === 'prev' ? '12px' : '0px';
-        ivImg.style.transition = 'opacity 0.14s ease, transform 0.14s ease';
-        ivImg.style.opacity    = '0';
-        ivImg.style.transform  = `translateX(${slideOut})`;
-        ivImg.style.transformOrigin = 'center center';
-
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-            // Populate info
-            ivTag.textContent  = title;
-            ivDribbble.href    = dribbble;
-            ivBehance.href     = behance;
-            // Hide action links if no external URL provided (e.g., branding cards)
-            const hasLinks = dribbble !== '#' || behance !== '#';
-            ivDribbble.style.display = dribbble !== '#' ? '' : 'none';
-            ivBehance.style.display  = behance  !== '#' ? '' : 'none';
-            const actionsContainer = document.querySelector('.iv-info-actions');
-            if (actionsContainer) actionsContainer.style.display = hasLinks ? '' : 'none';
-
-            // Show spinner
-            ivImgLoader.classList.remove('iv-hidden');
-
-            // Reset image transform for slide-in direction
-            const slideIn = direction === 'next' ? '8px' : '-8px';
-            ivImg.style.transition = 'none';
-            ivImg.style.transform  = `translateX(${slideIn})`;
-
-            // Load HD image & Ambient Glow
-            const tmp = new Image();
-            const ivAmbientGlow = document.getElementById('iv-ambient-glow');
-            if (ivAmbientGlow && src) {
-                ivAmbientGlow.style.backgroundImage = `url("${src}")`;
-            }
-            tmp.onload = () => {
-                ivImg.src = src;
-                ivImg.alt = title;
-                requestAnimationFrame(() => {
-                    ivImg.style.transition = 'opacity 0.22s ease, transform 0.22s cubic-bezier(0.22, 1, 0.36, 1)';
-                    ivImg.style.opacity    = '1';
-                    ivImg.style.transform  = 'translate(0px, 0px) scale(1)';
-                    ivImg.classList.add('iv-loaded');
-                    setTimeout(() => ivImgLoader.classList.add('iv-hidden'), 40);
-                });
-            };
-            tmp.onerror = () => {
-                const thumb = trigger.querySelector('.project-img-real, .branding-img');
-                if (thumb) {
-                    ivImg.src = thumb.src;
-                    ivImg.alt = title;
-                    if (ivAmbientGlow) ivAmbientGlow.style.backgroundImage = `url("${thumb.src}")`;
-                }
-                ivImg.style.transition = 'opacity 0.22s ease, transform 0.22s ease';
-                ivImg.style.opacity    = '1';
-                ivImg.style.transform  = 'translate(0px, 0px) scale(1)';
-                ivImg.classList.add('iv-loaded');
-                ivImgLoader.classList.add('iv-hidden');
-            };
-            tmp.src = src;
-        }));
-
-        // Update nav disabled states
-        updateNavState(index);
-    }
-
-    function updateNavState(index) {
-        const triggers = getTriggers();
-        ivPrev.classList.toggle('iv-nav-disabled', index === 0);
-        ivNext.classList.toggle('iv-nav-disabled', index === triggers.length - 1);
-    }
-
-    function openViewer(index) {
         currentIndex = index;
-        resetZoom();
+        const trigger = triggers[index];
 
-        // Full reset for fresh open
-        ivImg.src = '';
-        ivImg.style.transition = 'none';
-        ivImg.style.opacity    = '0';
-        ivImg.style.transform  = 'translateX(0)';
-        ivImg.classList.remove('iv-loaded');
-        ivImgLoader.classList.remove('iv-hidden');
+        const src = trigger.dataset.img || '';
+        const title = trigger.dataset.title || '';
+        const dribbble = trigger.dataset.dribbble || '#';
+        const behance = trigger.dataset.behance || '#';
+
+        if (ivTag) ivTag.textContent = title;
+        if (ivDribbble) {
+            ivDribbble.href = dribbble;
+            ivDribbble.style.display = (dribbble && dribbble !== '#') ? 'inline-flex' : 'none';
+        }
+        if (ivBehance) {
+            ivBehance.href = behance;
+            ivBehance.style.display = (behance && behance !== '#') ? 'inline-flex' : 'none';
+        }
+        if (ivImg) {
+            ivImg.src = src;
+            ivImg.alt = title;
+        }
+        if (ivAmbientGlow && src) {
+            ivAmbientGlow.style.backgroundImage = `url("${src}")`;
+        }
 
         ivOverlay.classList.add('iv-active');
         document.body.style.overflow = 'hidden';
 
-        // Load first image with no direction offset
-        loadImage(index, 'none');
+        if (ivPrev) ivPrev.classList.toggle('iv-nav-disabled', index === 0);
+        if (ivNext) ivNext.classList.toggle('iv-nav-disabled', index === triggers.length - 1);
     }
 
     function closeViewer() {
-        resetZoom();
         ivOverlay.classList.remove('iv-active');
         document.body.style.overflow = '';
-        setTimeout(() => {
-            ivImg.src = '';
-            ivImg.style.opacity   = '0';
-            ivImg.style.transform = 'translateX(0)';
-            ivImg.classList.remove('iv-loaded');
-            ivImgLoader.classList.remove('iv-hidden');
-        }, 420);
     }
 
-    function goNext() {
-        const triggers = getTriggers();
-        if (currentIndex < triggers.length - 1) {
-            currentIndex++;
-            loadImage(currentIndex, 'next');
-        }
-    }
-
-    function goPrev() {
-        if (currentIndex > 0) {
-            currentIndex--;
-            loadImage(currentIndex, 'prev');
-        }
-    }
-
-    // Dynamic trigger delegation
     document.addEventListener('click', (e) => {
         const trigger = e.target.closest('.img-viewer-trigger');
         if (!trigger) return;
         const triggers = getTriggers();
-        const index = triggers.indexOf(trigger);
-        if (index !== -1) {
-            openViewer(index);
+        const idx = triggers.indexOf(trigger);
+        if (idx !== -1) openViewer(idx);
+    });
+
+    if (ivClose) ivClose.addEventListener('click', closeViewer);
+    if (ivBackdrop) ivBackdrop.addEventListener('click', closeViewer);
+    if (ivPrev) ivPrev.addEventListener('click', () => openViewer(currentIndex - 1));
+    if (ivNext) ivNext.addEventListener('click', () => openViewer(currentIndex + 1));
+})();
+
+// ============================================
+// CUTE INTERACTIVE PIXEL MONKEY
+// Uses assets/monkey-strip.png (8 frames, perfectly aligned, transparent)
+// Frames: IDLE(0), WALK_R(1), WALK_L(2), RUN_R(3), RUN_L(4), JUMP(5), WAVE(6), HANG(7)
+// Bubble appears ONLY on hover/focus and disappears when not hovering
+// ============================================
+(function () {
+    const SPRITE_SRC = 'assets/monkey-strip.png';
+    const TOTAL_FRAMES = 8;
+    const DISPLAY_SIZE = 48;
+
+    const FRAME = {
+        IDLE:       0,
+        WALK_RIGHT: 1,
+        WALK_LEFT:  2,
+        RUN_RIGHT:  3,
+        RUN_LEFT:   4,
+        JUMP:       5,
+        WAVE:       6,
+        HANG:       7,
+    };
+
+    // Remove any older monkey instances
+    const oldMonkey = document.getElementById('interactive-monkey');
+    if (oldMonkey) oldMonkey.remove();
+
+    // Build monkey container
+    const monkey = document.createElement('div');
+    monkey.id = 'interactive-monkey';
+    monkey.className = 'interactive-monkey';
+    monkey.innerHTML = `
+        <div class="monkey-sprite" id="monkey-sprite"></div>
+        <div class="monkey-minimal-bubble" id="monkey-minimal-bubble">
+            <div class="bubble-inner-row">
+                <input type="text" id="monkey-minimal-input" placeholder="say something..." autocomplete="off" spellcheck="false" />
+                <button type="button" class="bubble-sudoku-icon" id="bubble-sudoku-trigger" title="Play Sudoku">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
+                        <rect x="3" y="3" width="18" height="18" rx="1"/>
+                        <path d="M3 9h18M3 15h18M9 3v18M15 3v18"/>
+                    </svg>
+                </button>
+                <button type="button" class="bubble-send-btn" id="bubble-send-btn" title="Send message">&#x21B5;</button>
+            </div>
+            <div class="bubble-mini-status" id="bubble-mini-status"></div>
+        </div>
+    `;
+    document.body.appendChild(monkey);
+
+    const spriteEl   = document.getElementById('monkey-sprite');
+    const bubble     = document.getElementById('monkey-minimal-bubble');
+    const minInput   = document.getElementById('monkey-minimal-input');
+    const sudokuTrig = document.getElementById('bubble-sudoku-trigger');
+    const sendBtn    = document.getElementById('bubble-send-btn');
+    const statusMsg  = document.getElementById('bubble-mini-status');
+
+    function setFrame(frameIndex) {
+        if (!spriteEl) return;
+        spriteEl.style.backgroundImage = "url('" + SPRITE_SRC + "')";
+        spriteEl.style.backgroundRepeat = 'no-repeat';
+        spriteEl.style.imageRendering = 'pixelated';
+        spriteEl.style.width  = DISPLAY_SIZE + 'px';
+        spriteEl.style.height = DISPLAY_SIZE + 'px';
+        spriteEl.style.backgroundSize = (TOTAL_FRAMES * DISPLAY_SIZE) + 'px ' + DISPLAY_SIZE + 'px';
+        spriteEl.style.backgroundPosition = (-frameIndex * DISPLAY_SIZE) + 'px 0px';
+    }
+
+    setFrame(FRAME.IDLE);
+
+    // ---- State ----
+    let isJumping = false;
+    let isHovered = false;
+    let currentPerchIndex = -1;
+    let walkInterval = null;
+
+    const perchSelectors = [
+        '.hero-status-pill',
+        '.hero-greeting-btn',
+        '.hero-title-main',
+        '.works-nav',
+        '.work-card:nth-child(1)',
+        '.work-card:nth-child(2)',
+        '.work-item-banner',
+        '.about-album-frame',
+        '.site-footer',
+        '.header-actions',
+        '.orrery-diagram-card',
+    ];
+
+    function getValidPerches() {
+        var list = [];
+        perchSelectors.forEach(function(sel) {
+            var els = document.querySelectorAll(sel);
+            els.forEach(function(el) {
+                if (el && el.offsetParent !== null) {
+                    var rect = el.getBoundingClientRect();
+                    if (rect.width > 20 && rect.height > 10) {
+                        list.push({ el: el, selector: sel });
+                    }
+                }
+            });
+        });
+        return list;
+    }
+
+    function playWalkingAnimation(steps, direction, callback) {
+        clearInterval(walkInterval);
+        var currentStep = 0;
+        var frameA = direction === 'right' ? FRAME.WALK_RIGHT : FRAME.WALK_LEFT;
+        var frameB = direction === 'right' ? FRAME.RUN_RIGHT : FRAME.RUN_LEFT;
+
+        walkInterval = setInterval(function() {
+            currentStep++;
+            setFrame(currentStep % 2 === 1 ? frameA : frameB);
+            if (currentStep >= steps * 2) {
+                clearInterval(walkInterval);
+                setFrame(FRAME.IDLE);
+                if (callback) callback();
+            }
+        }, 150);
+    }
+
+    function positionAtPerch(item, animate) {
+        if (!item || !item.el) return;
+        var el = item.el;
+        var rect = el.getBoundingClientRect();
+        var pageScrollX = window.scrollX || window.pageXOffset;
+        var pageScrollY = window.scrollY || window.pageYOffset;
+
+        var hangRandom = Math.random() > 0.55;
+        var targetX, targetY;
+
+        if (hangRandom) {
+            targetX = rect.left + pageScrollX + (Math.random() * rect.width * 0.6 + rect.width * 0.2);
+            targetY = rect.bottom + pageScrollY - 6;
+        } else {
+            targetX = rect.left + pageScrollX + (Math.random() * rect.width * 0.5 + rect.width * 0.25);
+            targetY = rect.top + pageScrollY - DISPLAY_SIZE - 4;
+        }
+
+        var maxX = document.documentElement.clientWidth - DISPLAY_SIZE - 12;
+        if (targetX > maxX) targetX = maxX;
+        if (targetX < 12) targetX = 12;
+
+        var currentX = parseFloat(monkey.style.left) || 0;
+        var dir = targetX > currentX ? 'right' : 'left';
+
+        if (animate) {
+            isJumping = true;
+            setFrame(FRAME.JUMP);
+            monkey.style.transition = 'left 0.5s cubic-bezier(0.22,1,0.36,1), top 0.5s cubic-bezier(0.22,1,0.36,1)';
+            monkey.style.left = targetX + 'px';
+            monkey.style.top  = targetY + 'px';
+
+            setTimeout(function() {
+                isJumping = false;
+                if (hangRandom) {
+                    setFrame(FRAME.HANG);
+                } else {
+                    playWalkingAnimation(1, dir, function() { setFrame(FRAME.IDLE); });
+                }
+            }, 520);
+        } else {
+            monkey.style.transition = 'none';
+            monkey.style.left = targetX + 'px';
+            monkey.style.top  = targetY + 'px';
+            setFrame(hangRandom ? FRAME.HANG : FRAME.IDLE);
+        }
+    }
+
+    function jumpToRandomPerch() {
+        if (isJumping) return;
+        var perches = getValidPerches();
+        if (perches.length === 0) return;
+        var nextIndex;
+        if (perches.length === 1) {
+            nextIndex = 0;
+        } else {
+            do { nextIndex = Math.floor(Math.random() * perches.length); }
+            while (nextIndex === currentPerchIndex);
+        }
+        currentPerchIndex = nextIndex;
+        positionAtPerch(perches[nextIndex], true);
+    }
+
+    spriteEl.addEventListener('click', function(e) {
+        e.stopPropagation();
+        jumpToRandomPerch();
+    });
+
+    // ---- Bubble: only shown on hover/focus ----
+    var hideTimer = null;
+
+    function showBubble() {
+        clearTimeout(hideTimer);
+        isHovered = true;
+        monkey.classList.add('show-bubble');
+        if (!isJumping) setFrame(FRAME.WAVE);
+    }
+
+    function hideBubble() {
+        hideTimer = setTimeout(function() {
+            isHovered = false;
+            monkey.classList.remove('show-bubble');
+            if (!isJumping) setFrame(FRAME.IDLE);
+        }, 350);
+    }
+
+    monkey.addEventListener('mouseenter', function() {
+        showBubble();
+        setTimeout(function() { if (!minInput.value) minInput.focus(); }, 80);
+    });
+
+    monkey.addEventListener('mouseleave', function() {
+        if (document.activeElement === minInput) return;
+        hideBubble();
+    });
+
+    minInput.addEventListener('focus', function() {
+        clearTimeout(hideTimer);
+        isHovered = true;
+        monkey.classList.add('show-bubble');
+        if (!isJumping) setFrame(FRAME.WAVE);
+    });
+
+    minInput.addEventListener('blur', function() {
+        hideBubble();
+    });
+
+    // Global helper: open bubble
+    window.openMonkeyMessageInput = function() {
+        var pageScrollY = window.scrollY || window.pageYOffset;
+        var monkeyTop   = parseFloat(monkey.style.top) || 0;
+        var viewHeight  = window.innerHeight;
+
+        if (monkeyTop < pageScrollY || monkeyTop > pageScrollY + viewHeight - 60) {
+            var perches = getValidPerches();
+            var inView  = perches.filter(function(p) {
+                var r = p.el.getBoundingClientRect();
+                return r.top >= 80 && r.bottom <= viewHeight - 80;
+            });
+            if (inView.length > 0) positionAtPerch(inView[0], true);
+        }
+
+        showBubble();
+        setTimeout(function() { minInput.focus(); }, 80);
+    };
+
+    // Global '/' key shortcut to open monkey bubble
+    document.addEventListener('keydown', function(e) {
+        if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+            e.preventDefault();
+            window.openMonkeyMessageInput();
         }
     });
 
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-            const trigger = e.target.closest('.img-viewer-trigger');
-            if (trigger) {
-                e.preventDefault();
-                const triggers = getTriggers();
-                const index = triggers.indexOf(trigger);
-                if (index !== -1) openViewer(index);
+    // ---- Send message ----
+    function handleSend() {
+        var text = minInput.value.trim();
+        if (!text) { minInput.focus(); return; }
+
+        statusMsg.textContent = 'sending...';
+        statusMsg.classList.add('active');
+
+        var doSend = function() {
+            if (window.emailjs) {
+                emailjs.send('my-portfolio-messages', 'template_w7rjff6', {
+                    from_name: 'Visitor via Monkey Note',
+                    name: 'Visitor',
+                    message: text,
+                    time: new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })
+                }).catch(function() {});
+            }
+            statusMsg.textContent = 'sent \u2713';
+            minInput.value = '';
+            setTimeout(function() {
+                statusMsg.textContent = '';
+                statusMsg.classList.remove('active');
+                hideBubble();
+            }, 2000);
+        };
+
+        doSend();
+    }
+
+    sendBtn.addEventListener('click', handleSend);
+    minInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') { e.preventDefault(); handleSend(); }
+    });
+
+    sudokuTrig.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (typeof window.openSudokuWindow === 'function') window.openSudokuWindow();
+    });
+
+    // Periodic idle animations every ~11s
+    setInterval(function() {
+        if (!isJumping && !isHovered && document.activeElement !== minInput) {
+            if (Math.random() < 0.4) {
+                setFrame(FRAME.WAVE);
+                setTimeout(function() {
+                    if (!isJumping && !isHovered) setFrame(FRAME.IDLE);
+                }, 900);
+            } else {
+                var dir = Math.random() > 0.5 ? 'right' : 'left';
+                playWalkingAnimation(1, dir, function() { setFrame(FRAME.IDLE); });
             }
         }
+    }, 11000);
+
+    // Auto-jump every 28-40s
+    function scheduleAutoJump() {
+        var delay = 28000 + Math.random() * 12000;
+        setTimeout(function() {
+            if (!isHovered && document.activeElement !== minInput) jumpToRandomPerch();
+            scheduleAutoJump();
+        }, delay);
+    }
+
+    function initPosition() {
+        var perches = getValidPerches();
+        if (perches.length > 0) {
+            currentPerchIndex = 0;
+            positionAtPerch(perches[0], false);
+        } else {
+            monkey.style.left = '78vw';
+            monkey.style.top  = '120px';
+        }
+        scheduleAutoJump();
+    }
+
+    window.addEventListener('resize', function() {
+        var perches = getValidPerches();
+        if (perches[currentPerchIndex]) positionAtPerch(perches[currentPerchIndex], false);
     });
 
-    // Nav buttons
-    ivNext.addEventListener('click', goNext);
-    ivPrev.addEventListener('click', goPrev);
-
-    // Close handlers
-    ivClose.addEventListener('click', closeViewer);
-    ivBackdrop.addEventListener('click', closeViewer);
-
-    // Keyboard: ESC closes, arrows navigate
-    document.addEventListener('keydown', (e) => {
-        if (!ivOverlay.classList.contains('iv-active')) return;
-        if (e.key === 'Escape')      closeViewer();
-        if (e.key === 'ArrowRight')  goNext();
-        if (e.key === 'ArrowLeft')   goPrev();
-    });
+    if (document.readyState === 'complete') {
+        setTimeout(initPosition, 300);
+    } else {
+        window.addEventListener('load', function() { setTimeout(initPosition, 300); });
+    }
 })();
