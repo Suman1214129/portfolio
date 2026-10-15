@@ -316,8 +316,8 @@ img, svg {
 }
 
 .theme-icon-btn:hover {
-    background: var(--surface-hover);
-    border-color: var(--text-dim);
+    background: transparent;
+    border-color: var(--border);
     color: var(--accent);
 }
 
@@ -408,16 +408,16 @@ img, svg {
     font-size: 0.8rem;
     font-weight: 500;
     color: var(--text);
-    background: var(--surface);
+    background: transparent;
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     cursor: pointer;
-    transition: border-color 0.15s ease, background 0.15s ease;
+    transition: border-color 0.15s ease, color 0.15s ease;
 }
 
 .hero-greeting-btn:hover {
-    background: var(--surface-hover);
-    border-color: var(--accent);
+    background: transparent;
+    border-color: var(--border);
 }
 
 .greeting-text {
@@ -655,16 +655,45 @@ img, svg {
 .work-card-meta {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
+    margin-top: 4px;
 }
 
-.work-card-title {
+.work-card-title-row {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.work-card-name {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+}
+
+.work-card-slash {
     font-family: var(--font-mono);
     font-size: 0.82rem;
-    font-weight: 600;
-    line-height: 1.45;
+    color: var(--text-muted);
+}
+
+.work-card-tagline {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--text-dim);
+}
+
+.work-card-body {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    line-height: 1.65;
     letter-spacing: -0.01em;
-    color: var(--text);
+    color: var(--text-dim);
+    margin: 2px 0 6px;
 }
 
 /* Link icons with minimal border in works grid */
@@ -672,7 +701,6 @@ img, svg {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-top: 4px;
 }
 
 .work-card-link-icon {
@@ -686,13 +714,13 @@ img, svg {
     color: var(--text-dim);
     font-size: 0.85rem;
     background: transparent;
-    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    transition: color 0.15s ease, border-color 0.15s ease;
 }
 
 .work-card-link-icon:hover {
     color: var(--text);
-    border-color: var(--text-dim);
-    background: var(--surface-hover);
+    border-color: var(--border);
+    background: transparent;
 }
 
 /* ============================================
@@ -1139,15 +1167,17 @@ img, svg {
     overflow: hidden;
 }
 
-/* Footer illustration as background behind content */
+/* Footer illustration as background behind content without zooming */
 .footer-architectural-illustration {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    top: 0;
     width: 100%;
-    height: 100%;
+    height: 130px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
     overflow: hidden;
     opacity: var(--illus-opacity);
     filter: brightness(var(--illus-brightness));
@@ -1156,11 +1186,14 @@ img, svg {
 }
 
 .footer-building-svg {
-    width: 100%;
+    width: auto;
+    max-width: 100%;
     height: 100%;
-    object-fit: cover;
+    max-height: 130px;
+    object-fit: contain;
     object-position: bottom center;
     display: block;
+    margin: 0 auto;
 }
 
 .footer-bottom-row {
@@ -1174,7 +1207,7 @@ img, svg {
     color: var(--text-muted);
     padding: 16px 0 0;
     border-top: 1px solid var(--border-light);
-    margin-top: auto;
+    margin-top: 48px;
 }
 
 .footer-social-links {
@@ -1595,7 +1628,7 @@ img, svg {
     transform: scale(0.92);
 }
 
-/* Minimal Speech Bubble matching media_1792039981409.png */
+/* Minimal Speech Bubble matching uploaded reference image media_1792062259365.png */
 .monkey-minimal-bubble {
     position: absolute;
     bottom: calc(100% + 8px);
@@ -1604,12 +1637,12 @@ img, svg {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
-    padding: 6px 10px;
+    padding: 6px 12px;
     white-space: nowrap;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.16s ease, transform 0.16s ease;
-    box-shadow: none !important; /* explicitly no drop shadows */
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.06);
     z-index: 1001;
 }
 
@@ -1637,8 +1670,7 @@ img, svg {
     z-index: 1;
 }
 
-.interactive-monkey.show-bubble .monkey-minimal-bubble,
-.monkey-minimal-bubble:focus-within {
+.interactive-monkey.show-bubble .monkey-minimal-bubble {
     opacity: 1;
     pointer-events: auto;
     transform: translateX(-50%) translateY(0);
@@ -1655,9 +1687,9 @@ img, svg {
     border: none;
     outline: none;
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.76rem;
     color: var(--text);
-    width: 145px;
+    width: 140px;
 }
 
 .bubble-inner-row input::placeholder {
