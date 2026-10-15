@@ -468,7 +468,7 @@ document.addEventListener('keydown', (e) => {
                 setFrame('IDLE');
                 if (callback) callback();
             }
-        }, 150);
+        }, 220);
     }
 
     function positionAtPerch(item, animate) {
@@ -499,7 +499,7 @@ document.addEventListener('keydown', (e) => {
         if (animate) {
             isJumping = true;
             setFrame('JUMP');
-            monkey.style.transition = 'left 0.5s cubic-bezier(0.22,1,0.36,1), top 0.5s cubic-bezier(0.22,1,0.36,1)';
+            monkey.style.transition = 'left 0.9s cubic-bezier(0.25,1,0.5,1), top 0.9s cubic-bezier(0.25,1,0.5,1)';
             monkey.style.left = targetX + 'px';
             monkey.style.top  = targetY + 'px';
 
@@ -510,7 +510,7 @@ document.addEventListener('keydown', (e) => {
                 } else {
                     playWalkingAnimation(1, dir, function() { setFrame('IDLE'); });
                 }
-            }, 520);
+            }, 920);
         } else {
             monkey.style.transition = 'none';
             monkey.style.left = targetX + 'px';
@@ -546,7 +546,7 @@ document.addEventListener('keydown', (e) => {
         clearTimeout(hideTimer);
         isHovered = true;
         monkey.classList.add('show-bubble');
-        if (!isJumping) setFrame('WAVE');
+        // Do NOT change pose on hover — pose only changes on click
     }
 
     function hideBubble() {
@@ -554,7 +554,7 @@ document.addEventListener('keydown', (e) => {
         hideTimer = setTimeout(function() {
             isHovered = false;
             monkey.classList.remove('show-bubble');
-            if (!isJumping) setFrame('IDLE');
+            // Do NOT reset pose on unhover — pose only changes on click
         }, 180);
     }
 
@@ -629,24 +629,17 @@ document.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') { e.preventDefault(); handleSend(); }
     });
 
-    // Periodic idle animations every ~11s
+    // Periodic subtle walk animation every ~20s (no WAVE flash)
     setInterval(function() {
         if (!isJumping && !isHovered && document.activeElement !== minInput) {
-            if (Math.random() < 0.4) {
-                setFrame('WAVE');
-                setTimeout(function() {
-                    if (!isJumping && !isHovered) setFrame('IDLE');
-                }, 900);
-            } else {
-                var dir = Math.random() > 0.5 ? 'right' : 'left';
-                playWalkingAnimation(1, dir, function() { setFrame('IDLE'); });
-            }
+            var dir = Math.random() > 0.5 ? 'right' : 'left';
+            playWalkingAnimation(1, dir, function() { setFrame('IDLE'); });
         }
-    }, 11000);
+    }, 20000);
 
-    // Auto-jump every 28-40s
+    // Auto-jump every 60-90s (calm, infrequent)
     function scheduleAutoJump() {
-        var delay = 28000 + Math.random() * 12000;
+        var delay = 60000 + Math.random() * 30000;
         setTimeout(function() {
             if (!isHovered && document.activeElement !== minInput) jumpToRandomPerch();
             scheduleAutoJump();

@@ -930,31 +930,51 @@ img, svg {
     }
 }
 
-/* Branding masonry */
+/* Branding 3-column grid with minimal drop shadows */
 .branding-masonry-grid {
-    column-count: 2;
-    column-gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
 }
 
 .branding-item {
-    break-inside: avoid;
-    margin-bottom: 20px;
-    background: transparent;
+    background: var(--surface);
     border-radius: var(--radius-sm);
     overflow: hidden;
     cursor: pointer;
     border: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.branding-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.09);
 }
 
 .branding-masonry-img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
     display: block;
     transition: transform 0.35s ease;
 }
 
 .branding-item:hover .branding-masonry-img {
     transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+    .branding-masonry-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .branding-masonry-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* ============================================
@@ -1167,17 +1187,18 @@ img, svg {
     overflow: hidden;
 }
 
-/* Footer illustration as background behind content without zooming */
+/* Footer illustration as background on the right end */
 .footer-architectural-illustration {
     position: absolute;
     bottom: 0;
-    left: 0;
     right: 0;
-    width: 100%;
+    left: auto;
+    width: auto;
+    max-width: 440px;
     height: 130px;
     display: flex;
     align-items: flex-end;
-    justify-content: center;
+    justify-content: flex-end;
     overflow: hidden;
     opacity: var(--illus-opacity);
     filter: brightness(var(--illus-brightness));
@@ -1191,9 +1212,9 @@ img, svg {
     height: 100%;
     max-height: 130px;
     object-fit: contain;
-    object-position: bottom center;
+    object-position: bottom right;
     display: block;
-    margin: 0 auto;
+    margin: 0 0 0 auto;
 }
 
 .footer-bottom-row {
