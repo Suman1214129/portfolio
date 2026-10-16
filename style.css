@@ -1505,7 +1505,7 @@ body.sidebar-open .main-page-container {
     justify-content: space-between;
     padding: 14px 18px;
     top: 0;
-    background: rgba(0,0,0,0.28);
+    background: rgba(255,255,255,0.18);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     position: sticky;
@@ -1535,7 +1535,7 @@ body.sidebar-open .main-page-container {
 
 .cs-close {
     font-size: 0.8rem;
-    color: rgba(255,255,255,0.8);
+    color: var(--text-muted);
     padding: 4px 6px;
     border-radius: var(--radius-sm);
     transition: color 0.15s ease, background 0.15s ease;
@@ -1550,7 +1550,6 @@ body.sidebar-open .main-page-container {
 .cs-img-wrap {
     position: relative;
     width: 100%;
-    margin-top: -52px;
     flex-shrink: 0;
     background: var(--surface-elevated);
 
