@@ -363,8 +363,8 @@ svg {
 
 /* Profile image as logo */
 .avatar-wrapper {
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0;
@@ -375,6 +375,8 @@ svg {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transform: scale(1.22);
+    transform-origin: center top;
 }
 
 /* Minimal status row without background div */
@@ -1766,15 +1768,12 @@ body.sidebar-open .main-page-container {
         padding: 0;
         justify-content: center;
         font-size: 1rem;
-        background: var(--surface-elevated);
-        color: var(--text);
-        border-color: var(--border);
     }
 
     [data-theme="dark"] .contact-more-btn {
-        background: var(--surface-elevated);
-        color: var(--text);
-        border-color: var(--border);
+        background: #292b2f;
+        color: #f0f1f3;
+        border-color: #292b2f;
     }
 
     .theme-icon-btn {
