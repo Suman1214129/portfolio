@@ -667,7 +667,7 @@ document.addEventListener('keydown', (e) => {
 
         statusMsg.textContent = 'sending...';
         statusMsg.classList.add('active');
-        sendBtn.disabled = true;
+        if (sendBtn) sendBtn.disabled = true;
 
         emailjs.send('my-portfolio-messages', 'template_w7rjff6', {
             from_name: 'Visitor via Monkey Note',
