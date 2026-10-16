@@ -1761,11 +1761,20 @@ body.sidebar-open .main-page-container {
     }
 
     .contact-more-btn {
-        width: 44px;
+        width: 48px;
         height: 34px;
         padding: 0;
         justify-content: center;
         font-size: 1rem;
+        background: var(--surface-elevated);
+        color: var(--text);
+        border-color: var(--border);
+    }
+
+    [data-theme="dark"] .contact-more-btn {
+        background: var(--surface-elevated);
+        color: var(--text);
+        border-color: var(--border);
     }
 
     .theme-icon-btn {
