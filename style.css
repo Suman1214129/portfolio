@@ -1505,7 +1505,7 @@ body.sidebar-open .main-page-container {
     justify-content: space-between;
     padding: 14px 18px;
     top: 0;
-    background: rgba(0,0,0,0.06);
+    background: rgba(0,0,0,0.28);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     position: sticky;
@@ -1535,7 +1535,7 @@ body.sidebar-open .main-page-container {
 
 .cs-close {
     font-size: 0.8rem;
-    color: var(--text-muted);
+    color: rgba(255,255,255,0.8);
     padding: 4px 6px;
     border-radius: var(--radius-sm);
     transition: color 0.15s ease, background 0.15s ease;
