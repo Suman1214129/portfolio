@@ -1871,7 +1871,7 @@ svg {
     font-family: var(--font-mono);
     font-size: 0.76rem;
     color: var(--text);
-    width: 140px;
+    width: 168px;
 }
 
 .bubble-inner-row input::placeholder {
@@ -1923,14 +1923,18 @@ svg {
     display: none;
 }
 
-/* Monkey hang tilt — only on hover while hanging, faster swing */
-@keyframes monkeyTilt {
-    0%   { transform: rotate(-10deg); }
-    50%  { transform: rotate(10deg); }
-    100% { transform: rotate(-10deg); }
+/* Monkey hang tilt — pendulum physics on hover while hanging */
+@keyframes monkeyPendulum {
+    0%   { transform: rotate(-12deg); }
+    28%  { transform: rotate(12deg); }
+    50%  { transform: rotate(-7deg); }
+    72%  { transform: rotate(7deg); }
+    86%  { transform: rotate(-3deg); }
+    94%  { transform: rotate(3deg); }
+    100% { transform: rotate(-12deg); }
 }
 
 .interactive-monkey.is-hanging:hover .monkey-sprite {
-    animation: monkeyTilt 1.2s ease-in-out infinite;
+    animation: monkeyPendulum 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     transform-origin: top center;
 }

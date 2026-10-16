@@ -421,7 +421,6 @@ document.addEventListener('keydown', (e) => {
         <div class="monkey-minimal-bubble" id="monkey-minimal-bubble">
             <div class="bubble-inner-row">
                 <input type="text" id="monkey-minimal-input" placeholder="write a message" autocomplete="off" spellcheck="false" />
-                <button type="button" class="bubble-send-btn" id="bubble-send-btn" title="Send message">&#x21B5;</button>
             </div>
             <div class="bubble-mini-status" id="bubble-mini-status"></div>
         </div>
@@ -431,7 +430,7 @@ document.addEventListener('keydown', (e) => {
     const spriteEl   = document.getElementById('monkey-sprite');
     const bubble     = document.getElementById('monkey-minimal-bubble');
     const minInput   = document.getElementById('monkey-minimal-input');
-    const sendBtn    = document.getElementById('bubble-send-btn');
+    const sendBtn    = null;
     const statusMsg  = document.getElementById('bubble-mini-status');
 
     function setFrame(frameKey) {
@@ -558,7 +557,8 @@ document.addEventListener('keydown', (e) => {
             var dy = targetY - (parseFloat(monkey.style.top) || 0);
             var dist = Math.sqrt(dx * dx + dy * dy);
             var dur = Math.min(1.4, Math.max(0.7, dist / 600));
-            monkey.style.transition = 'left ' + dur + 's cubic-bezier(0.25,1,0.5,1), top ' + dur + 's cubic-bezier(0.25,1,0.5,1)';
+            // X smooth ease-in-out, Y gravity arc: fast launch, weighted landing
+            monkey.style.transition = 'left ' + dur + 's cubic-bezier(0.45,0,0.55,1), top ' + dur + 's cubic-bezier(0.2,0,0.8,1)';
             monkey.style.left = targetX + 'px';
             monkey.style.top  = targetY + 'px';
             setTimeout(function() {
