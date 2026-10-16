@@ -1204,7 +1204,7 @@ svg {
     position: absolute;
     bottom: 0;
     right: -20px;
-    width: 560px;
+    width: 360px;
     height: auto;
     max-height: none;
     display: block;
@@ -1565,7 +1565,7 @@ svg {
 .cs-lightbox {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.88);
+    background: rgba(0, 0, 0, 0.6);
     z-index: 10010;
     display: flex;
     align-items: center;
@@ -1923,14 +1923,14 @@ svg {
     display: none;
 }
 
-/* Monkey hang tilt animation */
+/* Monkey hang tilt — only on hover while hanging, faster swing */
 @keyframes monkeyTilt {
-    0%   { transform: rotate(-8deg); }
-    50%  { transform: rotate(8deg); }
-    100% { transform: rotate(-8deg); }
+    0%   { transform: rotate(-10deg); }
+    50%  { transform: rotate(10deg); }
+    100% { transform: rotate(-10deg); }
 }
 
-.interactive-monkey.is-hanging .monkey-sprite {
-    animation: monkeyTilt 2.4s ease-in-out infinite;
+.interactive-monkey.is-hanging:hover .monkey-sprite {
+    animation: monkeyTilt 1.2s ease-in-out infinite;
     transform-origin: top center;
 }
