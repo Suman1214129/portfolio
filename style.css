@@ -1730,7 +1730,8 @@ body.sidebar-open .main-page-container {
     /* Keep navigation and actions on one row */
     .site-header {
         flex-wrap: nowrap;
-        gap: 8px;
+        justify-content: space-between;
+        gap: 4px;
         padding: 16px 0 14px;
         margin-bottom: 32px;
     }
@@ -1743,7 +1744,7 @@ body.sidebar-open .main-page-container {
     }
 
     .header-nav-link {
-        font-size: clamp(0.58rem, 2.5vw, 0.68rem);
+        font-size: clamp(0.63rem, 2.75vw, 0.73rem);
         white-space: nowrap;
     }
 
@@ -1760,7 +1761,16 @@ body.sidebar-open .main-page-container {
     }
 
     .contact-more-btn {
-        padding: 8px 10px;
+        width: 44px;
+        height: 34px;
+        padding: 0;
+        justify-content: center;
+        font-size: 1rem;
+    }
+
+    .theme-icon-btn {
+        width: 34px;
+        height: 34px;
     }
 
     /* Hero title smaller on mobile */
