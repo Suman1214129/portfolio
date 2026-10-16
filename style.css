@@ -1872,6 +1872,8 @@ svg {
     font-size: 0.76rem;
     color: var(--text);
     width: 185px;
+    height: 24px;
+
 }
 
 .bubble-inner-row input::placeholder {
