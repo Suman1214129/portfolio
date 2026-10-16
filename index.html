@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
         content="Suman Yadav — Product Designer and Builder. Designing human experiences and building them end-to-end.">
-    <title>Suman Yadav — Product Designer &amp; Builder</title>
+    <title>Suman Yadav</title>
     <link rel="icon" type="image/svg+xml" href="assets/Summertime%20Sadness.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,6 +21,8 @@
             var theme = localStorage.getItem('theme') || 'light';
             document.documentElement.setAttribute('data-theme', theme);
         })();
+        // EmailJS init — replace with your actual Public Key from emailjs.com > Account > API Keys
+        emailjs.init({ publicKey: 'YOUR_PUBLIC_KEY_HERE' });
     </script>
 </head>
 
@@ -37,10 +39,11 @@
                     <svg class="active-wave" aria-hidden="true">
                         <defs>
                             <pattern id="wave-pat-works" width="14" height="6" patternUnits="userSpaceOnUse">
-                                <path d="M0 3 C 3.5 0, 3.5 6, 7 3 C 10.5 0, 10.5 6, 14 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                <path d="M0 3 C 3.5 0, 3.5 6, 7 3 C 10.5 0, 10.5 6, 14 3" fill="none"
+                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
                             </pattern>
                         </defs>
-                        <rect width="100%" height="6" fill="url(#wave-pat-works)"/>
+                        <rect width="100%" height="6" fill="url(#wave-pat-works)" />
                     </svg>
                 </a>
                 <a href="#experience" class="header-nav-link" data-nav="experience">
@@ -48,10 +51,11 @@
                     <svg class="active-wave" aria-hidden="true">
                         <defs>
                             <pattern id="wave-pat-exp" width="14" height="6" patternUnits="userSpaceOnUse">
-                                <path d="M0 3 C 3.5 0, 3.5 6, 7 3 C 10.5 0, 10.5 6, 14 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                <path d="M0 3 C 3.5 0, 3.5 6, 7 3 C 10.5 0, 10.5 6, 14 3" fill="none"
+                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
                             </pattern>
                         </defs>
-                        <rect width="100%" height="6" fill="url(#wave-pat-exp)"/>
+                        <rect width="100%" height="6" fill="url(#wave-pat-exp)" />
                     </svg>
                 </a>
                 <a href="#about" class="header-nav-link" data-nav="about">
@@ -59,47 +63,55 @@
                     <svg class="active-wave" aria-hidden="true">
                         <defs>
                             <pattern id="wave-pat-about" width="14" height="6" patternUnits="userSpaceOnUse">
-                                <path d="M0 3 C 3.5 0, 3.5 6, 7 3 C 10.5 0, 10.5 6, 14 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                <path d="M0 3 C 3.5 0, 3.5 6, 7 3 C 10.5 0, 10.5 6, 14 3" fill="none"
+                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
                             </pattern>
                         </defs>
-                        <rect width="100%" height="6" fill="url(#wave-pat-about)"/>
+                        <rect width="100%" height="6" fill="url(#wave-pat-about)" />
                     </svg>
                 </a>
             </nav>
 
             <div class="header-actions">
                 <!-- Simple icon-based theme changer toggle -->
-                <button type="button" class="theme-icon-btn" id="theme-toggle-btn" aria-label="Toggle theme" title="Toggle theme">
+                <button type="button" class="theme-icon-btn" id="theme-toggle-btn" aria-label="Toggle theme"
+                    title="Toggle theme">
                     <i class="ph ph-sun" id="theme-icon-sun"></i>
                     <i class="ph ph-moon" id="theme-icon-moon"></i>
                 </button>
 
                 <!-- CONTACT & MORE Trigger Button + Expanded Dropdown Tile -->
                 <div class="contact-menu-wrapper" id="contact-menu-wrapper">
-                    <button type="button" class="contact-more-btn" id="contact-more-btn" aria-expanded="false" aria-haspopup="true">
+                    <button type="button" class="contact-more-btn" id="contact-more-btn" aria-expanded="false"
+                        aria-haspopup="true">
                         <i class="ph ph-envelope-simple"></i>
                         <span>CONTACT &amp; MORE</span>
                     </button>
 
                     <!-- Expanded dropdown tile matching reference image -->
                     <div class="contact-dropdown-panel" id="contact-dropdown-panel">
-                        <a href="assets/resume_sumanyadav (3).pdf" target="_blank" rel="noopener noreferrer" class="contact-tile-row highlighted-row">
+                        <a href="assets/resume_sumanyadav (3).pdf" target="_blank" rel="noopener noreferrer"
+                            class="contact-tile-row highlighted-row">
                             <span class="tile-label">RESUME</span>
                             <span class="tile-value">View resume ↗</span>
                         </a>
-                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sumankr8586@gmail.com" target="_blank" rel="noopener noreferrer" class="contact-tile-row">
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sumankr8586@gmail.com" target="_blank"
+                            rel="noopener noreferrer" class="contact-tile-row">
                             <span class="tile-label">EMAIL</span>
                             <span class="tile-value">sumankr8586@gmail.com ↗</span>
                         </a>
-                        <a href="https://www.linkedin.com/in/suman-yadav-bb5516322/" target="_blank" rel="noopener noreferrer" class="contact-tile-row">
+                        <a href="https://www.linkedin.com/in/suman-yadav-bb5516322/" target="_blank"
+                            rel="noopener noreferrer" class="contact-tile-row">
                             <span class="tile-label">LINKEDIN</span>
                             <span class="tile-value">suman-yadav ↗</span>
                         </a>
-                        <a href="https://github.com/Suman1214129" target="_blank" rel="noopener noreferrer" class="contact-tile-row">
+                        <a href="https://github.com/Suman1214129" target="_blank" rel="noopener noreferrer"
+                            class="contact-tile-row">
                             <span class="tile-label">GITHUB</span>
                             <span class="tile-value">@Suman1214129 ↗</span>
                         </a>
-                        <a href="https://www.behance.net/6b52aa6f" target="_blank" rel="noopener noreferrer" class="contact-tile-row">
+                        <a href="https://www.behance.net/6b52aa6f" target="_blank" rel="noopener noreferrer"
+                            class="contact-tile-row">
                             <span class="tile-label">BEHANCE</span>
                             <span class="tile-value">behance.net/6b52aa6f ↗</span>
                         </a>
@@ -132,7 +144,8 @@
                     <div class="hero-greeting-line">
                         <button type="button" class="hero-greeting-btn" id="hero-greeting-btn" title="Click to greet">
                             <span class="greeting-text" id="greeting-text">namaste</span>
-                            <span class="greeting-wave-hand"><img src="assets/wave-hand.png" alt="Wave" class="greeting-wave-img" /></span>
+                            <span class="greeting-wave-hand"><img src="assets/wave-hand.png" alt="Wave"
+                                    class="greeting-wave-img" /></span>
                         </button>
                     </div>
                     <div class="hero-title-main">
@@ -141,7 +154,8 @@
                 </h1>
 
                 <p class="hero-description">
-                    Leading UX and design systems for <strong>NAVCHETNA</strong>. Focused on clean interfaces, solid engineering underneath, and products that solve real problems from 0 to 1.
+                    Leading UX and design systems for <strong>NAVCHETNA</strong>. Focused on clean interfaces, solid
+                    engineering underneath, and products that solve real problems from 0 to 1.
                 </p>
 
                 <div class="hero-meta-row">
@@ -164,7 +178,8 @@
 
                     <!-- Minimal Tab Switcher -->
                     <div class="works-nav" id="works-tab-group" role="tablist">
-                        <button type="button" class="works-tab active" data-tab="designs" role="tab" aria-selected="true">
+                        <button type="button" class="works-tab active" data-tab="designs" role="tab"
+                            aria-selected="true">
                             <span>DESIGNS</span>
                         </button>
                         <button type="button" class="works-tab" data-tab="branding" role="tab" aria-selected="false">
@@ -183,11 +198,13 @@
 
                         <!-- Item 1: Osmium -->
                         <article class="work-card">
-                            <div class="work-card-media img-viewer-trigger"
-                                data-img="assets/osmium-mockup.jpg" data-title="Osmium AI / AI-powered learning"
-                                data-desc="AI-guided courses, smart test analysis and adaptive learning in one experience. Built to make learning feel clear, focused and personal."
+                            <div class="work-card-media cs-trigger"
+                                data-img="assets/osmium-mockup.jpg"
+                                data-title="Osmium AI"
+                                data-tagline="AI-powered learning"
                                 data-dribbble="https://dribbble.com/shots/27191514-Osmium-AI-Powered-Learning-That-Feels-Personal"
                                 data-behance="https://www.behance.net/gallery/246683455/Osmium-AI-Powered-Learning-That-Feels-Personal"
+                                data-brief="A unified learning dashboard with AI-guided course paths, adaptive test analysis, and a smart review queue. Designed to reduce post-test drop-off by surfacing weak areas visually and always answering: what should I do next?"
                                 role="button" tabindex="0">
                                 <img src="assets/osmium-mockup.jpg" alt="Osmium AI-Powered Learning UI" class="work-card-img" />
                             </div>
@@ -197,21 +214,28 @@
                                     <span class="work-card-slash">/</span>
                                     <span class="work-card-tagline">AI-powered learning</span>
                                 </div>
-                                <p class="work-card-body">AI-guided courses, smart test analysis and adaptive learning in one experience. Built to make learning feel clear, focused and personal.</p>
+                                <p class="work-card-body">AI-guided courses, smart test analysis and adaptive learning
+                                    in one experience. Built to make learning feel clear, focused and personal.</p>
                                 <div class="work-card-links">
-                                    <a href="https://dribbble.com/shots/27191514-Osmium-AI-Powered-Learning-That-Feels-Personal" target="_blank" rel="noopener noreferrer" class="work-card-link-icon" title="Dribbble"><i class="ph ph-dribbble-logo"></i></a>
-                                    <a href="https://www.behance.net/gallery/246683455/Osmium-AI-Powered-Learning-That-Feels-Personal" target="_blank" rel="noopener noreferrer" class="work-card-link-icon" title="Behance"><i class="ph ph-behance-logo"></i></a>
+                                    <a href="https://dribbble.com/shots/27191514-Osmium-AI-Powered-Learning-That-Feels-Personal"
+                                        target="_blank" rel="noopener noreferrer" class="work-card-link-icon"
+                                        title="Dribbble"><i class="ph ph-dribbble-logo"></i></a>
+                                    <a href="https://www.behance.net/gallery/246683455/Osmium-AI-Powered-Learning-That-Feels-Personal"
+                                        target="_blank" rel="noopener noreferrer" class="work-card-link-icon"
+                                        title="Behance"><i class="ph ph-behance-logo"></i></a>
                                 </div>
                             </div>
                         </article>
 
                         <!-- Item 2: Natraj -->
                         <article class="work-card">
-                            <div class="work-card-media img-viewer-trigger"
-                                data-img="assets/natraj-ui.png" data-title="NATRAJ / AR Anatomy Learning"
-                                data-desc="Interactive AR and AI anatomy learning experience designed to make human biology intuitive and accessible."
+                            <div class="work-card-media cs-trigger"
+                                data-img="assets/natraj-ui.png"
+                                data-title="NATRAJ"
+                                data-tagline="AR Anatomy Learning"
                                 data-dribbble="https://dribbble.com/shots/27235652-NATRAJ-AR-Anatomy-Learning-Mobile-UI"
                                 data-behance="https://www.behance.net/6b52aa6f"
+                                data-brief="A mobile-first AR anatomy viewer where students tap any body region to isolate it, annotate structures, and quiz themselves in context. The UI disappears in AR mode — only surfaces when needed. Prototype sessions showed 3× longer engagement vs. textbook-only study."
                                 role="button" tabindex="0">
                                 <img src="assets/natraj-ui.jpg" alt="NATRAJ AR Learning UI" class="work-card-img" />
                             </div>
@@ -221,21 +245,28 @@
                                     <span class="work-card-slash">/</span>
                                     <span class="work-card-tagline">AR Anatomy Learning</span>
                                 </div>
-                                <p class="work-card-body">Interactive AR and AI anatomy learning experience designed to make human biology intuitive and accessible on mobile.</p>
+                                <p class="work-card-body">Interactive AR and AI anatomy learning experience designed to
+                                    make human biology intuitive and accessible on mobile.</p>
                                 <div class="work-card-links">
-                                    <a href="https://dribbble.com/shots/27235652-NATRAJ-AR-Anatomy-Learning-Mobile-UI" target="_blank" rel="noopener noreferrer" class="work-card-link-icon" title="Dribbble"><i class="ph ph-dribbble-logo"></i></a>
-                                    <a href="https://www.behance.net/6b52aa6f" target="_blank" rel="noopener noreferrer" class="work-card-link-icon" title="Behance"><i class="ph ph-behance-logo"></i></a>
+                                    <a href="https://dribbble.com/shots/27235652-NATRAJ-AR-Anatomy-Learning-Mobile-UI"
+                                        target="_blank" rel="noopener noreferrer" class="work-card-link-icon"
+                                        title="Dribbble"><i class="ph ph-dribbble-logo"></i></a>
+                                    <a href="https://www.behance.net/6b52aa6f" target="_blank" rel="noopener noreferrer"
+                                        class="work-card-link-icon" title="Behance"><i
+                                            class="ph ph-behance-logo"></i></a>
                                 </div>
                             </div>
                         </article>
 
                         <!-- Item 3: HomeGuru -->
                         <article class="work-card">
-                            <div class="work-card-media img-viewer-trigger"
-                                data-img="assets/HOMEGURU.png" data-title="HomeGuru / Student Dashboard"
-                                data-desc="Global 1-on-1 tutoring marketplace student hub to track sessions, manage live bookings, and evaluate progress."
+                            <div class="work-card-media cs-trigger"
+                                data-img="assets/HOMEGURU.png"
+                                data-title="HomeGuru"
+                                data-tagline="Student Dashboard"
                                 data-dribbble="https://dribbble.com/shots/27228497-HomeGuru-Student-Dashboard"
                                 data-behance="https://www.behance.net/gallery/246700937/HomeGuru-Student-Dashboard"
+                                data-brief="A student hub with a session timeline, live booking management, and a progress tracker that visualises subject coverage over time. Tutors push session notes directly into the student's dashboard. Booking confirmation time dropped from ~4 mins to under 30 seconds in usability testing."
                                 role="button" tabindex="0">
                                 <img src="assets/HOMEGURU.jpg" alt="HomeGuru Dashboard UI" class="work-card-img" />
                             </div>
@@ -245,21 +276,28 @@
                                     <span class="work-card-slash">/</span>
                                     <span class="work-card-tagline">Student Dashboard</span>
                                 </div>
-                                <p class="work-card-body">Global 1-on-1 tutoring marketplace student hub to track sessions, manage live bookings, and evaluate progress seamlessly.</p>
+                                <p class="work-card-body">Global 1-on-1 tutoring marketplace student hub to track
+                                    sessions, manage live bookings, and evaluate progress seamlessly.</p>
                                 <div class="work-card-links">
-                                    <a href="https://dribbble.com/shots/27228497-HomeGuru-Student-Dashboard" target="_blank" rel="noopener noreferrer" class="work-card-link-icon" title="Dribbble"><i class="ph ph-dribbble-logo"></i></a>
-                                    <a href="https://www.behance.net/gallery/246700937/HomeGuru-Student-Dashboard" target="_blank" rel="noopener noreferrer" class="work-card-link-icon" title="Behance"><i class="ph ph-behance-logo"></i></a>
+                                    <a href="https://dribbble.com/shots/27228497-HomeGuru-Student-Dashboard"
+                                        target="_blank" rel="noopener noreferrer" class="work-card-link-icon"
+                                        title="Dribbble"><i class="ph ph-dribbble-logo"></i></a>
+                                    <a href="https://www.behance.net/gallery/246700937/HomeGuru-Student-Dashboard"
+                                        target="_blank" rel="noopener noreferrer" class="work-card-link-icon"
+                                        title="Behance"><i class="ph ph-behance-logo"></i></a>
                                 </div>
                             </div>
                         </article>
 
                         <!-- Item 4: Her Rides -->
                         <article class="work-card">
-                            <div class="work-card-media img-viewer-trigger"
-                                data-img="assets/her rides.jpg" data-title="Her Rides / Admin Dashboard"
-                                data-desc="Women-focused ride-sharing platform UI with real-time fleet monitoring and high-priority SOS emergency dispatch."
+                            <div class="work-card-media cs-trigger"
+                                data-img="assets/her rides.jpg"
+                                data-title="Her Rides"
+                                data-tagline="Admin Dashboard"
                                 data-dribbble="https://dribbble.com/shots/26179590-Her-Rides-Admin-Dashboard"
-                                data-behance="#"
+                                data-behance=""
+                                data-brief="A unified admin dashboard for a women-focused ride-sharing service with a real-time map view, priority-sorted alert queue, and one-click SOS dispatch. High-severity events surface with colour and sound. SOS response time reduced from avg 4.2 min to under 90 seconds in simulation."
                                 role="button" tabindex="0">
                                 <img src="assets/her rides.jpg" alt="Her Rides Dashboard UI" class="work-card-img" />
                             </div>
@@ -269,9 +307,12 @@
                                     <span class="work-card-slash">/</span>
                                     <span class="work-card-tagline">Admin Dashboard</span>
                                 </div>
-                                <p class="work-card-body">Women-focused ride-sharing platform UI with real-time fleet monitoring and high-priority SOS emergency dispatch portal.</p>
+                                <p class="work-card-body">Women-focused ride-sharing platform UI with real-time fleet
+                                    monitoring and high-priority SOS emergency dispatch portal.</p>
                                 <div class="work-card-links">
-                                    <a href="https://dribbble.com/shots/26179590-Her-Rides-Admin-Dashboard" target="_blank" rel="noopener noreferrer" class="work-card-link-icon" title="Dribbble"><i class="ph ph-dribbble-logo"></i></a>
+                                    <a href="https://dribbble.com/shots/26179590-Her-Rides-Admin-Dashboard"
+                                        target="_blank" rel="noopener noreferrer" class="work-card-link-icon"
+                                        title="Dribbble"><i class="ph ph-dribbble-logo"></i></a>
                                 </div>
                             </div>
                         </article>
@@ -279,27 +320,21 @@
                     </div>
                 </div>
 
-                <!-- TAB 2: BRANDING (Masonry Gallery) -->
                 <div class="tab-pane" id="pane-branding">
                     <div class="branding-masonry-grid">
-                        <div class="branding-item img-viewer-trigger" data-img="assets/POST.png"
-                            data-title="Brand Poster — Editorial Geometric" role="button" tabindex="0">
+                        <div class="branding-item cs-trigger" data-img="assets/POST.png" data-title="Brand Poster" data-tagline="Editorial Geometric" data-type="branding" role="button" tabindex="0">
                             <img src="assets/POST.png" alt="Brand Poster" class="branding-masonry-img" loading="lazy" />
                         </div>
-                        <div class="branding-item img-viewer-trigger" data-img="assets/post - iUw.png"
-                            data-title="Brand Poster — Visual Narrative" role="button" tabindex="0">
+                        <div class="branding-item cs-trigger" data-img="assets/post - iUw.png" data-title="Brand Poster" data-tagline="Visual Narrative" data-type="branding" role="button" tabindex="0">
                             <img src="assets/post - iUw.png" alt="Brand Poster 2" class="branding-masonry-img" loading="lazy" />
                         </div>
-                        <div class="branding-item img-viewer-trigger" data-img="assets/post 3 (1).png"
-                            data-title="Brand Poster — Typographic Identity" role="button" tabindex="0">
+                        <div class="branding-item cs-trigger" data-img="assets/post 3 (1).png" data-title="Brand Poster" data-tagline="Typographic Identity" data-type="branding" role="button" tabindex="0">
                             <img src="assets/post 3 (1).png" alt="Brand Poster 3" class="branding-masonry-img" loading="lazy" />
                         </div>
-                        <div class="branding-item img-viewer-trigger" data-img="assets/post 4.png"
-                            data-title="Brand Poster — Modernist Layout" role="button" tabindex="0">
+                        <div class="branding-item cs-trigger" data-img="assets/post 4.png" data-title="Brand Poster" data-tagline="Modernist Layout" data-type="branding" role="button" tabindex="0">
                             <img src="assets/post 4.png" alt="Brand Poster 4" class="branding-masonry-img" loading="lazy" />
                         </div>
-                        <div class="branding-item img-viewer-trigger" data-img="assets/POST 5 FRONT.png"
-                            data-title="Brand Identity — Print &amp; Packaging" role="button" tabindex="0">
+                        <div class="branding-item cs-trigger" data-img="assets/POST 5 FRONT.png" data-title="Brand Identity" data-tagline="Print &amp; Packaging" data-type="branding" role="button" tabindex="0">
                             <img src="assets/POST 5 FRONT.png" alt="Brand Poster 5" class="branding-masonry-img" loading="lazy" />
                         </div>
                     </div>
@@ -312,13 +347,18 @@
                         <div class="orrery-diagram-card orrery-full-width">
                             <svg class="orrery-branch-svg" viewBox="0 0 700 190" xmlns="http://www.w3.org/2000/svg">
                                 <!-- Horizontal Main Trunk Line -->
-                                <line x1="40" y1="95" x2="620" y2="95" stroke="var(--branch-trunk, #c8c8c2)" stroke-width="1.6" />
+                                <line x1="40" y1="95" x2="620" y2="95" stroke="var(--branch-trunk, #c8c8c2)"
+                                    stroke-width="1.6" />
 
                                 <!-- Top Green Alt Ending Branch -->
-                                <path d="M 160 95 C 195 95, 215 48, 250 48 L 510 48 C 545 48, 565 95, 600 95" fill="none" stroke="#17805e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-                                
+                                <path d="M 160 95 C 195 95, 215 48, 250 48 L 510 48 C 545 48, 565 95, 600 95"
+                                    fill="none" stroke="#17805e" stroke-width="1.8" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+
                                 <!-- Bottom Orange What-If Branch (Dashed) -->
-                                <path d="M 280 95 C 310 95, 330 145, 370 145 L 530 145" fill="none" stroke="#d97736" stroke-width="1.6" stroke-dasharray="4 3" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M 280 95 C 310 95, 330 145, 370 145 L 530 145" fill="none" stroke="#d97736"
+                                    stroke-width="1.6" stroke-dasharray="4 3" stroke-linecap="round"
+                                    stroke-linejoin="round" />
 
                                 <!-- Top Branch Green Nodes -->
                                 <circle cx="260" cy="48" r="4.5" fill="#17805e" />
@@ -342,8 +382,10 @@
                                 <text x="600" y="116" text-anchor="middle" class="svg-branch-label">merge</text>
 
                                 <!-- Bottom Branch Orange Hollow Nodes -->
-                                <circle cx="378" cy="145" r="4.5" fill="var(--surface)" stroke="#d97736" stroke-width="1.6" />
-                                <circle cx="530" cy="145" r="4.5" fill="var(--surface)" stroke="#d97736" stroke-width="1.6" />
+                                <circle cx="378" cy="145" r="4.5" fill="var(--surface)" stroke="#d97736"
+                                    stroke-width="1.6" />
+                                <circle cx="530" cy="145" r="4.5" fill="var(--surface)" stroke="#d97736"
+                                    stroke-width="1.6" />
                                 <text x="425" y="165" text-anchor="start" class="svg-branch-label">. what if</text>
                             </svg>
                         </div>
@@ -357,7 +399,9 @@
                             </div>
 
                             <p class="project-body-text orrery-body">
-                                Orrery is a writing tool built around version branching. Start from any point in a draft, explore an alternate direction on its own timeline, then compare it against the original and merge the changes you want to keep.
+                                Orrery is a writing tool built around version branching. Start from any point in a
+                                draft, explore an alternate direction on its own timeline, then compare it against the
+                                original and merge the changes you want to keep.
                             </p>
 
                             <div class="project-footer-row">
@@ -366,11 +410,14 @@
                                     <span class="project-pill">Full-stack</span>
                                 </div>
                                 <div class="project-actions">
-                                    <a href="https://orrery-2.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-action-link project-icon-link" title="Live site">
+                                    <a href="https://orrery-2.vercel.app/" target="_blank" rel="noopener noreferrer"
+                                        class="project-action-link project-icon-link" title="Live site">
                                         <i class="ph ph-arrow-square-out"></i>
                                         <span>Live site</span>
                                     </a>
-                                    <a href="https://github.com/Suman1214129/Orrery.git" target="_blank" rel="noopener noreferrer" class="project-action-link project-icon-link" title="GitHub">
+                                    <a href="https://github.com/Suman1214129/Orrery.git" target="_blank"
+                                        rel="noopener noreferrer" class="project-action-link project-icon-link"
+                                        title="GitHub">
                                         <i class="ph ph-github-logo"></i>
                                         <span>GitHub</span>
                                     </a>
@@ -388,7 +435,10 @@
                 <div class="section-title-group">
                     <h2 class="section-heading">Work Experience</h2>
                     <p class="section-subtext">
-                        Product designer and builder obsessed with solving the right problem. In the last 3 years I've designed and shipped products at <a href="https://navchetna.org" target="_blank" rel="noopener noreferrer" class="text-link">NAVCHETNA</a>, freelance labs, and open source ecosystems.
+                        Product designer and builder obsessed with solving the right problem. In the last 3 years I've
+                        designed and shipped products at <a href="https://navchetna.org" target="_blank"
+                            rel="noopener noreferrer" class="text-link">NAVCHETNA</a>, freelance labs, and open source
+                        ecosystems.
                     </p>
                 </div>
 
@@ -397,17 +447,17 @@
                     <div class="work-item-header">
                         <div class="work-item-title-meta">
                             <span class="role-bold">Head of Design &amp; UX Lead</span>
-                            <a href="https://www.linkedin.com/in/suman-yadav-bb5516322/" target="_blank" rel="noopener noreferrer" class="company-underlined">NAVCHETNA</a>
+                            <a href="https://www.linkedin.com/in/suman-yadav-bb5516322/" target="_blank"
+                                rel="noopener noreferrer" class="company-underlined">NAVCHETNA</a>
                             <span class="date-muted">2024 – Present • Full-time</span>
                         </div>
                     </div>
 
                     <!-- Clean hero showcase image with subtle border & sharp corners -->
-                    <div class="work-item-banner img-viewer-trigger"
-                        data-img="assets/navchetna.jpeg"
-                        data-title="NAVCHETNA — Team &amp; Brand Architecture"
-                        role="button" tabindex="0">
-                        <img src="assets/navchetna.jpeg" alt="NAVCHETNA Workspace &amp; Brand Architecture" class="work-item-banner-img" />
+                    <div class="work-item-banner img-viewer-trigger" data-img="assets/navchetna.jpeg"
+                        data-title="NAVCHETNA — Team &amp; Brand Architecture" role="button" tabindex="0">
+                        <img src="assets/navchetna.jpeg" alt="NAVCHETNA Workspace &amp; Brand Architecture"
+                            class="work-item-banner-img" />
                         <div class="work-item-banner-caption">
                             <span>© NAVCHETNA HQ, Ahmedabad</span>
                         </div>
@@ -415,7 +465,10 @@
 
                     <!-- Body paragraph directly under image -->
                     <p class="work-item-description">
-                        Leading UX and design systems across NAVCHETNA's multi-product AI education and assessment platform. Being a designer here means thinking, validating, and executing end-to-end: building the tokenized design system, testing user workflows with students and mentors, and working directly in code to maintain pixel-perfect shipping straight to production.
+                        Leading UX and design systems across NAVCHETNA's multi-product AI education and assessment
+                        platform. Being a designer here means thinking, validating, and executing end-to-end: building
+                        the tokenized design system, testing user workflows with students and mentors, and working
+                        directly in code to maintain pixel-perfect shipping straight to production.
                     </p>
                 </div>
             </section>
@@ -432,18 +485,23 @@
                 <div class="about-grid-layout">
                     <div class="about-portrait-card">
                         <div class="about-album-frame">
-                            <img src="assets/my photo.jpeg" alt="Suman Yadav" class="about-portrait-img" id="profile-img" />
+                            <img src="assets/my photo.jpeg" alt="Suman Yadav" class="about-portrait-img"
+                                id="profile-img" />
                             <div class="album-caption">suman • ahmedabad</div>
                         </div>
                     </div>
 
                     <div class="about-story-card">
                         <p class="story-paragraph">
-                            I'm a designer who codes. I care about how things look, how they feel when you interact with them, and how they actually hold up in production. Most of my time is spent thinking through user flows, building design systems, and shipping products from scratch.
+                            I'm a designer who codes. I care about how things look, how they feel when you interact with
+                            them, and how they actually hold up in production. Most of my time is spent thinking through
+                            user flows, building design systems, and shipping products from scratch.
                         </p>
 
                         <p class="story-paragraph">
-                            Currently leading UX and product design at NAVCHETNA in Ahmedabad. When I'm not designing interfaces or writing frontend code, I'm usually sketching, playing chess, or exploring new ideas.
+                            Currently leading UX and product design at NAVCHETNA in Ahmedabad. When I'm not designing
+                            interfaces or writing frontend code, I'm usually sketching, playing chess, or exploring new
+                            ideas.
                         </p>
                     </div>
                 </div>
@@ -461,16 +519,20 @@
             <div class="footer-bottom-row">
                 <!-- Social icon links -->
                 <div class="footer-social-links">
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sumankr8586@gmail.com" target="_blank" rel="noopener noreferrer" class="footer-social-icon-btn" title="Email" aria-label="Email">
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sumankr8586@gmail.com" target="_blank"
+                        rel="noopener noreferrer" class="footer-social-icon-btn" title="Email" aria-label="Email">
                         <i class="ph ph-envelope-simple"></i>
                     </a>
-                    <a href="https://www.linkedin.com/in/suman-yadav-bb5516322/" target="_blank" rel="noopener noreferrer" class="footer-social-icon-btn" title="LinkedIn" aria-label="LinkedIn">
+                    <a href="https://www.linkedin.com/in/suman-yadav-bb5516322/" target="_blank"
+                        rel="noopener noreferrer" class="footer-social-icon-btn" title="LinkedIn" aria-label="LinkedIn">
                         <i class="ph ph-linkedin-logo"></i>
                     </a>
-                    <a href="https://github.com/Suman1214129" target="_blank" rel="noopener noreferrer" class="footer-social-icon-btn" title="GitHub" aria-label="GitHub">
+                    <a href="https://github.com/Suman1214129" target="_blank" rel="noopener noreferrer"
+                        class="footer-social-icon-btn" title="GitHub" aria-label="GitHub">
                         <i class="ph ph-github-logo"></i>
                     </a>
-                    <a href="https://www.behance.net/6b52aa6f" target="_blank" rel="noopener noreferrer" class="footer-social-icon-btn" title="Behance" aria-label="Behance">
+                    <a href="https://www.behance.net/6b52aa6f" target="_blank" rel="noopener noreferrer"
+                        class="footer-social-icon-btn" title="Behance" aria-label="Behance">
                         <i class="ph ph-behance-logo"></i>
                     </a>
                 </div>
@@ -512,42 +574,24 @@
         </div>
     </div>
 
-    <!-- ========== IMAGE VIEWER MODAL ========== -->
-    <div class="iv-overlay" id="iv-overlay" role="dialog" aria-modal="true" aria-label="Image viewer">
-        <div class="iv-backdrop" id="iv-backdrop"></div>
-        <div class="iv-panel" id="iv-panel">
-            <div class="iv-header">
-                <div class="iv-header-left">
-                    <span class="iv-tag" id="iv-tag"></span>
-                    <div class="iv-nav-group">
-                        <button class="iv-nav-btn" id="iv-prev" aria-label="Previous">←</button>
-                        <button class="iv-nav-btn" id="iv-next" aria-label="Next">→</button>
-                    </div>
+    <!-- ========== CASE STUDY SIDEBAR ========== -->
+    <div class="cs-backdrop" id="cs-backdrop"></div>
+    <aside class="cs-sidebar" id="cs-sidebar" aria-label="Case study">
+        <div class="cs-sidebar-inner">
+            <div class="cs-header">
+                <div class="cs-header-meta">
+                    <span class="cs-tag" id="cs-tag"></span>
+                    <span class="cs-tagline" id="cs-tagline"></span>
                 </div>
-                <div class="iv-header-right">
-                    <div class="iv-info-actions">
-                        <a class="iv-action-btn" id="iv-dribbble-link" href="#" target="_blank" rel="noopener noreferrer">
-                            <span>Dribbble ↗</span>
-                        </a>
-                        <a class="iv-action-btn" id="iv-behance-link" href="#" target="_blank" rel="noopener noreferrer">
-                            <span>Behance ↗</span>
-                        </a>
-                    </div>
-                    <button class="iv-close-btn" id="iv-close" aria-label="Close viewer">✕</button>
-                </div>
+                <button class="cs-close" id="cs-close" aria-label="Close">✕</button>
             </div>
-
-            <div class="iv-img-wrap" id="iv-img-wrap">
-                <div class="iv-ambient-glow" id="iv-ambient-glow"></div>
-                <div class="iv-img-inner">
-                    <img class="iv-img" id="iv-img" src="" alt="" draggable="false">
-                    <div class="iv-img-loader" id="iv-img-loader">
-                        <div class="iv-spinner"></div>
-                    </div>
-                </div>
+            <div class="cs-img-wrap">
+                <img class="cs-img" id="cs-img" src="" alt="" />
             </div>
+            <div class="cs-body" id="cs-body"></div>
+            <div class="cs-links" id="cs-links"></div>
         </div>
-    </div>
+    </aside>
 
     <!-- Scripts -->
     <script src="script.js"></script>

@@ -289,80 +289,93 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ============================================
-// IMAGE LIGHTBOX VIEWER
+// CASE STUDY SIDEBAR
 // ============================================
-(function() {
-    const ivOverlay = document.getElementById('iv-overlay');
-    const ivBackdrop = document.getElementById('iv-backdrop');
-    const ivClose = document.getElementById('iv-close');
-    const ivImg = document.getElementById('iv-img');
-    const ivTag = document.getElementById('iv-tag');
-    const ivDribbble = document.getElementById('iv-dribbble-link');
-    const ivBehance = document.getElementById('iv-behance-link');
-    const ivPrev = document.getElementById('iv-prev');
-    const ivNext = document.getElementById('iv-next');
-    const ivAmbientGlow = document.getElementById('iv-ambient-glow');
+(function () {
+    const sidebar  = document.getElementById('cs-sidebar');
+    const backdrop = document.getElementById('cs-backdrop');
+    const closeBtn = document.getElementById('cs-close');
+    const csImg    = document.getElementById('cs-img');
+    const csTag    = document.getElementById('cs-tag');
+    const csTagline= document.getElementById('cs-tagline');
+    const csBody   = document.getElementById('cs-body');
+    const csLinks  = document.getElementById('cs-links');
+    if (!sidebar) return;
 
-    if (!ivOverlay) return;
+    // Lightbox
+    const lightbox = document.createElement('div');
+    lightbox.className = 'cs-lightbox';
+    const lbImg = document.createElement('img');
+    lightbox.appendChild(lbImg);
+    document.body.appendChild(lightbox);
 
-    function getTriggers() {
-        return Array.from(document.querySelectorAll('.img-viewer-trigger'));
+    function openLightbox(src, alt) {
+        lbImg.src = src;
+        lbImg.alt = alt || '';
+        lightbox.classList.add('cs-lb-open');
+    }
+    function closeLightbox() {
+        lightbox.classList.remove('cs-lb-open');
+    }
+    lightbox.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeLightbox();
+    });
+
+    const csImgWrap = document.querySelector('.cs-img-wrap');
+    if (csImgWrap) {
+        csImgWrap.addEventListener('click', function() {
+            if (csImg.src) openLightbox(csImg.src, csImg.alt);
+        });
     }
 
-    let currentIndex = 0;
+    function openSidebar(el) {
+        const d = el.dataset;
+        csTag.textContent     = d.title || '';
+        csTagline.textContent = d.tagline || '';
+        csImg.src = d.img || '';
+        csImg.alt = d.title || '';
 
-    function openViewer(index) {
-        const triggers = getTriggers();
-        if (index < 0 || index >= triggers.length) return;
-        currentIndex = index;
-        const trigger = triggers[index];
+        csBody.innerHTML = d.brief ? `<p class="cs-brief">${d.brief}</p>` : '';
 
-        const src = trigger.dataset.img || '';
-        const title = trigger.dataset.title || '';
-        const dribbble = trigger.dataset.dribbble || '#';
-        const behance = trigger.dataset.behance || '#';
+        const links = [];
+        if (d.dribbble && d.dribbble !== '#' && d.dribbble !== '') links.push(`<a href="${d.dribbble}" target="_blank" rel="noopener noreferrer" class="cs-link-btn"><i class="ph ph-dribbble-logo"></i> Dribbble ↗</a>`);
+        if (d.behance  && d.behance  !== '#' && d.behance  !== '') links.push(`<a href="${d.behance}"  target="_blank" rel="noopener noreferrer" class="cs-link-btn"><i class="ph ph-behance-logo"></i> Behance ↗</a>`);
+        csLinks.innerHTML = links.join('');
 
-        if (ivTag) ivTag.textContent = title;
-        if (ivDribbble) {
-            ivDribbble.href = dribbble;
-            ivDribbble.style.display = (dribbble && dribbble !== '#') ? 'inline-flex' : 'none';
-        }
-        if (ivBehance) {
-            ivBehance.href = behance;
-            ivBehance.style.display = (behance && behance !== '#') ? 'inline-flex' : 'none';
-        }
-        if (ivImg) {
-            ivImg.src = src;
-            ivImg.alt = title;
-        }
-        if (ivAmbientGlow && src) {
-            ivAmbientGlow.style.backgroundImage = `url("${src}")`;
-        }
-
-        ivOverlay.classList.add('iv-active');
+        sidebar.classList.add('cs-open');
+        backdrop.classList.add('cs-open');
         document.body.style.overflow = 'hidden';
-
-        if (ivPrev) ivPrev.classList.toggle('iv-nav-disabled', index === 0);
-        if (ivNext) ivNext.classList.toggle('iv-nav-disabled', index === triggers.length - 1);
     }
 
-    function closeViewer() {
-        ivOverlay.classList.remove('iv-active');
+    function closeSidebar() {
+        sidebar.classList.remove('cs-open');
+        backdrop.classList.remove('cs-open');
         document.body.style.overflow = '';
     }
 
-    document.addEventListener('click', (e) => {
-        const trigger = e.target.closest('.img-viewer-trigger');
-        if (!trigger) return;
-        const triggers = getTriggers();
-        const idx = triggers.indexOf(trigger);
-        if (idx !== -1) openViewer(idx);
+    document.addEventListener('click', function (e) {
+        if (e.target.closest('.cs-lightbox')) return;
+        const trigger = e.target.closest('.cs-trigger');
+        if (trigger) {
+            // Branding items: open lightbox directly, skip sidebar
+            if (trigger.dataset.type === 'branding') {
+                openLightbox(trigger.dataset.img || '', trigger.dataset.title || '');
+                return;
+            }
+            openSidebar(trigger);
+            return;
+        }
+        // Close on backdrop click (clicking outside sidebar on desktop)
+        if (sidebar.classList.contains('cs-open') && !e.target.closest('#cs-sidebar')) {
+            closeSidebar();
+        }
     });
 
-    if (ivClose) ivClose.addEventListener('click', closeViewer);
-    if (ivBackdrop) ivBackdrop.addEventListener('click', closeViewer);
-    if (ivPrev) ivPrev.addEventListener('click', () => openViewer(currentIndex - 1));
-    if (ivNext) ivNext.addEventListener('click', () => openViewer(currentIndex + 1));
+    closeBtn.addEventListener('click', closeSidebar);
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeSidebar();
+    });
 })();
 
 // ============================================
@@ -385,11 +398,13 @@ document.addEventListener('keydown', (e) => {
         RUN_RIGHT: makeSVG("<rect x='1' y='11' width='2' height='1' fill='#5a3821'/><rect x='6' y='11' width='3' height='1' fill='#5a3821'/><rect x='9' y='11' width='4' height='1' fill='#dda876'/><rect x='13' y='11' width='3' height='1' fill='#5a3821'/><rect x='0' y='12' width='4' height='1' fill='#5a3821'/><rect x='5' y='12' width='3' height='1' fill='#5a3821'/><rect x='8' y='12' width='6' height='1' fill='#dda876'/><rect x='14' y='12' width='3' height='1' fill='#5a3821'/><rect x='0' y='13' width='1' height='1' fill='#5a3821'/><rect x='2' y='13' width='2' height='1' fill='#5a3821'/><rect x='5' y='13' width='3' height='1' fill='#5a3821'/><rect x='8' y='13' width='6' height='1' fill='#dda876'/><rect x='14' y='13' width='1' height='1' fill='#5a3821'/><rect x='15' y='13' width='1' height='1' fill='#dda876'/><rect x='16' y='13' width='1' height='1' fill='#5a3821'/><rect x='2' y='14' width='2' height='1' fill='#5a3821'/><rect x='5' y='14' width='3' height='1' fill='#5a3821'/><rect x='8' y='14' width='6' height='1' fill='#dda876'/><rect x='14' y='14' width='1' height='1' fill='#5a3821'/><rect x='3' y='15' width='1' height='1' fill='#5a3821'/><rect x='5' y='15' width='4' height='1' fill='#5a3821'/><rect x='9' y='15' width='4' height='1' fill='#dda876'/><rect x='13' y='15' width='2' height='1' fill='#5a3821'/><rect x='3' y='16' width='11' height='1' fill='#5a3821'/><rect x='6' y='17' width='3' height='1' fill='#5a3821'/><rect x='11' y='17' width='4' height='1' fill='#5a3821'/><rect x='5' y='18' width='3' height='1' fill='#5a3821'/><rect x='12' y='18' width='3' height='1' fill='#5a3821'/><rect x='6' y='19' width='2' height='1' fill='#5a3821'/><rect x='13' y='19' width='1' height='1' fill='#5a3821'/>"),
         RUN_LEFT: makeSVG("<rect x='3' y='11' width='4' height='1' fill='#5a3821'/><rect x='7' y='11' width='4' height='1' fill='#dda876'/><rect x='11' y='11' width='3' height='1' fill='#5a3821'/><rect x='17' y='11' width='2' height='1' fill='#5a3821'/><rect x='3' y='12' width='3' height='1' fill='#5a3821'/><rect x='6' y='12' width='5' height='1' fill='#dda876'/><rect x='11' y='12' width='3' height='1' fill='#5a3821'/><rect x='16' y='12' width='4' height='1' fill='#5a3821'/><rect x='3' y='13' width='1' height='1' fill='#dda876'/><rect x='5' y='13' width='1' height='1' fill='#5a3821'/><rect x='6' y='13' width='5' height='1' fill='#dda876'/><rect x='11' y='13' width='3' height='1' fill='#5a3821'/><rect x='16' y='13' width='1' height='1' fill='#5a3821'/><rect x='19' y='13' width='1' height='1' fill='#5a3821'/><rect x='5' y='14' width='1' height='1' fill='#5a3821'/><rect x='6' y='14' width='5' height='1' fill='#dda876'/><rect x='11' y='14' width='3' height='1' fill='#5a3821'/><rect x='16' y='14' width='1' height='1' fill='#5a3821'/><rect x='5' y='15' width='2' height='1' fill='#5a3821'/><rect x='7' y='15' width='4' height='1' fill='#dda876'/><rect x='11' y='15' width='4' height='1' fill='#5a3821'/><rect x='16' y='15' width='1' height='1' fill='#5a3821'/><rect x='6' y='16' width='11' height='1' fill='#5a3821'/><rect x='5' y='17' width='4' height='1' fill='#5a3821'/><rect x='11' y='17' width='3' height='1' fill='#5a3821'/><rect x='5' y='18' width='3' height='1' fill='#5a3821'/><rect x='12' y='18' width='3' height='1' fill='#5a3821'/><rect x='6' y='19' width='1' height='1' fill='#5a3821'/><rect x='13' y='19' width='1' height='1' fill='#5a3821'/>"),
         JUMP: makeSVG("<rect x='3' y='11' width='5' height='1' fill='#5a3821'/><rect x='8' y='11' width='4' height='1' fill='#dda876'/><rect x='12' y='11' width='5' height='1' fill='#5a3821'/><rect x='2' y='12' width='5' height='1' fill='#5a3821'/><rect x='7' y='12' width='6' height='1' fill='#dda876'/><rect x='13' y='12' width='5' height='1' fill='#5a3821'/><rect x='2' y='13' width='5' height='1' fill='#5a3821'/><rect x='7' y='13' width='6' height='1' fill='#dda876'/><rect x='13' y='13' width='5' height='1' fill='#5a3821'/><rect x='3' y='14' width='1' height='1' fill='#5a3821'/><rect x='5' y='14' width='2' height='1' fill='#5a3821'/><rect x='7' y='14' width='6' height='1' fill='#dda876'/><rect x='13' y='14' width='2' height='1' fill='#5a3821'/><rect x='16' y='14' width='1' height='1' fill='#5a3821'/><rect x='5' y='15' width='2' height='1' fill='#5a3821'/><rect x='7' y='15' width='6' height='1' fill='#dda876'/><rect x='13' y='15' width='2' height='1' fill='#5a3821'/><rect x='5' y='16' width='9' height='1' fill='#5a3821'/><rect x='6' y='17' width='8' height='1' fill='#5a3821'/><rect x='6' y='18' width='3' height='1' fill='#5a3821'/><rect x='11' y='18' width='3' height='1' fill='#5a3821'/><rect x='7' y='19' width='1' height='1' fill='#dda876'/><rect x='8' y='19' width='1' height='1' fill='#5a3821'/><rect x='11' y='19' width='1' height='1' fill='#5a3821'/><rect x='12' y='19' width='1' height='1' fill='#dda876'/>"),
-        WAVE: "<svg viewBox='0 0 20 20' width='100%' height='100%' shape-rendering='crispEdges'><rect x='4' y='0' width='10' height='1' fill='#5a3821'/><rect x='4' y='1' width='11' height='1' fill='#5a3821'/><rect x='3' y='2' width='13' height='1' fill='#5a3821'/><rect x='0' y='3' width='5' height='1' fill='#5a3821'/><rect x='5' y='3' width='9' height='1' fill='#dda876'/><rect x='14' y='3' width='5' height='1' fill='#5a3821'/><rect x='0' y='4' width='5' height='1' fill='#5a3821'/><rect x='5' y='4' width='9' height='1' fill='#dda876'/><rect x='14' y='4' width='5' height='1' fill='#5a3821'/><rect x='0' y='5' width='1' height='1' fill='#5a3821'/><rect x='1' y='5' width='2' height='1' fill='#dda876'/><rect x='3' y='5' width='2' height='1' fill='#5a3821'/><rect x='5' y='5' width='1' height='1' fill='#dda876'/><rect x='6' y='5' width='1' height='1' fill='#181512'/><rect x='7' y='5' width='1' height='1' fill='#5a3821'/><rect x='8' y='5' width='3' height='1' fill='#dda876'/><rect x='11' y='5' width='1' height='1' fill='#181512'/><rect x='12' y='5' width='1' height='1' fill='#5a3821'/><rect x='13' y='5' width='1' height='1' fill='#dda876'/><rect x='14' y='5' width='2' height='1' fill='#5a3821'/><rect x='16' y='5' width='1' height='1' fill='#dda876'/><rect x='17' y='5' width='2' height='1' fill='#5a3821'/><rect x='0' y='6' width='1' height='1' fill='#5a3821'/><rect x='1' y='6' width='2' height='1' fill='#dda876'/><rect x='3' y='6' width='2' height='1' fill='#5a3821'/><rect x='5' y='6' width='1' height='1' fill='#dda876'/><rect x='6' y='6' width='1' height='1' fill='#181512'/><rect x='7' y='6' width='1' height='1' fill='#5a3821'/><rect x='8' y='6' width='3' height='1' fill='#dda876'/><rect x='11' y='6' width='1' height='1' fill='#181512'/><rect x='12' y='6' width='1' height='1' fill='#5a3821'/><rect x='13' y='6' width='1' height='1' fill='#dda876'/><rect x='14' y='6' width='2' height='1' fill='#5a3821'/><rect x='16' y='6' width='1' height='1' fill='#dda876'/><rect x='17' y='6' width='2' height='1' fill='#5a3821'/><rect x='0' y='7' width='5' height='1' fill='#5a3821'/><rect x='5' y='7' width='9' height='1' fill='#dda876'/><rect x='14' y='7' width='4' height='1' fill='#5a3821'/><rect x='18' y='7' width='1' height='1' fill='#dda876'/><rect x='19' y='7' width='1' height='1' fill='#5a3821'/><rect x='3' y='8' width='2' height='1' fill='#5a3821'/><rect x='5' y='8' width='4' height='1' fill='#dda876'/><rect x='9' y='8' width='1' height='1' fill='#181512'/><rect x='10' y='8' width='4' height='1' fill='#dda876'/><rect x='14' y='8' width='2' height='1' fill='#5a3821'/><rect x='17' y='8' width='3' height='1' fill='#5a3821'/><rect x='3' y='9' width='2' height='1' fill='#5a3821'/><rect x='5' y='9' width='9' height='1' fill='#dda876'/><rect x='14' y='9' width='5' height='1' fill='#5a3821'/><rect x='4' y='10' width='15' height='1' fill='#5a3821'/><rect x='4' y='11' width='14' height='1' fill='#5a3821'/><rect x='3' y='12' width='3' height='1' fill='#5a3821'/><rect x='6' y='12' width='6' height='1' fill='#dda876'/><rect x='12' y='12' width='4' height='1' fill='#5a3821'/><rect x='3' y='13' width='3' height='1' fill='#5a3821'/><rect x='6' y='13' width='6' height='1' fill='#dda876'/><rect x='12' y='13' width='3' height='1' fill='#5a3821'/><rect x='3' y='14' width='3' height='1' fill='#5a3821'/><rect x='6' y='14' width='6' height='1' fill='#dda876'/><rect x='12' y='14' width='3' height='1' fill='#5a3821'/><rect x='3' y='15' width='4' height='1' fill='#5a3821'/><rect x='7' y='15' width='4' height='1' fill='#dda876'/><rect x='11' y='15' width='4' height='1' fill='#5a3821'/><rect x='5' y='16' width='9' height='1' fill='#5a3821'/><rect x='5' y='17' width='3' height='1' fill='#5a3821'/><rect x='10' y='17' width='4' height='1' fill='#5a3821'/><rect x='5' y='18' width='3' height='1' fill='#5a3821'/><rect x='10' y='18' width='4' height='1' fill='#5a3821'/><rect x='5' y='19' width='3' height='1' fill='#5a3821'/><rect x='10' y='19' width='4' height='1' fill='#5a3821'/></svg>",
-        HANG: "<svg viewBox='0 0 20 20' width='100%' height='100%' shape-rendering='crispEdges'><rect x='2' y='0' width='2' height='1' fill='#5a3821'/><rect x='4' y='0' width='1' height='1' fill='#dda876'/><rect x='15' y='0' width='2' height='1' fill='#dda876'/><rect x='17' y='0' width='1' height='1' fill='#5a3821'/><rect x='2' y='1' width='16' height='1' fill='#5a3821'/><rect x='2' y='2' width='16' height='1' fill='#5a3821'/><rect x='0' y='3' width='20' height='1' fill='#5a3821'/><rect x='0' y='4' width='5' height='1' fill='#5a3821'/><rect x='5' y='4' width='10' height='1' fill='#dda876'/><rect x='15' y='4' width='5' height='1' fill='#5a3821'/><rect x='0' y='5' width='2' height='1' fill='#5a3821'/><rect x='2' y='5' width='1' height='1' fill='#dda876'/><rect x='3' y='5' width='2' height='1' fill='#5a3821'/><rect x='5' y='5' width='1' height='1' fill='#dda876'/><rect x='6' y='5' width='2' height='1' fill='#181512'/><rect x='8' y='5' width='4' height='1' fill='#dda876'/><rect x='12' y='5' width='1' height='1' fill='#181512'/><rect x='13' y='5' width='2' height='1' fill='#dda876'/><rect x='15' y='5' width='2' height='1' fill='#5a3821'/><rect x='17' y='5' width='1' height='1' fill='#dda876'/><rect x='18' y='5' width='2' height='1' fill='#5a3821'/><rect x='0' y='6' width='5' height='1' fill='#5a3821'/><rect x='5' y='6' width='10' height='1' fill='#dda876'/><rect x='15' y='6' width='5' height='1' fill='#5a3821'/><rect x='2' y='7' width='3' height='1' fill='#5a3821'/><rect x='5' y='7' width='4' height='1' fill='#dda876'/><rect x='9' y='7' width='2' height='1' fill='#181512'/><rect x='11' y='7' width='4' height='1' fill='#dda876'/><rect x='15' y='7' width='3' height='1' fill='#5a3821'/><rect x='3' y='8' width='2' height='1' fill='#5a3821'/><rect x='5' y='8' width='10' height='1' fill='#dda876'/><rect x='15' y='8' width='2' height='1' fill='#5a3821'/><rect x='4' y='9' width='12' height='1' fill='#5a3821'/><rect x='4' y='10' width='3' height='1' fill='#5a3821'/><rect x='7' y='10' width='6' height='1' fill='#dda876'/><rect x='13' y='10' width='2' height='1' fill='#5a3821'/><rect x='4' y='11' width='3' height='1' fill='#5a3821'/><rect x='7' y='11' width='6' height='1' fill='#dda876'/><rect x='13' y='11' width='2' height='1' fill='#5a3821'/><rect x='4' y='12' width='3' height='1' fill='#5a3821'/><rect x='7' y='12' width='6' height='1' fill='#dda876'/><rect x='13' y='12' width='2' height='1' fill='#5a3821'/><rect x='4' y='13' width='11' height='1' fill='#5a3821'/><rect x='6' y='14' width='4' height='1' fill='#5a3821'/><rect x='11' y='14' width='3' height='1' fill='#5a3821'/><rect x='6' y='15' width='1' height='1' fill='#5a3821'/><rect x='7' y='15' width='1' height='1' fill='#dda876'/><rect x='8' y='15' width='1' height='1' fill='#5a3821'/><rect x='11' y='15' width='1' height='1' fill='#dda876'/><rect x='12' y='15' width='2' height='1' fill='#5a3821'/><rect x='8' y='16' width='1' height='1' fill='#5a3821'/><rect x='8' y='17' width='1' height='1' fill='#5a3821'/><rect x='11' y='17' width='1' height='1' fill='#5a3821'/><rect x='8' y='18' width='1' height='1' fill='#5a3821'/><rect x='11' y='18' width='2' height='1' fill='#5a3821'/><rect x='9' y='19' width='3' height='1' fill='#5a3821'/></svg>"
+        WAVE: makeSVG("<rect x='0' y='11' width='2' height='1' fill='#5a3821'/><rect x='2' y='10' width='1' height='1' fill='#5a3821'/><rect x='1' y='9' width='2' height='1' fill='#5a3821'/><rect x='0' y='8' width='2' height='1' fill='#5a3821'/><rect x='3' y='11' width='4' height='1' fill='#5a3821'/><rect x='7' y='11' width='4' height='1' fill='#dda876'/><rect x='11' y='11' width='3' height='1' fill='#5a3821'/><rect x='17' y='11' width='3' height='1' fill='#5a3821'/><rect x='3' y='12' width='3' height='1' fill='#5a3821'/><rect x='6' y='12' width='6' height='1' fill='#dda876'/><rect x='12' y='12' width='3' height='1' fill='#5a3821'/><rect x='16' y='12' width='2' height='1' fill='#5a3821'/><rect x='19' y='12' width='1' height='1' fill='#5a3821'/><rect x='3' y='13' width='3' height='1' fill='#5a3821'/><rect x='6' y='13' width='6' height='1' fill='#dda876'/><rect x='12' y='13' width='3' height='1' fill='#5a3821'/><rect x='16' y='13' width='2' height='1' fill='#5a3821'/><rect x='3' y='14' width='3' height='1' fill='#5a3821'/><rect x='6' y='14' width='6' height='1' fill='#dda876'/><rect x='12' y='14' width='3' height='1' fill='#5a3821'/><rect x='16' y='14' width='2' height='1' fill='#5a3821'/><rect x='3' y='15' width='4' height='1' fill='#5a3821'/><rect x='7' y='15' width='4' height='1' fill='#dda876'/><rect x='11' y='15' width='4' height='1' fill='#5a3821'/><rect x='16' y='15' width='2' height='1' fill='#5a3821'/><rect x='4' y='16' width='13' height='1' fill='#5a3821'/><rect x='5' y='17' width='3' height='1' fill='#5a3821'/><rect x='10' y='17' width='3' height='1' fill='#5a3821'/><rect x='5' y='18' width='3' height='1' fill='#5a3821'/><rect x='10' y='18' width='3' height='1' fill='#5a3821'/><rect x='5' y='19' width='3' height='1' fill='#5a3821'/><rect x='10' y='19' width='3' height='1' fill='#5a3821'/>"),
+        // HANG: monkey gripping ledge at top — arms raised, body + legs hang below
+        // Arms at y=0 grip the ledge, head at y=1..6, body y=7..12, legs dangle y=13..18
+        HANG: "<svg viewBox='0 0 20 20' width='100%' height='100%' shape-rendering='crispEdges'><rect x='4' y='0' width='2' height='1' fill='#5a3821'/><rect x='14' y='0' width='2' height='1' fill='#5a3821'/><rect x='3' y='1' width='3' height='1' fill='#5a3821'/><rect x='14' y='1' width='3' height='1' fill='#5a3821'/><rect x='4' y='2' width='12' height='1' fill='#5a3821'/><rect x='3' y='3' width='2' height='1' fill='#5a3821'/><rect x='5' y='3' width='10' height='1' fill='#dda876'/><rect x='15' y='3' width='2' height='1' fill='#5a3821'/><rect x='3' y='4' width='2' height='1' fill='#5a3821'/><rect x='5' y='4' width='10' height='1' fill='#dda876'/><rect x='15' y='4' width='2' height='1' fill='#5a3821'/><rect x='3' y='5' width='2' height='1' fill='#5a3821'/><rect x='5' y='5' width='1' height='1' fill='#dda876'/><rect x='6' y='5' width='1' height='1' fill='#181512'/><rect x='7' y='5' width='6' height='1' fill='#dda876'/><rect x='13' y='5' width='1' height='1' fill='#181512'/><rect x='14' y='5' width='1' height='1' fill='#dda876'/><rect x='15' y='5' width='2' height='1' fill='#5a3821'/><rect x='3' y='6' width='2' height='1' fill='#5a3821'/><rect x='5' y='6' width='10' height='1' fill='#dda876'/><rect x='15' y='6' width='2' height='1' fill='#5a3821'/><rect x='4' y='7' width='1' height='1' fill='#5a3821'/><rect x='5' y='7' width='3' height='1' fill='#dda876'/><rect x='8' y='7' width='4' height='1' fill='#181512'/><rect x='12' y='7' width='3' height='1' fill='#dda876'/><rect x='15' y='7' width='1' height='1' fill='#5a3821'/><rect x='4' y='8' width='1' height='1' fill='#5a3821'/><rect x='5' y='8' width='10' height='1' fill='#dda876'/><rect x='15' y='8' width='1' height='1' fill='#5a3821'/><rect x='5' y='9' width='10' height='1' fill='#5a3821'/><rect x='2' y='10' width='3' height='1' fill='#5a3821'/><rect x='5' y='10' width='10' height='1' fill='#dda876'/><rect x='15' y='10' width='3' height='1' fill='#5a3821'/><rect x='1' y='11' width='3' height='1' fill='#5a3821'/><rect x='5' y='11' width='10' height='1' fill='#dda876'/><rect x='16' y='11' width='3' height='1' fill='#5a3821'/><rect x='2' y='12' width='3' height='1' fill='#5a3821'/><rect x='5' y='12' width='10' height='1' fill='#dda876'/><rect x='15' y='12' width='3' height='1' fill='#5a3821'/><rect x='5' y='13' width='10' height='1' fill='#5a3821'/><rect x='5' y='14' width='4' height='1' fill='#5a3821'/><rect x='11' y='14' width='4' height='1' fill='#5a3821'/><rect x='4' y='15' width='4' height='1' fill='#5a3821'/><rect x='12' y='15' width='4' height='1' fill='#5a3821'/><rect x='4' y='16' width='3' height='1' fill='#5a3821'/><rect x='13' y='16' width='3' height='1' fill='#5a3821'/><rect x='3' y='17' width='3' height='1' fill='#5a3821'/><rect x='14' y='17' width='3' height='1' fill='#5a3821'/><rect x='3' y='18' width='2' height='1' fill='#5a3821'/><rect x='15' y='18' width='2' height='1' fill='#5a3821'/></svg>"
     };
 
-    const DISPLAY_SIZE = 48;
+    const DISPLAY_SIZE = 40;
 
     // Remove any older monkey instances
     const oldMonkey = document.getElementById('interactive-monkey');
@@ -428,33 +443,45 @@ document.addEventListener('keydown', (e) => {
     // ---- State ----
     let isJumping = false;
     let isHovered = false;
-    let currentStablePose = 'IDLE'; // tracks the last stable pose so periodic animations never override it
+    let currentStablePose = 'IDLE';
     let currentPerchIndex = -1;
     let walkInterval = null;
 
-    const perchSelectors = [
-        '.hero-status-pill',
-        '.hero-greeting-btn',
-        '.hero-title-main',
-        '.works-nav',
-        '.work-card:nth-child(1)',
-        '.work-card:nth-child(2)',
-        '.work-item-banner',
-        '.about-album-frame',
-        '.site-footer',
-        '.header-actions',
-        '.orrery-diagram-card',
+    // Each perch: selector, pose rule
+    // pose: 'stand' = always stand on top edge
+    //       'hang'  = always hang from top edge (body below, arms gripping)
+    //       'any'   = randomly stand or hang
+    const PERCHES = [
+        // Navbar
+        { sel: '.header-nav-link',       pose: 'hang'  },  // hang from nav buttons
+        { sel: '.contact-more-btn',      pose: 'hang'  },  // hang from contact button
+        // Hero
+        { sel: '.hero-greeting-btn',     pose: 'hang'  },  // hang from namaste/hi/hello pill
+        { sel: '.hero-title-main',       pose: 'stand' },  // stand on hero title text
+        // Works images
+        { sel: '.work-card-media',       pose: 'any'   },  // stand on top or hang from top of card images
+        { sel: '.works-nav',             pose: 'hang'  },  // hang from tab switcher
+        { sel: '.branding-item',         pose: 'any'   },  // stand/hang on branding images
+        { sel: '.orrery-diagram-card',   pose: 'any'   },  // stand/hang on orrery card
+        // Experience
+        { sel: '.work-item-banner',      pose: 'any'   },  // stand/hang on experience banner
+        // About
+        { sel: '.about-album-frame',     pose: 'stand' },  // stand on photo frame
+        // Section headings
+        { sel: '.section-heading',       pose: 'stand' },  // stand on section titles
+        // Footer — stand only on the bottom bar, not the whole footer (avoids illustration area)
+        { sel: '.footer-bottom-row',     pose: 'stand' },
     ];
 
     function getValidPerches() {
         var list = [];
-        perchSelectors.forEach(function(sel) {
-            var els = document.querySelectorAll(sel);
+        PERCHES.forEach(function(p) {
+            var els = document.querySelectorAll(p.sel);
             els.forEach(function(el) {
                 if (el && el.offsetParent !== null) {
                     var rect = el.getBoundingClientRect();
-                    if (rect.width > 20 && rect.height > 10) {
-                        list.push({ el: el, selector: sel });
+                    if (rect.width > 20 && rect.height > 8) {
+                        list.push({ el: el, pose: p.pose });
                     }
                 }
             });
@@ -467,35 +494,51 @@ document.addEventListener('keydown', (e) => {
         var currentStep = 0;
         var frameA = direction === 'right' ? 'WALK_RIGHT' : 'WALK_LEFT';
         var frameB = direction === 'right' ? 'RUN_RIGHT' : 'RUN_LEFT';
-
         walkInterval = setInterval(function() {
             currentStep++;
             setFrame(currentStep % 2 === 1 ? frameA : frameB);
             if (currentStep >= steps * 2) {
                 clearInterval(walkInterval);
-                // Restore whatever stable pose was set before walking started
                 setFrame(currentStablePose);
                 if (callback) callback();
             }
         }, 220);
     }
 
-    function positionAtPerch(item, animate) {
+    function positionAtPerch(item, animate, forceStand) {
         if (!item || !item.el) return;
         var el = item.el;
         var rect = el.getBoundingClientRect();
         var pageScrollX = window.scrollX || window.pageXOffset;
         var pageScrollY = window.scrollY || window.pageYOffset;
 
-        var hangRandom = Math.random() > 0.55;
-        var targetX, targetY;
-
-        if (hangRandom) {
-            targetX = rect.left + pageScrollX + (Math.random() * rect.width * 0.6 + rect.width * 0.2);
-            targetY = rect.bottom + pageScrollY - 6;
+        // Resolve whether to hang or stand
+        var doHang;
+        if (forceStand) {
+            doHang = false;
+        } else if (item.pose === 'hang') {
+            doHang = true;
+        } else if (item.pose === 'stand') {
+            doHang = false;
         } else {
-            targetX = rect.left + pageScrollX + (Math.random() * rect.width * 0.5 + rect.width * 0.25);
-            targetY = rect.top + pageScrollY - DISPLAY_SIZE - 4;
+            // 'any' — 50/50
+            doHang = Math.random() > 0.5;
+        }
+
+        // For text/heading elements, clamp X to actual text width using scrollWidth
+        var elWidth = el.scrollWidth > 0 ? Math.min(el.scrollWidth, rect.width) : rect.width;
+        var xMin = rect.left + pageScrollX;
+        var xMax = rect.left + pageScrollX + elWidth - DISPLAY_SIZE;
+        if (xMax < xMin) xMax = xMin;
+        var targetX = xMin + Math.random() * (xMax - xMin);
+        var targetY;
+
+        if (doHang) {
+            // Arms grip the top edge — sprite top sits at element top
+            targetY = rect.top + pageScrollY - 2;
+        } else {
+            // Feet sit on top edge of element
+            targetY = rect.top + pageScrollY - DISPLAY_SIZE;
         }
 
         var maxX = document.documentElement.clientWidth - DISPLAY_SIZE - 12;
@@ -508,26 +551,34 @@ document.addEventListener('keydown', (e) => {
         if (animate) {
             isJumping = true;
             setFrame('JUMP');
-            monkey.style.transition = 'left 0.9s cubic-bezier(0.25,1,0.5,1), top 0.9s cubic-bezier(0.25,1,0.5,1)';
+            // Distance-based duration: min 0.7s, max 1.4s
+            var dx = targetX - (parseFloat(monkey.style.left) || 0);
+            var dy = targetY - (parseFloat(monkey.style.top) || 0);
+            var dist = Math.sqrt(dx * dx + dy * dy);
+            var dur = Math.min(1.4, Math.max(0.7, dist / 600));
+            monkey.style.transition = 'left ' + dur + 's cubic-bezier(0.25,1,0.5,1), top ' + dur + 's cubic-bezier(0.25,1,0.5,1)';
             monkey.style.left = targetX + 'px';
             monkey.style.top  = targetY + 'px';
-
             setTimeout(function() {
                 isJumping = false;
-                if (hangRandom) {
+                if (doHang) {
                     currentStablePose = 'HANG';
                     setFrame('HANG');
+                    monkey.classList.add('is-hanging');
                 } else {
                     currentStablePose = 'IDLE';
+                    monkey.classList.remove('is-hanging');
                     playWalkingAnimation(1, dir, null);
                 }
-            }, 920);
+            }, dur * 1000);
         } else {
             monkey.style.transition = 'none';
             monkey.style.left = targetX + 'px';
             monkey.style.top  = targetY + 'px';
-            currentStablePose = hangRandom ? 'HANG' : 'IDLE';
+            currentStablePose = doHang ? 'HANG' : 'IDLE';
             setFrame(currentStablePose);
+            if (doHang) monkey.classList.add('is-hanging');
+            else monkey.classList.remove('is-hanging');
         }
     }
 
@@ -614,26 +665,31 @@ document.addEventListener('keydown', (e) => {
 
         statusMsg.textContent = 'sending...';
         statusMsg.classList.add('active');
+        sendBtn.disabled = true;
 
-        var doSend = function() {
-            if (window.emailjs) {
-                emailjs.send('my-portfolio-messages', 'template_w7rjff6', {
-                    from_name: 'Visitor via Monkey Note',
-                    name: 'Visitor',
-                    message: text,
-                    time: new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })
-                }).catch(function() {});
-            }
+        emailjs.send('my-portfolio-messages', 'template_w7rjff6', {
+            from_name: 'Visitor via Monkey Note',
+            name: 'Visitor',
+            message: text,
+            time: new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })
+        }).then(function() {
             statusMsg.textContent = 'sent \u2713';
-            minInput.value = ''; // only cleared after successful send
+            minInput.value = '';
             setTimeout(function() {
                 statusMsg.textContent = '';
                 statusMsg.classList.remove('active');
                 hideBubble();
             }, 2000);
-        };
-
-        doSend();
+        }).catch(function(err) {
+            statusMsg.textContent = 'failed. try again.';
+            console.error('EmailJS error:', err);
+            setTimeout(function() {
+                statusMsg.textContent = '';
+                statusMsg.classList.remove('active');
+            }, 3000);
+        }).finally(function() {
+            sendBtn.disabled = false;
+        });
     }
 
     sendBtn.addEventListener('click', handleSend);
@@ -662,7 +718,7 @@ document.addEventListener('keydown', (e) => {
         var perches = getValidPerches();
         if (perches.length > 0) {
             currentPerchIndex = 0;
-            positionAtPerch(perches[0], false);
+            positionAtPerch(perches[0], false, true); // forceStand=true on first load
         } else {
             monkey.style.left = '78vw';
             monkey.style.top  = '120px';
