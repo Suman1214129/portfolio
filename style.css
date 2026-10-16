@@ -252,7 +252,7 @@ svg {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
     display: none;
     flex-direction: column;
     z-index: 1000;
@@ -1871,7 +1871,7 @@ svg {
     font-family: var(--font-mono);
     font-size: 0.76rem;
     color: var(--text);
-    width: 168px;
+    width: 185px;
 }
 
 .bubble-inner-row input::placeholder {
@@ -1925,16 +1925,14 @@ svg {
 
 /* Monkey hang tilt — pendulum physics on hover while hanging */
 @keyframes monkeyPendulum {
-    0%   { transform: rotate(-12deg); }
-    28%  { transform: rotate(12deg); }
-    50%  { transform: rotate(-7deg); }
-    72%  { transform: rotate(7deg); }
-    86%  { transform: rotate(-3deg); }
-    94%  { transform: rotate(3deg); }
-    100% { transform: rotate(-12deg); }
+    0%   { transform: rotate(-11deg); }
+    25%  { transform: rotate(11deg); }
+    50%  { transform: rotate(-11deg); }
+    75%  { transform: rotate(11deg); }
+    100% { transform: rotate(-11deg); }
 }
 
 .interactive-monkey.is-hanging:hover .monkey-sprite {
-    animation: monkeyPendulum 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation: monkeyPendulum 2.2s cubic-bezier(0.37, 0, 0.63, 1) infinite;
     transform-origin: top center;
 }

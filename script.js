@@ -403,7 +403,7 @@ document.addEventListener('keydown', (e) => {
         // HANG: monkey gripping ledge at top — arms raised, body + legs hang below
         // Arms at y=0 grip the ledge, head at y=1..6, body y=7..12, legs dangle y=13..18
         // HANG: arms up gripping ledge — NO side arms on body, clean torso, legs dangle close
-        HANG: "<svg viewBox='0 0 20 20' width='100%' height='100%' shape-rendering='crispEdges'><rect x='4' y='0' width='2' height='1' fill='#5a3821'/><rect x='14' y='0' width='2' height='1' fill='#5a3821'/><rect x='3' y='1' width='3' height='1' fill='#5a3821'/><rect x='14' y='1' width='3' height='1' fill='#5a3821'/><rect x='4' y='2' width='12' height='1' fill='#5a3821'/><rect x='3' y='3' width='2' height='1' fill='#5a3821'/><rect x='5' y='3' width='10' height='1' fill='#dda876'/><rect x='15' y='3' width='2' height='1' fill='#5a3821'/><rect x='3' y='4' width='2' height='1' fill='#5a3821'/><rect x='5' y='4' width='10' height='1' fill='#dda876'/><rect x='15' y='4' width='2' height='1' fill='#5a3821'/><rect x='3' y='5' width='2' height='1' fill='#5a3821'/><rect x='5' y='5' width='1' height='1' fill='#dda876'/><rect x='6' y='5' width='1' height='1' fill='#181512'/><rect x='7' y='5' width='6' height='1' fill='#dda876'/><rect x='13' y='5' width='1' height='1' fill='#181512'/><rect x='14' y='5' width='1' height='1' fill='#dda876'/><rect x='15' y='5' width='2' height='1' fill='#5a3821'/><rect x='3' y='6' width='2' height='1' fill='#5a3821'/><rect x='5' y='6' width='10' height='1' fill='#dda876'/><rect x='15' y='6' width='2' height='1' fill='#5a3821'/><rect x='4' y='7' width='1' height='1' fill='#5a3821'/><rect x='5' y='7' width='10' height='1' fill='#dda876'/><rect x='15' y='7' width='1' height='1' fill='#5a3821'/><rect x='6' y='7' width='1' height='1' fill='#e8a0a0'/><rect x='13' y='7' width='1' height='1' fill='#e8a0a0'/><rect x='4' y='8' width='1' height='1' fill='#5a3821'/><rect x='5' y='8' width='10' height='1' fill='#dda876'/><rect x='15' y='8' width='1' height='1' fill='#5a3821'/><rect x='5' y='9' width='10' height='1' fill='#5a3821'/><rect x='5' y='10' width='10' height='1' fill='#dda876'/><rect x='5' y='11' width='10' height='1' fill='#dda876'/><rect x='5' y='12' width='10' height='1' fill='#dda876'/><rect x='5' y='13' width='10' height='1' fill='#5a3821'/><rect x='7' y='14' width='3' height='1' fill='#5a3821'/><rect x='10' y='14' width='3' height='1' fill='#5a3821'/><rect x='7' y='15' width='2' height='1' fill='#5a3821'/><rect x='11' y='15' width='2' height='1' fill='#5a3821'/><rect x='7' y='16' width='2' height='1' fill='#5a3821'/><rect x='11' y='16' width='2' height='1' fill='#5a3821'/><rect x='6' y='17' width='2' height='1' fill='#5a3821'/><rect x='12' y='17' width='2' height='1' fill='#5a3821'/><rect x='6' y='18' width='2' height='1' fill='#5a3821'/><rect x='12' y='18' width='2' height='1' fill='#5a3821'/></svg>"
+        HANG: "<svg viewBox='0 0 20 20' width='100%' height='100%' shape-rendering='crispEdges'><rect x='4' y='0' width='2' height='1' fill='#5a3821'/><rect x='14' y='0' width='2' height='1' fill='#5a3821'/><rect x='3' y='1' width='3' height='1' fill='#5a3821'/><rect x='14' y='1' width='3' height='1' fill='#5a3821'/><rect x='4' y='2' width='12' height='1' fill='#5a3821'/><rect x='3' y='3' width='2' height='1' fill='#5a3821'/><rect x='5' y='3' width='10' height='1' fill='#dda876'/><rect x='15' y='3' width='2' height='1' fill='#5a3821'/><rect x='3' y='4' width='2' height='1' fill='#5a3821'/><rect x='5' y='4' width='10' height='1' fill='#dda876'/><rect x='15' y='4' width='2' height='1' fill='#5a3821'/><rect x='3' y='5' width='2' height='1' fill='#5a3821'/><rect x='5' y='5' width='1' height='1' fill='#dda876'/><rect x='6' y='5' width='1' height='1' fill='#181512'/><rect x='7' y='5' width='6' height='1' fill='#dda876'/><rect x='13' y='5' width='1' height='1' fill='#181512'/><rect x='14' y='5' width='1' height='1' fill='#dda876'/><rect x='15' y='5' width='2' height='1' fill='#5a3821'/><rect x='3' y='6' width='2' height='1' fill='#5a3821'/><rect x='5' y='6' width='10' height='1' fill='#dda876'/><rect x='15' y='6' width='2' height='1' fill='#5a3821'/><rect x='4' y='7' width='1' height='1' fill='#5a3821'/><rect x='5' y='7' width='10' height='1' fill='#dda876'/><rect x='15' y='7' width='1' height='1' fill='#5a3821'/><rect x='6' y='7' width='1' height='1' fill='#e8a0a0'/><rect x='13' y='7' width='1' height='1' fill='#e8a0a0'/><rect x='4' y='8' width='1' height='1' fill='#5a3821'/><rect x='5' y='8' width='10' height='1' fill='#dda876'/><rect x='15' y='8' width='1' height='1' fill='#5a3821'/><rect x='5' y='9' width='10' height='1' fill='#5a3821'/><rect x='5' y='10' width='10' height='1' fill='#dda876'/><rect x='5' y='11' width='10' height='1' fill='#dda876'/><rect x='5' y='12' width='10' height='1' fill='#dda876'/><rect x='5' y='13' width='10' height='1' fill='#5a3821'/><rect x='15' y='10' width='2' height='1' fill='#5a3821'/><rect x='16' y='11' width='2' height='1' fill='#5a3821'/><rect x='17' y='12' width='2' height='1' fill='#5a3821'/><rect x='17' y='13' width='1' height='1' fill='#5a3821'/><rect x='16' y='14' width='1' height='1' fill='#5a3821'/><rect x='7' y='14' width='3' height='1' fill='#5a3821'/><rect x='10' y='14' width='3' height='1' fill='#5a3821'/><rect x='7' y='15' width='2' height='1' fill='#5a3821'/><rect x='11' y='15' width='2' height='1' fill='#5a3821'/><rect x='7' y='16' width='2' height='1' fill='#5a3821'/><rect x='11' y='16' width='2' height='1' fill='#5a3821'/><rect x='6' y='17' width='2' height='1' fill='#5a3821'/><rect x='12' y='17' width='2' height='1' fill='#5a3821'/><rect x='6' y='18' width='2' height='1' fill='#5a3821'/><rect x='12' y='18' width='2' height='1' fill='#5a3821'/></svg>"
     };
 
     const DISPLAY_SIZE = 40;
@@ -611,8 +611,7 @@ document.addEventListener('keydown', (e) => {
         clearTimeout(hideTimer);
         isHovered = true;
         monkey.classList.add('show-bubble');
-        // Do NOT change pose on hover — pose only changes on click
-    }
+            }
 
     function hideBubble() {
         clearTimeout(hideTimer);
@@ -690,11 +689,11 @@ document.addEventListener('keydown', (e) => {
                 statusMsg.classList.remove('active');
             }, 3000);
         }).finally(function() {
-            sendBtn.disabled = false;
+            if (sendBtn) sendBtn.disabled = false;
         });
     }
 
-    sendBtn.addEventListener('click', handleSend);
+    if (sendBtn) sendBtn.addEventListener('click', handleSend);
     minInput.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') { e.preventDefault(); handleSend(); }
     });
@@ -718,9 +717,11 @@ document.addEventListener('keydown', (e) => {
 
     function initPosition() {
         var perches = getValidPerches();
-        if (perches.length > 0) {
-            currentPerchIndex = 0;
-            positionAtPerch(perches[0], false, true); // forceStand=true on first load
+        var heroPerch = perches.find(function(p) { return p.el.classList.contains('hero-title-main'); });
+        var startPerch = heroPerch || (perches.length > 0 ? perches[0] : null);
+        if (startPerch) {
+            currentPerchIndex = perches.indexOf(startPerch);
+            positionAtPerch(startPerch, false, true);
         } else {
             monkey.style.left = '78vw';
             monkey.style.top  = '120px';
