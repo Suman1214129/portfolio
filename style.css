@@ -454,6 +454,7 @@ svg {
     object-fit: contain;
     display: inline-block;
     vertical-align: middle;
+    transform: scale(1.08);
 }
 
 .hero-greeting-btn:hover .greeting-wave-hand {
