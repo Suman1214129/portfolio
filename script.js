@@ -344,12 +344,14 @@ document.addEventListener('keydown', (e) => {
         csLinks.innerHTML = links.join('');
 
         sidebar.classList.add('cs-open');
+        document.body.classList.add('sidebar-open');
         backdrop.classList.add('cs-open');
         document.body.style.overflow = 'hidden';
     }
 
     function closeSidebar() {
         sidebar.classList.remove('cs-open');
+        document.body.classList.remove('sidebar-open');
         backdrop.classList.remove('cs-open');
         document.body.style.overflow = '';
     }
