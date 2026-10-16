@@ -1505,9 +1505,10 @@ body.sidebar-open .main-page-container {
     justify-content: space-between;
     padding: 14px 18px;
 
-    background: linear-gradient(to bottom, var(--surface-elevated) 50%, transparent 100%);
+    background: rgba(0,0,0,0.06);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     position: sticky;
-    top: 0;
     z-index: 2;
     flex-shrink: 0;
 }
@@ -1547,7 +1548,7 @@ body.sidebar-open .main-page-container {
 }
 
 .cs-img-wrap {
-    width: 100%;
+    position: relative;
     flex-shrink: 0;
     background: var(--surface-elevated);
 
@@ -1947,3 +1948,4 @@ body.sidebar-open .main-page-container {
     animation: monkeyPendulum 2.2s cubic-bezier(0.37, 0, 0.63, 1) infinite;
     transform-origin: top center;
 }
+
