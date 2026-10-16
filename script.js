@@ -301,6 +301,7 @@ document.addEventListener('keydown', (e) => {
     const csBody   = document.getElementById('cs-body');
     const csLinks  = document.getElementById('cs-links');
     if (!sidebar) return;
+    let lastTrigger = null;
 
     // Lightbox
     const lightbox = document.createElement('div');
@@ -331,6 +332,7 @@ document.addEventListener('keydown', (e) => {
 
     function openSidebar(el) {
         const d = el.dataset;
+        lastTrigger = el;
         csTag.textContent     = d.title || '';
         csTagline.textContent = d.tagline || '';
         csImg.src = d.img || '';
@@ -347,25 +349,32 @@ document.addEventListener('keydown', (e) => {
         document.body.classList.add('sidebar-open');
         backdrop.classList.add('cs-open');
         document.body.style.overflow = 'hidden';
+        closeBtn.focus();
     }
 
     function closeSidebar() {
+        if (!sidebar.classList.contains('cs-open')) return;
         sidebar.classList.remove('cs-open');
         document.body.classList.remove('sidebar-open');
         backdrop.classList.remove('cs-open');
         document.body.style.overflow = '';
+        if (lastTrigger && lastTrigger.isConnected) lastTrigger.focus();
+        lastTrigger = null;
+    }
+
+    function activateTrigger(trigger) {
+        if (trigger.dataset.type === 'branding') {
+            openLightbox(trigger.dataset.img || '', trigger.dataset.title || '');
+            return;
+        }
+        openSidebar(trigger);
     }
 
     document.addEventListener('click', function (e) {
         if (e.target.closest('.cs-lightbox')) return;
-        const trigger = e.target.closest('.cs-trigger');
+        const trigger = e.target instanceof Element ? e.target.closest('.cs-trigger') : null;
         if (trigger) {
-            // Branding items: open lightbox directly, skip sidebar
-            if (trigger.dataset.type === 'branding') {
-                openLightbox(trigger.dataset.img || '', trigger.dataset.title || '');
-                return;
-            }
-            openSidebar(trigger);
+            activateTrigger(trigger);
             return;
         }
         // Close on backdrop click (clicking outside sidebar on desktop)
@@ -376,7 +385,31 @@ document.addEventListener('keydown', (e) => {
 
     closeBtn.addEventListener('click', closeSidebar);
     document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') closeSidebar();
+        if (e.key === 'Escape') {
+            closeSidebar();
+            return;
+        }
+
+        const trigger = e.target instanceof Element ? e.target.closest('.cs-trigger') : null;
+        if (trigger && (e.key === 'Enter' || e.key === ' ')) {
+            e.preventDefault();
+            activateTrigger(trigger);
+            return;
+        }
+
+        if (e.key === 'Tab' && sidebar.classList.contains('cs-open')) {
+            const focusable = sidebar.querySelectorAll('a[href], button:not(:disabled)');
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
+        }
     });
 })();
 
