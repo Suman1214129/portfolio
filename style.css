@@ -1485,7 +1485,10 @@ body.sidebar-open .main-page-container {
         background: var(--border);
         border-radius: 2px;
     }
-    
+    .cs-header {
+        position: relative;
+        padding-top: 22px;
+    }
 }
 
 .cs-sidebar-inner {
@@ -1496,84 +1499,77 @@ body.sidebar-open .main-page-container {
     overscroll-behavior: contain;
 }
 
+.cs-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface-elevated);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    flex-shrink: 0;
+}
 
+.cs-header-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+}
 
+.cs-tag {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text);
+}
 
+.cs-tagline {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
 
+.cs-close {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    padding: 4px 6px;
+    border-radius: var(--radius-sm);
+    transition: color 0.15s ease, background 0.15s ease;
+    flex-shrink: 0;
+}
 
-
-
-
-
+.cs-close:hover {
+    color: var(--text);
+    background: var(--surface-hover);
+}
 
 .cs-img-wrap {
-    position: relative;
     width: 100%;
     flex-shrink: 0;
     background: var(--surface-elevated);
-    max-height: 320px;
+    border-bottom: 1px solid var(--border);
     overflow: hidden;
+    max-height: 260px;
     cursor: zoom-in;
 }
 
 .cs-img {
     width: 100%;
-    height: 320px;
+    height: 100%;
+    max-height: 260px;
     object-fit: cover;
+    object-position: top center;
     display: block;
-    transition: transform 0.4s ease;
+    transition: transform 0.3s ease;
 }
 
-.cs-img-wrap:hover .cs-img { transform: scale(1.02); }
-
-
-.cs-img-overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding: 14px 16px;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, transparent 60%);
+.cs-img-wrap:hover .cs-img {
+    transform: scale(1.02);
 }
 
-.cs-img-overlay .cs-header-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.cs-img-overlay .cs-tag {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: #fff;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.4);
-}
-
-.cs-img-overlay .cs-tagline {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    color: rgba(255,255,255,0.75);
-    text-shadow: 0 1px 3px rgba(0,0,0,0.4);
-}
-
-.cs-img-overlay .cs-close {
-    background: rgba(0,0,0,0.3);
-    color: rgba(255,255,255,0.9);
-    border-radius: var(--radius-sm);
-    padding: 4px 7px;
-    font-size: 0.75rem;
-    line-height: 1;
-    backdrop-filter: blur(4px);
-    transition: background 0.15s ease, color 0.15s ease;
-    flex-shrink: 0;
-}
-
-.cs-img-overlay .cs-close:hover {
-    background: rgba(0,0,0,0.55);
-    color: #fff;
-}
 /* Image lightbox */
 .cs-lightbox {
     position: fixed;
