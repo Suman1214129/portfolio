@@ -665,6 +665,7 @@ document.addEventListener('keydown', (e) => {
         var text = minInput.value.trim();
         if (!text) { minInput.focus(); return; }
 
+        minInput.value = '';
         statusMsg.textContent = 'sending...';
         statusMsg.classList.add('active');
         if (sendBtn) sendBtn.disabled = true;
@@ -676,7 +677,7 @@ document.addEventListener('keydown', (e) => {
             time: new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })
         }).then(function() {
             statusMsg.textContent = 'sent \u2713';
-            minInput.value = '';
+
             setTimeout(function() {
                 statusMsg.textContent = '';
                 statusMsg.classList.remove('active');
