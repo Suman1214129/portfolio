@@ -1504,7 +1504,7 @@ body.sidebar-open .main-page-container {
     align-items: center;
     justify-content: space-between;
     padding: 14px 18px;
-
+    top: 0;
     background: rgba(0,0,0,0.06);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
@@ -1549,6 +1549,8 @@ body.sidebar-open .main-page-container {
 
 .cs-img-wrap {
     position: relative;
+    width: 100%;
+    margin-top: -52px;
     flex-shrink: 0;
     background: var(--surface-elevated);
 
