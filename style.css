@@ -576,7 +576,7 @@ svg {
     position: relative;
     background: transparent;
     border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
+    border-radius: 4px;
     padding: 2px;
 }
 
@@ -589,7 +589,7 @@ svg {
     font-weight: 600;
     letter-spacing: 0.05em;
     color: var(--text-dim);
-    border-radius: var(--radius-sm);
+    border-radius: 4px;
     transition: color 0.2s ease;
 }
 
@@ -603,7 +603,7 @@ svg {
     bottom: 2px;
     left: 2px;
     background: var(--text);
-    border-radius: var(--radius-sm);
+    border-radius: 4px;
     z-index: 1;
     transition: transform 0.22s ease, width 0.22s ease;
 }
@@ -1949,4 +1949,3 @@ body.sidebar-open .main-page-container {
     animation: monkeyPendulum 2.2s cubic-bezier(0.37, 0, 0.63, 1) infinite;
     transform-origin: top center;
 }
-

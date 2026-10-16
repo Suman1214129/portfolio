@@ -432,7 +432,6 @@ document.addEventListener('keydown', (e) => {
     const spriteEl   = document.getElementById('monkey-sprite');
     const bubble     = document.getElementById('monkey-minimal-bubble');
     const minInput   = document.getElementById('monkey-minimal-input');
-    const sendBtn    = null;
     const statusMsg  = document.getElementById('bubble-mini-status');
 
     function setFrame(frameKey) {
@@ -667,19 +666,17 @@ document.addEventListener('keydown', (e) => {
         var text = minInput.value.trim();
         if (!text) { minInput.focus(); return; }
 
-        minInput.value = '';
         statusMsg.textContent = 'sending...';
         statusMsg.classList.add('active');
-        if (sendBtn) sendBtn.disabled = true;
 
-        emailjs.send('my-portfolio-messages', 'template_w7rjff6', {
+        emailjs.send('my-website-messages', 'template_w7rjff6', {
             from_name: 'Visitor via Monkey Note',
             name: 'Visitor',
             message: text,
             time: new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })
         }).then(function() {
+            minInput.value = '';
             statusMsg.textContent = 'sent \u2713';
-
             setTimeout(function() {
                 statusMsg.textContent = '';
                 statusMsg.classList.remove('active');
@@ -692,12 +689,9 @@ document.addEventListener('keydown', (e) => {
                 statusMsg.textContent = '';
                 statusMsg.classList.remove('active');
             }, 3000);
-        }).finally(function() {
-            if (sendBtn) sendBtn.disabled = false;
         });
     }
 
-    if (sendBtn) sendBtn.addEventListener('click', handleSend);
     minInput.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') { e.preventDefault(); handleSend(); }
     });
