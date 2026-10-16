@@ -1434,7 +1434,7 @@ svg {
     width: min(480px, 100vw);
     height: 100vh;
     background: var(--surface);
-    border-left: 1px solid var(--border);
+
     box-shadow: -2px 0 12px rgba(0, 0, 0, 0.06);
     z-index: 10005;
     display: flex;
@@ -1504,8 +1504,8 @@ body.sidebar-open .main-page-container {
     align-items: center;
     justify-content: space-between;
     padding: 14px 18px;
-    border-bottom: 1px solid var(--border);
-    background: var(--surface-elevated);
+
+    background: linear-gradient(to bottom, var(--surface-elevated) 50%, transparent 100%);
     position: sticky;
     top: 0;
     z-index: 2;
@@ -1550,7 +1550,7 @@ body.sidebar-open .main-page-container {
     width: 100%;
     flex-shrink: 0;
     background: var(--surface-elevated);
-    border-bottom: 1px solid var(--border);
+
     overflow: hidden;
     max-height: 260px;
     cursor: zoom-in;
