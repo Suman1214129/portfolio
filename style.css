@@ -948,14 +948,16 @@ svg {
     }
 }
 
-/* Branding 3-column grid with minimal drop shadows */
+/* Pinterest-style graphic gallery; preserve each image's natural proportions */
 .branding-masonry-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    columns: 3;
+    column-gap: 20px;
 }
 
 .branding-item {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 20px;
     background: var(--surface);
     border-radius: var(--radius-md);
     overflow: hidden;
@@ -972,26 +974,25 @@ svg {
 
 .branding-masonry-img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    object-fit: contain;
     display: block;
-    transition: transform 0.35s ease;
-}
-
-.branding-item:hover .branding-masonry-img {
-    transform: scale(1.02);
 }
 
 @media (max-width: 768px) {
     .branding-masonry-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
+        columns: 2;
+        column-gap: 12px;
+    }
+
+    .branding-item {
+        margin-bottom: 12px;
     }
 }
 
 @media (max-width: 380px) {
     .branding-masonry-grid {
-        grid-template-columns: repeat(2, 1fr);
+        columns: 2;
     }
 }
 
@@ -1515,6 +1516,14 @@ body.sidebar-open .main-page-container {
     position: sticky;
     z-index: 2;
     flex-shrink: 0;
+}
+
+@media (min-width: 821px) {
+    .cs-header {
+        background: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
 }
 
 .cs-header-meta {
