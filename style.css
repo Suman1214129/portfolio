@@ -161,10 +161,10 @@ svg {
 .site-header::after {
     content: '';
     position: absolute;
-    top: calc(100% - 8px);
+    top: calc(100% - 16px);
     right: 0;
     left: 0;
-    height: 20px;
+    height: 32px;
     background: linear-gradient(to bottom, var(--bg), transparent);
     pointer-events: none;
 }
