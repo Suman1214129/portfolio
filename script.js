@@ -693,6 +693,12 @@ document.addEventListener('keydown', (e) => {
         var viewportTop = viewport ? viewport.offsetTop : 0;
         var viewportRight = viewportLeft + (viewport ? viewport.width : document.documentElement.clientWidth);
         var viewportBottom = viewportTop + (viewport ? viewport.height : window.innerHeight);
+        var isMobile = window.matchMedia('(max-width: 820px)').matches;
+        var monkeyVisible = monkeyRect.right > viewportLeft && monkeyRect.left < viewportRight &&
+            monkeyRect.bottom > viewportTop && monkeyRect.top < viewportBottom;
+        monkey.classList.toggle('bubble-anchor-hidden', isMobile && !monkeyVisible);
+        if (isMobile && !monkeyVisible) return;
+
         var halfBubble = bubbleRect.width / 2;
         var centerX = monkeyRect.left + monkeyRect.width / 2;
         centerX = Math.max(viewportLeft + halfBubble + 8, Math.min(centerX, viewportRight - halfBubble - 8));

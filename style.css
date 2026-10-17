@@ -908,9 +908,13 @@ svg {
     display: block;
 }
 
+.orrery-full-width .svg-branch-label {
+    font-size: 11px;
+}
+
 @media (max-width: 820px) {
     .orrery-full-width {
-        min-height: 250px;
+        min-height: 230px;
         padding: 16px 8px;
     }
 
@@ -918,6 +922,10 @@ svg {
         width: 110%;
         max-width: none;
         margin-left: -5%;
+    }
+
+    .orrery-full-width .svg-branch-label {
+        font-size: 12px;
     }
 }
 
@@ -1956,6 +1964,13 @@ body.sidebar-open .main-page-container {
     opacity: 1;
     pointer-events: auto;
     transform: translateX(-50%) translateY(0);
+}
+
+@media (max-width: 820px) {
+    .interactive-monkey.bubble-anchor-hidden .monkey-minimal-bubble {
+        opacity: 0;
+        pointer-events: none;
+    }
 }
 
 .bubble-inner-row {
