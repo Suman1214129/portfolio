@@ -154,7 +154,7 @@ svg {
     align-items: center;
     justify-content: space-between;
     padding: 24px 0 22px;
-    background: linear-gradient(to bottom, var(--bg) 0%, var(--bg) 86%, color-mix(in srgb, var(--surface-elevated) 65%, transparent) 100%);
+    background: linear-gradient(to bottom, var(--bg) 0%, var(--bg) 65%, transparent 100%);
     margin-bottom: 52px;
 }
 
