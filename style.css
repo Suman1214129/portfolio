@@ -153,8 +153,8 @@ svg {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 24px 0 24px;
-    background: linear-gradient(to bottom, var(--bg) 0%, var(--bg) 86%, transparent 100%);
+    padding: 24px 0 22px;
+    background: linear-gradient(to bottom, var(--bg) 0%, var(--bg) 86%, color-mix(in srgb, var(--surface-elevated) 65%, transparent) 100%);
     margin-bottom: 52px;
 }
 
@@ -1780,7 +1780,7 @@ body.sidebar-open .main-page-container {
         flex-wrap: nowrap;
         justify-content: space-between;
         gap: 4px;
-        padding: 16px 0 16px;
+        padding: 16px 0 14px;
         margin-bottom: 32px;
     }
 
