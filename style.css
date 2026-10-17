@@ -254,7 +254,7 @@ svg {
     right: 0;
     width: 260px;
     background: var(--surface);
-    border: 1px solid var(--border);
+    border: none;
     border-radius: var(--radius-sm);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
     display: none;
@@ -963,13 +963,12 @@ svg {
     overflow: hidden;
     cursor: pointer;
     border: 1px solid var(--border);
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07), 0 1px 3px rgba(0, 0, 0, 0.04);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.1), 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.2s ease;
 }
 
 .branding-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.11), 0 2px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.14), 0 3px 7px rgba(0, 0, 0, 0.06);
 }
 
 .branding-masonry-img {
@@ -977,6 +976,11 @@ svg {
     height: auto;
     object-fit: contain;
     display: block;
+    transition: transform 0.25s ease;
+}
+
+.branding-item:hover .branding-masonry-img {
+    transform: scale(1.015);
 }
 
 @media (max-width: 768px) {
