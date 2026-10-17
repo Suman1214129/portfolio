@@ -895,8 +895,8 @@ svg {
 
 .orrery-full-width .orrery-branch-svg {
     width: 100%;
-    max-width: 580px;
-    height: 165px;
+    max-width: none;
+    height: auto;
     margin: 0 auto;
     display: block;
 }
@@ -1088,12 +1088,11 @@ svg {
     object-fit: cover;
     object-position: center;
     display: block;
-    transform: scale(1.12);
     transition: transform 0.35s ease;
 }
 
 .work-item-banner:hover .work-item-banner-img {
-    transform: scale(1.16);
+    transform: scale(1.015);
 }
 
 .work-item-banner-caption {
@@ -1841,10 +1840,6 @@ body.sidebar-open .main-page-container {
     }
 
     /* Orrery SVG */
-    .orrery-full-width .orrery-branch-svg {
-        height: 130px;
-    }
-
     /* Contact dropdown: full width on mobile */
     .contact-dropdown-panel {
         width: 220px;
