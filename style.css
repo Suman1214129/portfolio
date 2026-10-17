@@ -1088,11 +1088,12 @@ svg {
     object-fit: cover;
     object-position: center;
     display: block;
+    transform: scale(1.12);
     transition: transform 0.35s ease;
 }
 
 .work-item-banner:hover .work-item-banner-img {
-    transform: scale(1.015);
+    transform: scale(1.16);
 }
 
 .work-item-banner-caption {
