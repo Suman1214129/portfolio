@@ -441,6 +441,10 @@ document.addEventListener('keydown', (e) => {
         HANG: "<svg viewBox='0 0 20 20' width='100%' height='100%' shape-rendering='crispEdges'><rect x='4' y='0' width='2' height='1' fill='#5a3821'/><rect x='14' y='0' width='2' height='1' fill='#5a3821'/><rect x='3' y='1' width='3' height='1' fill='#5a3821'/><rect x='14' y='1' width='3' height='1' fill='#5a3821'/><rect x='4' y='2' width='12' height='1' fill='#5a3821'/><rect x='3' y='3' width='2' height='1' fill='#5a3821'/><rect x='5' y='3' width='10' height='1' fill='#dda876'/><rect x='15' y='3' width='2' height='1' fill='#5a3821'/><rect x='3' y='4' width='2' height='1' fill='#5a3821'/><rect x='5' y='4' width='10' height='1' fill='#dda876'/><rect x='15' y='4' width='2' height='1' fill='#5a3821'/><rect x='3' y='5' width='2' height='1' fill='#5a3821'/><rect x='5' y='5' width='1' height='1' fill='#dda876'/><rect x='6' y='5' width='1' height='1' fill='#181512'/><rect x='7' y='5' width='6' height='1' fill='#dda876'/><rect x='13' y='5' width='1' height='1' fill='#181512'/><rect x='14' y='5' width='1' height='1' fill='#dda876'/><rect x='15' y='5' width='2' height='1' fill='#5a3821'/><rect x='3' y='6' width='2' height='1' fill='#5a3821'/><rect x='5' y='6' width='10' height='1' fill='#dda876'/><rect x='15' y='6' width='2' height='1' fill='#5a3821'/><rect x='4' y='7' width='1' height='1' fill='#5a3821'/><rect x='5' y='7' width='10' height='1' fill='#dda876'/><rect x='15' y='7' width='1' height='1' fill='#5a3821'/><rect x='6' y='7' width='1' height='1' fill='#e8a0a0'/><rect x='13' y='7' width='1' height='1' fill='#e8a0a0'/><rect x='4' y='8' width='1' height='1' fill='#5a3821'/><rect x='5' y='8' width='10' height='1' fill='#dda876'/><rect x='15' y='8' width='1' height='1' fill='#5a3821'/><rect x='5' y='9' width='10' height='1' fill='#5a3821'/><rect x='5' y='10' width='10' height='1' fill='#dda876'/><rect x='5' y='11' width='10' height='1' fill='#dda876'/><rect x='5' y='12' width='10' height='1' fill='#dda876'/><rect x='5' y='13' width='10' height='1' fill='#5a3821'/><rect x='15' y='10' width='3' height='1' fill='#5a3821'/><rect x='15' y='11' width='2' height='1' fill='#5a3821'/><rect x='19' y='11' width='1' height='1' fill='#5a3821'/><rect x='7' y='14' width='3' height='1' fill='#5a3821'/><rect x='10' y='14' width='3' height='1' fill='#5a3821'/><rect x='7' y='15' width='2' height='1' fill='#5a3821'/><rect x='11' y='15' width='2' height='1' fill='#5a3821'/><rect x='7' y='16' width='2' height='1' fill='#5a3821'/><rect x='11' y='16' width='2' height='1' fill='#5a3821'/><rect x='6' y='17' width='2' height='1' fill='#5a3821'/><rect x='12' y='17' width='2' height='1' fill='#5a3821'/><rect x='6' y='18' width='2' height='1' fill='#5a3821'/><rect x='12' y='18' width='2' height='1' fill='#5a3821'/></svg>"
     };
 
+    const MONKEY_TAIL = "<rect x='17' y='11' width='3' height='1' fill='#5a3821'/><rect x='16' y='12' width='2' height='1' fill='#5a3821'/><rect x='19' y='12' width='1' height='1' fill='#5a3821'/><rect x='16' y='13' width='2' height='1' fill='#5a3821'/><rect x='16' y='14' width='2' height='1' fill='#5a3821'/><rect x='16' y='15' width='2' height='1' fill='#5a3821'/>";
+    const HANG_TAIL = "<rect x='15' y='10' width='3' height='1' fill='#5a3821'/><rect x='15' y='11' width='2' height='1' fill='#5a3821'/><rect x='19' y='11' width='1' height='1' fill='#5a3821'/>";
+    MONKEY_SVGS.HANG = MONKEY_SVGS.HANG.replace(HANG_TAIL, MONKEY_TAIL);
+
     const DISPLAY_SIZE = 40;
 
     // Remove any older monkey instances
@@ -641,10 +645,31 @@ document.addEventListener('keydown', (e) => {
     // ---- Bubble: shown on hover, auto-hides on mouseleave, preserves typed text ----
     var hideTimer = null;
 
+    function positionBubble() {
+        if (!monkey.classList.contains('show-bubble')) return;
+
+        var monkeyRect = monkey.getBoundingClientRect();
+        var bubbleRect = bubble.getBoundingClientRect();
+        var viewport = window.visualViewport;
+        var viewportLeft = viewport ? viewport.offsetLeft : 0;
+        var viewportTop = viewport ? viewport.offsetTop : 0;
+        var viewportRight = viewportLeft + (viewport ? viewport.width : document.documentElement.clientWidth);
+        var viewportBottom = viewportTop + (viewport ? viewport.height : window.innerHeight);
+        var halfBubble = bubbleRect.width / 2;
+        var centerX = monkeyRect.left + monkeyRect.width / 2;
+        centerX = Math.max(viewportLeft + halfBubble + 8, Math.min(centerX, viewportRight - halfBubble - 8));
+        monkey.style.setProperty('--bubble-left', (centerX - monkeyRect.left) + 'px');
+
+        var spaceAbove = monkeyRect.top - viewportTop;
+        var spaceBelow = viewportBottom - monkeyRect.bottom;
+        monkey.classList.toggle('bubble-below', spaceAbove < bubbleRect.height + 8 && spaceBelow > spaceAbove);
+    }
+
     function showBubble() {
         clearTimeout(hideTimer);
         isHovered = true;
         monkey.classList.add('show-bubble');
+        positionBubble();
     }
 
     function hideBubble() {
@@ -658,6 +683,9 @@ document.addEventListener('keydown', (e) => {
 
     monkey.addEventListener('mouseenter', function() {
         showBubble();
+        if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+            minInput.focus();
+        }
     });
 
     monkey.addEventListener('mouseleave', function() {
@@ -665,6 +693,13 @@ document.addEventListener('keydown', (e) => {
         if (minInput) minInput.blur();
         hideBubble();
     });
+
+    window.addEventListener('resize', positionBubble, { passive: true });
+    window.addEventListener('scroll', positionBubble, { passive: true });
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', positionBubble, { passive: true });
+        window.visualViewport.addEventListener('scroll', positionBubble, { passive: true });
+    }
 
     // Global helper: open bubble
     window.openMonkeyMessageInput = function() {

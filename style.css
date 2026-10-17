@@ -95,6 +95,7 @@ html {
     font-size: 16px;
     scroll-behavior: smooth;
     overflow-x: clip;
+    overscroll-behavior-x: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -376,8 +377,7 @@ svg {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transform: scale(1.22);
-    transform-origin: center top;
+    object-position: center;
 }
 
 /* Minimal status row without background div */
@@ -1866,7 +1866,7 @@ body.sidebar-open .main-page-container {
 .monkey-minimal-bubble {
     position: absolute;
     bottom: calc(100% + 8px);
-    left: 50%;
+    left: var(--bubble-left, 50%);
     transform: translateX(-50%) translateY(4px);
     background: var(--surface);
     border: 1px solid var(--border);
@@ -1878,6 +1878,12 @@ body.sidebar-open .main-page-container {
     transition: opacity 0.16s ease, transform 0.16s ease;
     box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.06);
     z-index: 1001;
+    max-width: calc(100vw - 16px);
+}
+
+.interactive-monkey.bubble-below .monkey-minimal-bubble {
+    top: calc(100% + 8px);
+    bottom: auto;
 }
 
 /* Speech bubble bottom pointer */
@@ -1904,6 +1910,20 @@ body.sidebar-open .main-page-container {
     z-index: 1;
 }
 
+.interactive-monkey.bubble-below .monkey-minimal-bubble::after {
+    top: auto;
+    bottom: 100%;
+    border-width: 0 5px 5px;
+    border-color: transparent transparent var(--border);
+}
+
+.interactive-monkey.bubble-below .monkey-minimal-bubble::before {
+    top: auto;
+    bottom: calc(100% - 1px);
+    border-width: 0 4px 4px;
+    border-color: transparent transparent var(--surface);
+}
+
 .interactive-monkey.show-bubble .monkey-minimal-bubble {
     opacity: 1;
     pointer-events: auto;
@@ -1923,9 +1943,9 @@ body.sidebar-open .main-page-container {
     font-family: var(--font-mono);
     font-size: 0.76rem;
     color: var(--text);
-    width: 185px;
+    width: min(185px, calc(100vw - 72px));
+    min-width: 0;
     height: 24px;
-
 }
 
 .bubble-inner-row input::placeholder {
