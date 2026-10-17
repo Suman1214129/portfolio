@@ -485,6 +485,7 @@ document.addEventListener('keydown', (e) => {
     let currentStablePose = 'IDLE';
     let currentPerchIndex = -1;
     let walkInterval = null;
+    let activeJumpAnimation = null;
 
     // Each perch: selector, pose rule
     // pose: 'stand' = always stand on top edge
@@ -546,6 +547,12 @@ document.addEventListener('keydown', (e) => {
 
     function positionAtPerch(item, animate, forceStand) {
         if (!item || !item.el) return;
+        if (activeJumpAnimation) {
+            activeJumpAnimation.cancel();
+            activeJumpAnimation = null;
+            isJumping = false;
+        }
+
         var el = item.el;
         var rect = el.getBoundingClientRect();
         var pageScrollX = window.scrollX || window.pageXOffset;
@@ -584,22 +591,36 @@ document.addEventListener('keydown', (e) => {
         if (targetX > maxX) targetX = maxX;
         if (targetX < 12) targetX = 12;
 
-        var currentX = parseFloat(monkey.style.left) || 0;
+        var startX = parseFloat(monkey.style.left) || 0;
+        var startY = parseFloat(monkey.style.top) || 0;
+        var currentX = startX;
         var dir = targetX > currentX ? 'right' : 'left';
 
         if (animate) {
             isJumping = true;
             setFrame('JUMP');
-            // Distance-based duration: min 0.7s, max 1.4s
-            var dx = targetX - (parseFloat(monkey.style.left) || 0);
-            var dy = targetY - (parseFloat(monkey.style.top) || 0);
+            var dx = targetX - startX;
+            var dy = targetY - startY;
             var dist = Math.sqrt(dx * dx + dy * dy);
-            var dur = Math.min(1.4, Math.max(0.7, dist / 600));
-            // X smooth ease-in-out, Y gravity arc: fast launch, weighted landing
-            monkey.style.transition = 'left ' + dur + 's cubic-bezier(0.45,0,0.55,1), top ' + dur + 's cubic-bezier(0.2,0,0.8,1)';
-            monkey.style.left = targetX + 'px';
-            monkey.style.top  = targetY + 'px';
-            setTimeout(function() {
+            var dur = Math.min(1.5, Math.max(0.9, dist / 500));
+            var jumpHeight = Math.min(150, Math.max(75, dist * 0.12));
+            var apexX = startX + dx * 0.42;
+            var apexY = Math.min(startY, targetY) - jumpHeight;
+            monkey.style.transition = 'none';
+
+            var jumpAnimation = monkey.animate([
+                { left: startX + 'px', top: startY + 'px', offset: 0, easing: 'cubic-bezier(0.35, 0, 0.65, 1)' },
+                { left: apexX + 'px', top: apexY + 'px', offset: 0.42, easing: 'cubic-bezier(0.35, 0, 1, 1)' },
+                { left: targetX + 'px', top: targetY + 'px', offset: 1 }
+            ], { duration: dur * 1000, fill: 'forwards' });
+            activeJumpAnimation = jumpAnimation;
+            jumpAnimation.onfinish = function() {
+                if (activeJumpAnimation !== jumpAnimation) return;
+                monkey.style.left = targetX + 'px';
+                monkey.style.top = targetY + 'px';
+                jumpAnimation.cancel();
+                activeJumpAnimation = null;
+                monkey.style.transition = '';
                 isJumping = false;
                 if (doHang) {
                     currentStablePose = 'HANG';
@@ -610,7 +631,7 @@ document.addEventListener('keydown', (e) => {
                     monkey.classList.remove('is-hanging');
                     playWalkingAnimation(1, dir, null);
                 }
-            }, dur * 1000);
+            };
         } else {
             monkey.style.transition = 'none';
             monkey.style.left = targetX + 'px';
