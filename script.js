@@ -56,16 +56,20 @@ const contactMoreBtn = document.getElementById('contact-more-btn');
 const contactDropdown = document.getElementById('contact-dropdown-panel');
 
 if (contactMoreBtn && contactDropdown) {
+    const contactHeader = contactMoreBtn.closest('.site-header');
+
     contactMoreBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         const isOpen = contactDropdown.classList.contains('show');
         contactDropdown.classList.toggle('show');
+        contactHeader?.classList.toggle('contact-menu-open', !isOpen);
         contactMoreBtn.setAttribute('aria-expanded', !isOpen);
     });
 
     document.addEventListener('click', (e) => {
         if (!contactDropdown.contains(e.target) && !contactMoreBtn.contains(e.target)) {
             contactDropdown.classList.remove('show');
+            contactHeader?.classList.remove('contact-menu-open');
             contactMoreBtn.setAttribute('aria-expanded', 'false');
         }
     });
@@ -73,6 +77,7 @@ if (contactMoreBtn && contactDropdown) {
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             contactDropdown.classList.remove('show');
+            contactHeader?.classList.remove('contact-menu-open');
             contactMoreBtn.setAttribute('aria-expanded', 'false');
         }
     });

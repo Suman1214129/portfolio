@@ -158,6 +158,10 @@ svg {
     margin-bottom: 52px;
 }
 
+.site-header.contact-menu-open {
+    z-index: 1002;
+}
+
 /* Center nav with curvy wavy active underline on all sections */
 .center-nav {
     display: flex;
@@ -271,6 +275,7 @@ svg {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 8px;
     padding: 10px 14px;
     font-family: var(--font-mono);
     font-size: 0.68rem;
@@ -296,11 +301,13 @@ svg {
 .tile-label {
     letter-spacing: 0.06em;
     font-weight: 700;
+    flex: 0 0 auto;
 }
 
 .tile-value {
     color: var(--text-dim);
     font-weight: 400;
+    white-space: nowrap;
 }
 
 .contact-tile-row:hover .tile-value {
@@ -1854,7 +1861,7 @@ body.sidebar-open .main-page-container {
 
     /* Contact dropdown: full width on mobile */
     .contact-dropdown-panel {
-        width: 220px;
+        width: min(260px, calc(100vw - 32px));
     }
 }
 
