@@ -609,8 +609,8 @@ document.addEventListener('keydown', (e) => {
             monkey.style.transition = 'none';
 
             var jumpAnimation = monkey.animate([
-                { left: startX + 'px', top: startY + 'px', offset: 0, easing: 'cubic-bezier(0.35, 0, 0.65, 1)' },
-                { left: apexX + 'px', top: apexY + 'px', offset: 0.42, easing: 'cubic-bezier(0.35, 0, 1, 1)' },
+                { left: startX + 'px', top: startY + 'px', offset: 0, easing: 'cubic-bezier(0.25, 0.1, 0.4, 1)' },
+                { left: apexX + 'px', top: apexY + 'px', offset: 0.48, easing: 'cubic-bezier(0.55, 0, 1, 0.15)' },
                 { left: targetX + 'px', top: targetY + 'px', offset: 1 }
             ], { duration: dur * 1000, fill: 'forwards' });
             activeJumpAnimation = jumpAnimation;
