@@ -153,7 +153,7 @@ svg {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 24px 0 20px;
+    padding: 24px 0 14px;
     background: var(--bg);
     margin-bottom: 52px;
 }
@@ -161,10 +161,10 @@ svg {
 .site-header::after {
     content: '';
     position: absolute;
-    top: 100%;
+    top: calc(100% - 8px);
     right: 0;
     left: 0;
-    height: 28px;
+    height: 20px;
     background: linear-gradient(to bottom, var(--bg), transparent);
     pointer-events: none;
 }
