@@ -889,7 +889,7 @@ svg {
 
 .orrery-full-width {
     width: 100%;
-    min-height: auto;
+    min-height: 240px;
     padding: 24px 20px;
 }
 
@@ -903,6 +903,7 @@ svg {
 
 @media (max-width: 820px) {
     .orrery-full-width {
+        min-height: 250px;
         padding: 16px 8px;
     }
 
