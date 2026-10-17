@@ -153,20 +153,9 @@ svg {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 24px 0 14px;
-    background: var(--bg);
+    padding: 24px 0 20px;
+    background: linear-gradient(to bottom, var(--bg) 0%, var(--bg) 68%, transparent 100%);
     margin-bottom: 52px;
-}
-
-.site-header::after {
-    content: '';
-    position: absolute;
-    top: calc(100% - 16px);
-    right: 0;
-    left: 0;
-    height: 32px;
-    background: linear-gradient(to bottom, var(--bg), transparent);
-    pointer-events: none;
 }
 
 .site-header.contact-menu-open {
