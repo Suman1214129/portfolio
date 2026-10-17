@@ -963,12 +963,12 @@ svg {
     overflow: hidden;
     cursor: pointer;
     border: 1px solid var(--border);
-    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.1), 0 2px 5px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 7px 18px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06);
     transition: box-shadow 0.2s ease;
 }
 
 .branding-item:hover {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.14), 0 3px 7px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16), 0 3px 8px rgba(0, 0, 0, 0.07);
 }
 
 .branding-masonry-img {
