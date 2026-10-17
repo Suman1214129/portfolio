@@ -646,8 +646,6 @@ document.addEventListener('keydown', (e) => {
     var hideTimer = null;
 
     function positionBubble() {
-        if (!monkey.classList.contains('show-bubble')) return;
-
         var monkeyRect = monkey.getBoundingClientRect();
         var bubbleRect = bubble.getBoundingClientRect();
         var viewport = window.visualViewport;
@@ -658,11 +656,15 @@ document.addEventListener('keydown', (e) => {
         var halfBubble = bubbleRect.width / 2;
         var centerX = monkeyRect.left + monkeyRect.width / 2;
         centerX = Math.max(viewportLeft + halfBubble + 8, Math.min(centerX, viewportRight - halfBubble - 8));
-        monkey.style.setProperty('--bubble-left', (centerX - monkeyRect.left) + 'px');
+        monkey.style.setProperty('--bubble-left', centerX + 'px');
 
         var spaceAbove = monkeyRect.top - viewportTop;
         var spaceBelow = viewportBottom - monkeyRect.bottom;
-        monkey.classList.toggle('bubble-below', spaceAbove < bubbleRect.height + 8 && spaceBelow > spaceAbove);
+        var bubbleBelow = spaceAbove < bubbleRect.height + 8 && spaceBelow > spaceAbove;
+        monkey.classList.toggle('bubble-below', bubbleBelow);
+        var bubbleTop = bubbleBelow ? monkeyRect.bottom + 8 : monkeyRect.top - bubbleRect.height - 8;
+        bubbleTop = Math.max(viewportTop + 8, Math.min(bubbleTop, viewportBottom - bubbleRect.height - 8));
+        monkey.style.setProperty('--bubble-top', bubbleTop + 'px');
     }
 
     function showBubble() {

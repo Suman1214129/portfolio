@@ -96,6 +96,7 @@ html {
     scroll-behavior: smooth;
     overflow-x: clip;
     overscroll-behavior-x: none;
+    touch-action: pan-y pinch-zoom;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -1864,8 +1865,8 @@ body.sidebar-open .main-page-container {
 
 /* Minimal Speech Bubble matching uploaded reference image media_1792062259365.png */
 .monkey-minimal-bubble {
-    position: absolute;
-    bottom: calc(100% + 8px);
+    position: fixed;
+    top: var(--bubble-top, 0px);
     left: var(--bubble-left, 50%);
     transform: translateX(-50%) translateY(4px);
     background: var(--surface);
@@ -1882,8 +1883,7 @@ body.sidebar-open .main-page-container {
 }
 
 .interactive-monkey.bubble-below .monkey-minimal-bubble {
-    top: calc(100% + 8px);
-    bottom: auto;
+    top: var(--bubble-top, 0px);
 }
 
 /* Speech bubble bottom pointer */
