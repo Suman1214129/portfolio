@@ -645,7 +645,6 @@ document.addEventListener('keydown', (e) => {
         clearTimeout(hideTimer);
         isHovered = true;
         monkey.classList.add('show-bubble');
-        setTimeout(function() { if (minInput) minInput.focus(); }, 50);
     }
 
     function hideBubble() {

@@ -94,6 +94,7 @@
 html {
     font-size: 16px;
     scroll-behavior: smooth;
+    overflow-x: clip;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -1442,12 +1443,15 @@ svg {
     z-index: 10005;
     display: flex;
     flex-direction: column;
+    visibility: hidden;
     transform: translateX(100%);
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 0.5s;
 }
 
 .cs-sidebar.cs-open {
+    visibility: visible;
     transform: translateX(0);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s;
 }
 /* Page shift when sidebar opens */
 body.sidebar-open .main-page-container {
@@ -1466,7 +1470,7 @@ body.sidebar-open .main-page-container {
         bottom: 0;
         left: 0;
         right: 0;
-        width: 100vw;
+        width: auto;
         height: 100vh;
         height: 100dvh;
         border-left: none;
