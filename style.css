@@ -901,6 +901,34 @@ svg {
     display: block;
 }
 
+.orrery-branch-mobile {
+    display: none;
+}
+
+@media (max-width: 820px) {
+    .orrery-full-width .orrery-branch-svg {
+        display: none;
+    }
+
+    .orrery-branch-mobile {
+        display: block;
+        width: 100%;
+        max-width: 360px;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    .orrery-full-width {
+        padding: 16px 12px;
+    }
+}
+
+.orrery-mobile-label {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    fill: var(--text-muted);
+}
+
 .orrery-details-row {
     display: flex;
     flex-direction: column;
@@ -1839,7 +1867,6 @@ body.sidebar-open .main-page-container {
         gap: 16px;
     }
 
-    /* Orrery SVG */
     /* Contact dropdown: full width on mobile */
     .contact-dropdown-panel {
         width: 220px;
