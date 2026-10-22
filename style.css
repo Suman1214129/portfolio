@@ -1062,7 +1062,7 @@ svg {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    margin-top: 24px;
+    margin-top: 44px;
 }
 
 .work-item-header {
