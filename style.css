@@ -30,7 +30,7 @@
 
     /* Wide Framing Margins (reference layout) */
     --page-max-width: 900px;
-    --page-margin: clamp(32px, 15vw, 190px);
+    --page-margin: clamp(36px, 16vw, 200px);
 
     /* Slightly increased radius — still sharp but with more presence */
     --radius-sm: 5px;
@@ -1768,7 +1768,7 @@ body.sidebar-open .main-page-container {
    ============================================ */
 @media (max-width: 820px) {
     :root {
-        --page-margin: 16px;
+        --page-margin: 20px;
     }
 
     .cs-img-wrap {
