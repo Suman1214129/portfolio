@@ -193,11 +193,11 @@ svg {
 
 .active-wave {
     position: absolute;
-    bottom: -3px;
+    bottom: -4px;
     left: 0;
     right: 0;
     width: 100%;
-    height: 6px;
+    height: 10px;
     color: var(--accent);
     opacity: 0;
     transform: translateY(2px);
@@ -228,27 +228,25 @@ svg {
     align-items: center;
     gap: 8px;
     padding: 8px 16px;
-    background: #18191a;
-    color: #ffffff;
-    border: 1px solid #18191a;
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     font-family: var(--font-mono);
     font-size: 0.68rem;
-    font-weight: 700;
+    font-weight: 500;
     letter-spacing: 0.06em;
-    transition: background 0.2s ease;
+    transition: color 0.2s ease, border-color 0.2s ease;
 }
 
-[data-theme="dark"] .contact-more-btn {
-    background: #f0f1f3;
-    color: #111213;
-    border-color: #f0f1f3;
+.contact-more-btn i {
+    font-size: 0.95rem;
 }
 
 .contact-more-btn:hover {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #ffffff;
+    background: transparent;
+    border-color: var(--border);
+    color: var(--accent);
 }
 
 /* Expanded Contact & More Tile Dropdown matching 1st reference image */
@@ -305,9 +303,16 @@ svg {
 }
 
 .tile-value {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
     color: var(--text-dim);
     font-weight: 400;
     white-space: nowrap;
+}
+
+.tile-value i {
+    font-size: 0.75rem;
 }
 
 .contact-tile-row:hover .tile-value {
@@ -1822,10 +1827,8 @@ body.sidebar-open .main-page-container {
         font-size: 1rem;
     }
 
-    [data-theme="dark"] .contact-more-btn {
-        background: #292b2f;
-        color: #f0f1f3;
-        border-color: #292b2f;
+    .contact-more-btn i {
+        font-size: 1.1rem;
     }
 
     .theme-icon-btn {
