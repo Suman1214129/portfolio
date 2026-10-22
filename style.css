@@ -577,7 +577,7 @@ svg {
 }
 
 .text-link {
-    color: var(--text);
+    color: var(--text-muted);
     text-decoration: underline;
     text-decoration-style: dotted;
     text-underline-offset: 3px;
